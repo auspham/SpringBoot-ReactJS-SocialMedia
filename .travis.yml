@@ -1,0 +1,16 @@
+matrix:
+  include:
+    # - language: java
+    #   jdk: oraclejdk8
+    #   before_install: cd restful-web-services/
+    #   install: mvn clean install
+
+    - language: node_js
+      node_js:
+        - 8.9.4
+      before_install: cd frontend/todo-app
+      install: npm install
+
+notifications:
+  slack: tomyumsept:PvqV1oTyYrS9OKT0hp2kH4TA
+  email: false

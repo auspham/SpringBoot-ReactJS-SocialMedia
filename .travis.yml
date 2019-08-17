@@ -3,8 +3,8 @@ matrix:
     - language: java
       jdk: oraclejdk8
       before_install: cd restful-web-services/
-      install: mvn clean install
-      script: mvn exec:java -Dexec.mainClass=com.sept.rest.webservices.restfulwebservices
+      install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      script: mvn test -B
 
     - language: node_js
       node_js:

@@ -36,10 +36,7 @@ class ListTodosComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName();
-        console.log("check");
-        console.log('AuthenticationService', AuthenticationService);
 
-        // No response
         TodoDataService.retrieveAllTodos(username)
             .then(
                 response => {

@@ -78,20 +78,23 @@ class LoginComponent extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <h1>Login</h1>
-                <div className="container">
-                    {/*<ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>*/}
-                    {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials or something is wrong</div>}
-                    {this.state.showSuccessMessage && <div>Login Sucessful</div>}
-                    {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
-                    User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-                    Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
-                </div>
-            </div>
-        )
+        // return (
+
+        
+
+        //     // <div>
+        //     //     <h1>Login</h1>
+        //     //     <div className="container">
+        //     //         {/*<ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>*/}
+        //     //         {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials or something is wrong</div>}
+        //     //         {this.state.showSuccessMessage && <div>Login Sucessful</div>}
+        //     //         {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
+        //     //         User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+        //     //         Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+        //     //         <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
+        //     //     </div>
+        //     // </div>
+        // )
     }
 }
 

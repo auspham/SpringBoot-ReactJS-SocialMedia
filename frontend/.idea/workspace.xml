@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad1f23e2-2c10-42f9-b57e-22d776d95c50" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/frontend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restful-web-services/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../restful-web-services/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../restful-web-services/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,6 +58,8 @@
       <workItem from="1566036877310" duration="607000" />
       <workItem from="1566038039595" duration="519000" />
       <workItem from="1566039132715" duration="218000" />
+      <workItem from="1566097774720" duration="368000" />
+      <workItem from="1566098210316" duration="307000" />
     </task>
     <servers />
   </component>

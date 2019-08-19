@@ -1,7 +1,6 @@
 package com.sept.rest.webservices.restfulwebservices.todo;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,10 +14,11 @@ public class Todo {
 	private String description;
 	private Date targetDate;
 	private boolean isDone;
-	
+
 	public Todo() {
-		
+
 	}
+
 
 	public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
 		super();

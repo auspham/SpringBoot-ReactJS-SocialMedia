@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad1f23e2-2c10-42f9-b57e-22d776d95c50" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../restful-web-services/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../restful-web-services/src/main/resources/data1.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../restful-web-services/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../restful-web-services/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../restful-web-services/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../restful-web-services/src/main/java/com/sept/rest/webservices/restfulwebservices/todo/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../restful-web-services/src/main/java/com/sept/rest/webservices/restfulwebservices/todo/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../restful-web-services/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../restful-web-services/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../restful-web-services/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../restful-web-services/src/main/resources/data.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +32,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RunDashboard">
@@ -59,7 +63,9 @@
       <workItem from="1566038039595" duration="519000" />
       <workItem from="1566039132715" duration="218000" />
       <workItem from="1566097774720" duration="368000" />
-      <workItem from="1566098210316" duration="307000" />
+      <workItem from="1566098210316" duration="3918000" />
+      <workItem from="1566124350755" duration="723000" />
+      <workItem from="1566206407599" duration="238000" />
     </task>
     <servers />
   </component>

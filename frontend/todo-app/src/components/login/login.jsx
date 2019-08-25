@@ -1,71 +1,15 @@
 import React from "react";
 import loginImg from "../../login.svg";
-import AuthenticationService from "../todo/AuthenticationService";
 
 export class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: "",
-      password: "",
-      hasLoginFailed: false,
-      showSuccessMessage: false
-    };
-    // this.handleUsernameChange = this.handleUsernameChange.bind(this)
-    // this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.loginClicked = this.loginClicked.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    //console.log(this.state);
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  loginClicked() {
-    // sept,dummy
-    // if (this.state.username === "sept" && this.state.password === "dummy") {
-    //   AuthenticationService.registerSuccessfulLogin(
-    //     this.state.username,
-    //     this.state.password
-    //   );
-    //   this.props.history.push(`/welcome/${this.state.username}`);
-    //   this.setState({ showSuccessMessage: true });
-    //   this.setState({ hasLoginFailed: false });
-    // } else {
-    //   this.setState({ showSuccessMessage: false });
-    //   this.setState({ hasLoginFailed: true });
-    // }
-    
-    AuthenticationService.executeBasicAuthenticationService(
-      this.state.username,
-      this.state.password
-    )
-      .then(() => {
-        AuthenticationService.registerSuccessfulLogin(
-          this.state.username,
-          this.state.password
-        );
-        this.props.history.push(`/welcome/${this.state.username}`);
-      })
-      .catch(() => {
-        this.setState({ showSuccessMessage: false });
-        this.setState({ hasLoginFailed: true });
-      });
   }
 
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
-        {this.state.hasLoginFailed && (
-          <div className="alert alert-warning">
-            Invalid Credentials or something is wrong
-          </div>
-        )}
-        {this.state.showSuccessMessage && <div>Login Sucessful</div>}
         <div className="content">
           <div className="form">
             <div className="form-group">
@@ -78,8 +22,8 @@ export class Login extends React.Component {
                   type="text"
                   name="username"
                   placeholder="username"
-                  value={this.state.username}
-                  onChange={this.handleChange}
+                  value={this.props.username}
+                  onChange={this.props.handleUsernameChange}
                 ></input>
               </div>
               <div className="form-group">
@@ -88,8 +32,8 @@ export class Login extends React.Component {
                   type="text"
                   name="password"
                   placeholder="password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
+                  value={this.props.password}
+                  onChange={this.props.handlePasswordChange}
                 ></input>
               </div>
             </div>
@@ -98,7 +42,7 @@ export class Login extends React.Component {
             <button
               type="button"
               className="btn btn-success"
-              onClick={this.loginClicked}
+              onClick={this.props.loginClicked}
             >
               Login
             </button>

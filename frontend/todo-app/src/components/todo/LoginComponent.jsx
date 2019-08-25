@@ -6,54 +6,54 @@ import { Register } from "../login/register";
 class LoginComponent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      // hasLoginFailed: false,
-      // showSuccessMessage: false
+      username: "",
+      password: "",
+      hasLoginFailed: false,
+      showSuccessMessage: false
     };
-        // this.handleUsernameChange = this.handleUsernameChange.bind(this)
-        // this.handlePasswordChange = this.handlePasswordChange.bind(this)
-        // this.loginClicked = this.loginClicked.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.loginClicked = this.loginClicked.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleUsernameChange(event) {
+    console.log(event.target.name);
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
 
-  // handleUsernameChange(event) {
-  //     console.log(event.target.name);
-  //     this.setState(
-  //         {
-  //             [event.target.name]
-  //               :event.target.value
-  //         }
-  //     )
-  // }
+  handlePasswordChange(event) {
+    console.log(event.target.value);
+    this.setState({ 
+      password: event.target.value 
+    });
+  }
 
-  // handlePasswordChange(event) {
-  //     console.log(event.target.value);
-  //     this.setState({password:event.target.value})
-  // }
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
 
-  // loginClicked() {
-  //   // sept,dummy
-  //   if(this.state.username==='sept' && this.state.password==='dummy'){
-  //       AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-  //       this.props.history.push(`/welcome/${this.state.username}`)
-  //       this.setState({showSuccessMessage:true})
-  //       this.setState({hasLoginFailed:false})
-  //   }
-  //   else {
-  //       this.setState({showSuccessMessage:false})
-  //       this.setState({hasLoginFailed:true})
-  //   }
+  loginClicked() {
+    //sept,dummy
+    if (this.state.username === "sept" && this.state.password === "dummy") {
+      AuthenticationService.registerSuccessfulLogin(
+        this.state.username,
+        this.state.password
+      );
+      console.log("loginClicked");
+      this.props.history.push(`/welcome/${this.state.username}`);
+      this.setState({ showSuccessMessage: true });
+      this.setState({ hasLoginFailed: false });
+    } else {
+      this.setState({ showSuccessMessage: false });
+      this.setState({ hasLoginFailed: true });
+    }
 
-  //   AuthenticationService
-  //   .executeBasicAuthenticationService(this.state.username, this.state.password)
-  //   .then(() => {
-  //       AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-  //       this.props.history.push(`/welcome/${this.state.username}`)
-  //   }).catch( () =>{
-  //       this.setState({showSuccessMessage:false})
-  //       this.setState({hasLoginFailed:true})
-  //   })
     // AuthenticationService.executeJwtAuthenticationService(
     //   this.state.username,
     //   this.state.password
@@ -69,7 +69,7 @@ class LoginComponent extends Component {
     //     this.setState({ showSuccessMessage: false });
     //     this.setState({ hasLoginFailed: true });
     //   });
-  // }
+  }
 
   changeState() {
     const { isLogginActive } = this.state;
@@ -78,7 +78,7 @@ class LoginComponent extends Component {
       this.side.classList.add("left");
     } else {
       this.side.classList.remove("left");
-      this.side.classList.add("right"); 
+      this.side.classList.add("right");
     }
     this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
   }
@@ -89,8 +89,6 @@ class LoginComponent extends Component {
     const currentActive = isLogginActive ? "login" : "register";
     return (
       <div className="App">
-          {/* {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials or something is wrong</div>}
-          {this.state.showSuccessMessage && <div>Login Successful</div>} */}
         <div className="login">
           <RightSide
             current={current}
@@ -105,11 +103,22 @@ class LoginComponent extends Component {
             }}
           >
             {isLogginActive && (
-              <Login containerRef={ref => (this.current = ref)} />
+              <Login
+                handleUsernameChange={this.handleUsernameChange}
+                handlePasswordChange={this.handlePasswordChange}
+                loginClicked={this.loginClicked}
+                containerRef={ref => (this.current = ref)}
+              />
             )}
             {!isLogginActive && (
               <Register containerRef={ref => (this.current = ref)} />
             )}
+            {this.state.hasLoginFailed && (
+              <div className="alert alert-warning">
+                Invalid Credentials or something is wrong
+              </div>
+            )}
+            {this.state.showSuccessMessage && <div>Login Successful</div>}
           </div>
         </div>
       </div>

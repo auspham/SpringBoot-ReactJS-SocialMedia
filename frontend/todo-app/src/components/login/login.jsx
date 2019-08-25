@@ -23,7 +23,7 @@ export class Login extends React.Component {
                   name="username"
                   placeholder="username"
                   value={this.props.username}
-                  onChange={this.props.handleUsernameChange}
+                  onChange={this.props.handleChange}
                 ></input>
               </div>
               <div className="form-group">
@@ -33,7 +33,7 @@ export class Login extends React.Component {
                   name="password"
                   placeholder="password"
                   value={this.props.password}
-                  onChange={this.props.handlePasswordChange}
+                  onChange={this.props.handleChange}
                 ></input>
               </div>
             </div>

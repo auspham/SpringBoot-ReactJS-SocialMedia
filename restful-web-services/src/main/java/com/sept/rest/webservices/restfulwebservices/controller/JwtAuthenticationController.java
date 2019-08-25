@@ -1,5 +1,7 @@
 package com.sept.rest.webservices.restfulwebservices.controller;
 
+import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
+import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,17 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sept.rest.webservices.restfulwebservices.config.JwtTokenUtil;
 import com.sept.rest.webservices.restfulwebservices.model.JwtRequest;
 import com.sept.rest.webservices.restfulwebservices.model.JwtResponse;
-import com.sept.rest.webservices.restfulwebservices.model.JwtUserDetailsService;
 import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
-import com.sept.rest.webservices.restfulwebservices.model.User;
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
 
-    @Autowiredbsite
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired

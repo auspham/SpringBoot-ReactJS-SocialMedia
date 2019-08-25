@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
 import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
 
+@Service
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired

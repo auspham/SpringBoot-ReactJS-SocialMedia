@@ -12,25 +12,10 @@ class LoginComponent extends Component {
       hasLoginFailed: false,
       showSuccessMessage: false
     };
-    // this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    // this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.loginClicked = this.loginClicked.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // handleUsernameChange(event) {
-  //   console.log(event.target.name);
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // }
-
-  // handlePasswordChange(event) {
-  //   console.log(event.target.value);
-  //   this.setState({ 
-  //     password: event.target.value 
-  //   });
-  // }
 
   handleChange(event) {
     this.setState({
@@ -104,8 +89,6 @@ class LoginComponent extends Component {
           >
             {isLogginActive && (
               <Login
-                // handleUsernameChange={this.handleUsernameChange}
-                // handlePasswordChange={this.handlePasswordChange}
                 handleChange={this.handleChange}
                 loginClicked={this.loginClicked}
                 containerRef={ref => (this.current = ref)}

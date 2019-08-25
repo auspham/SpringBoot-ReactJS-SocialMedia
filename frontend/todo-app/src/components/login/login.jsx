@@ -1,5 +1,6 @@
 import React from "react";
 import loginImg from "../../login.svg";
+import GoogleButton from 'react-google-button';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class Login extends React.Component {
               <div className="image">
                 <img src={loginImg} />
               </div>
+              <GoogleButton onClick={() => console.log('Google button clicked')}/>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <input

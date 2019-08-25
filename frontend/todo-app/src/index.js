@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "./components/login/styles.scss";
-import './components/login/App.scss';
+import "./components/login/loginregister.scss";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 

@@ -43,14 +43,14 @@ export class Register extends React.Component {
                 value=""
                 onChange={this.props.handlePasswordChange}
               ></input>
+              <button type="button" className="btn text-center btn-primary center">
+                Register
+              </button>
+              
             </div>
           </div>
         </div>
-        <div className="footer">
-          <button type="button" className="btn">
-            Register
-          </button>
-        </div>
+
       </div>
     );
   }

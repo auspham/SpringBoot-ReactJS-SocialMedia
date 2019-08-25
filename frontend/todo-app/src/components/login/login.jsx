@@ -1,6 +1,7 @@
 import React from "react";
 import loginImg from "../../login.svg";
 import GoogleButton from 'react-google-button';
+import { SocialLogin } from "./SocialLogin";
 
 export class Login extends React.Component {
   constructor(props) {
@@ -11,13 +12,18 @@ export class Login extends React.Component {
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
+        <div className="image">
+                <img src={loginImg} />
+        </div>
         <div className="content">
+        <SocialLogin></SocialLogin>
+
+          <div className="or-separator">
+            <span className="or-text">OR</span>
+          </div>
           <div className="form">
             <div className="form-group">
-              <div className="image">
-                <img src={loginImg} />
-              </div>
-              <GoogleButton onClick={() => console.log('Google button clicked')}/>
+              {/* <GoogleButton onClick={() => console.log('Google button clicked')}/> */}
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <input
@@ -44,7 +50,7 @@ export class Login extends React.Component {
             <button
               type="button"
               className="btn btn-success"
-              onClick={this.props.loginClicked}
+              onClick={this.props.handleSubmit}
             >
               Login
             </button>

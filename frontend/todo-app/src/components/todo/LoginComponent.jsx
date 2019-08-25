@@ -12,10 +12,9 @@ class LoginComponent extends Component {
       hasLoginFailed: false,
       showSuccessMessage: false
     };
-    this.loginClicked = this.loginClicked.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
 
   handleChange(event) {
     this.setState({
@@ -23,14 +22,13 @@ class LoginComponent extends Component {
     });
   }
 
-  loginClicked() {
+  handleSubmit() {
     //sept,dummy
     if (this.state.username === "sept" && this.state.password === "dummy") {
       AuthenticationService.registerSuccessfulLogin(
         this.state.username,
         this.state.password
       );
-      console.log("loginClicked");
       this.props.history.push(`/welcome/${this.state.username}`);
       this.setState({ showSuccessMessage: true });
       this.setState({ hasLoginFailed: false });
@@ -90,13 +88,12 @@ class LoginComponent extends Component {
             {isLogginActive && (
               <Login
                 handleChange={this.handleChange}
-                loginClicked={this.loginClicked}
+                handleSubmit={this.handleSubmit}
                 containerRef={ref => (this.current = ref)}
               />
             )}
             {!isLogginActive && (
               <Register 
-                loginClicked={this.loginClicked}
                 containerRef={ref => (this.current = ref)} />
             )}
             {this.state.hasLoginFailed && (

@@ -1,22 +1,19 @@
-package com.sept.rest.webservices.restfulwebservices.RMITStalkerSpace;
+package com.sept.rest.webservices.restfulwebservices.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class User {
+@Table(name = "user")
+public class DAOUser {
     @Id
     @GeneratedValue
     private Long id;
     private String username;
     private String email;
     private String password;
-
-
-    public User() {
-
-    }
 
     public Long getId() {
         return id;

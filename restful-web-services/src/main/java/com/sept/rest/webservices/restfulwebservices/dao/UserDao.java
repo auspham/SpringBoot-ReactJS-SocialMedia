@@ -1,0 +1,9 @@
+package com.sept.rest.webservices.restfulwebservices.dao;
+
+
+import org.springframework.data.repository.CrudRepository;
+import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
+
+//@Repository
+public interface UserDao extends CrudRepository<DAOUser, Integer> {
+}

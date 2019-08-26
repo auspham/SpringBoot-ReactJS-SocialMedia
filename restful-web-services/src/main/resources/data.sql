@@ -6,3 +6,11 @@ values(10002, 'sept', 'Learn Data JPA', sysdate(), false);
 
 insert into todo(id, username,description,target_date,is_done)
 values(10003, 'sept', 'Learn Microservices', sysdate(), false);
+
+
+insert into User(username, password)
+values ('JohnCitizen', 'pass');
+
+
+insert into User(username, password)
+values ('Mike', 'pass2');

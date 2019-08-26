@@ -1,14 +1,58 @@
-import React, { Component } from 'react';
-//import FirstComponent from './components/learning-examples/FirstComponent'
-//import SecondComponent from './components/learning-examples/SecondComponent'
-//import ThirdComponent from './components/learning-examples/ThirdComponent'
-//import Counter from './components/counter/Counter'
-import TodoApp from './components/todo/TodoApp'
+import React, { Component } from "react";
+import TodoApp from "./components/todo/TodoApp";
 import './App.css';
 import './bootstrap.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // authenticated: false,
+      // currentUser: null,
+      // loading: false
+    };
+
+    // this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bing(this);
+    // this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  // loadCurrentlyLoggedInUser() {
+  //   this.setState({
+  //     loading: true
+  //   });
+
+  //   getCurrentUser()
+  //     .then(response => {
+  //       this.setState({
+  //         currentUser: response,
+  //         authenticated: true,
+  //         loading: false
+  //       });
+  //     }).catch(error => {
+  //       this.setState({
+  //         loading: false
+  //       });
+  //     });
+  //   }
+
+  // handleLogout() {
+  //   localStorage.remoteItem(ACCESS_TOKEN);
+  //   this.setState({
+  //     authenticated: false,
+  //     currentUser: null
+  //   });
+  //   alert.success("You're safely logged out!");
+  // }
+
+  // componentDidMount() {
+  //   this.loadCurrentlyLoggedInUser();
+  // }
+
   render() {
+    // if (this.state.loading) {
+    //   return <LoadingIndicator />;
+    // }
+
     return (
       <div className="App">
         {/*<Counter/>*/}
@@ -17,18 +61,5 @@ class App extends Component {
     );
   }
 }
-
-// class LearningComponents extends Component {
-//   render() {
-//     return (
-//       <div className="LearningComponents">
-//          My Hello World
-//          <FirstComponent></FirstComponent>
-//          <SecondComponent></SecondComponent>
-//          <ThirdComponent></ThirdComponent>
-//       </div>
-//     );
-//   }
-// }
 
 export default App;

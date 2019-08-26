@@ -40,7 +40,8 @@ class LoginComponent extends Component {
         .catch(() => {
           this.setState({ showSuccessMessage: false });
           this.setState({ hasLoginFailed: true });
-          alert("Invalid Credentials or something is wrong");
+          alert("User already exists or something is wrong")
+
         });
   }
 
@@ -59,7 +60,7 @@ class LoginComponent extends Component {
       .catch(() => {
         this.setState({ showSuccessMessage: false });
         this.setState({ hasLoginFailed: true });
-        alert("Invalid Credentials or something is wrong")
+        alert("Invalid Credentials or something is wrong");
       });
   }
 

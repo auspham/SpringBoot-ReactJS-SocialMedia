@@ -3,6 +3,7 @@ package com.sept.rest.webservices.restfulwebservices.service;
 import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
 import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
 import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
+import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -21,6 +23,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder bcryptEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,9 +39,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public DAOUser save(UserDTO user) {
-        DAOUser newUser = new DAOUser();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return userDao.save(newUser);
+        List<DAOUser> exists = userRepository.findByUsername(user.getUsername());
+        if(exists.isEmpty()) {
+            DAOUser newUser = new DAOUser();
+            newUser.setUsername(user.getUsername());
+            newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+            return userDao.save(newUser);
+        } else {
+            return null;
+        }
     }
 }

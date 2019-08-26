@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
+import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
 import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
 import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,12 @@ public class JwtAuthenticationRestController {
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-    return ResponseEntity.ok(jwtInMemoryUserDetailsService.save(user));
+    DAOUser result = jwtInMemoryUserDetailsService.save(user);
+    if (result != null) {
+        return ResponseEntity.ok(result);
+    } else {
+        return ResponseEntity.badRequest().body("Duplicated User");
+    }
   }
 
   @RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.GET)

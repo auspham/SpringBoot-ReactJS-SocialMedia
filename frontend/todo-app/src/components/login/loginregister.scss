@@ -15,6 +15,16 @@
   pointer-events: none;
 }
 
+.fix-alert {
+  position: fixed !important;
+  bottom: 0;
+  left: 1em;
+  z-index: 999;
+  animation-name: disappear;
+  animation-duration: 1s;
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

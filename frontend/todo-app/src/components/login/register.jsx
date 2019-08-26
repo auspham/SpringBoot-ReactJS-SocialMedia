@@ -21,11 +21,11 @@ export class Register extends React.Component {
                 type="text"
                 name="username"
                 placeholder="username"
-                value=""
-                onChange={this.props.handleUsernameChange}
+                value={this.props.username}
+                onChange={this.props.handleChange}
               ></input>
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="username">Email</label>
               <input 
               type="text" 
@@ -33,17 +33,18 @@ export class Register extends React.Component {
               placeholder="email"
               value=""
               ></input>
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
                 type="text"
                 name="password"
                 placeholder="password"
-                value=""
-                onChange={this.props.handlePasswordChange}
+                value={this.props.password}
+                onChange={this.props.handleChange}
               ></input>
-              <button type="button" className="btn text-center btn-primary center">
+              <button type="button" className="btn text-center btn-primary center"
+              onClick={this.props.handleRegister}>
                 Register
               </button>
               

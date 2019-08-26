@@ -10,8 +10,11 @@ class LoginComponent extends Component {
       username: "",
       password: "",
       hasLoginFailed: false,
-      showSuccessMessage: false
+      showSuccessMessage: false,
+      registerSuccessful: false
     };
+    this.handleRegister = this.handleRegister.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -22,36 +25,42 @@ class LoginComponent extends Component {
     });
   }
 
-  handleSubmit() {
-    //sept,dummy
-    if (this.state.username === "sept" && this.state.password === "dummy") {
-      AuthenticationService.registerSuccessfulLogin(
+  handleRegister() {
+      AuthenticationService.registerNewAccount(
         this.state.username,
         this.state.password
-      );
-      this.props.history.push(`/welcome/${this.state.username}`);
-      this.setState({ showSuccessMessage: true });
-      this.setState({ hasLoginFailed: false });
-    } else {
-      this.setState({ showSuccessMessage: false });
-      this.setState({ hasLoginFailed: true });
-    }
+      )
+        .then(response => {
+          console.log('register response:', response);
+          if(response.status === 200) {
+            this.setState({ registerSuccessful: true })
+            alert("Register Successful");
+          }
+        })
+        .catch(() => {
+          this.setState({ showSuccessMessage: false });
+          this.setState({ hasLoginFailed: true });
+          alert("Invalid Credentials or something is wrong");
+        });
+  }
 
-    // AuthenticationService.executeJwtAuthenticationService(
-    //   this.state.username,
-    //   this.state.password
-    // )
-    //   .then(response => {
-    //     AuthenticationService.registerSuccessfulLoginForJwt(
-    //       this.state.username,
-    //       response.data.token
-    //     );
-    //     this.props.history.push(`/welcome/${this.state.username}`);
-    //   })
-    //   .catch(() => {
-    //     this.setState({ showSuccessMessage: false });
-    //     this.setState({ hasLoginFailed: true });
-    //   });
+  handleSubmit() {
+    AuthenticationService.executeJwtAuthenticationService(
+      this.state.username,
+      this.state.password
+    )
+      .then(response => {
+        AuthenticationService.registerSuccessfulLoginForJwt(
+          this.state.username,
+          response.data.token
+        );
+        this.props.history.push(`/welcome/${this.state.username}`);
+      })
+      .catch(() => {
+        this.setState({ showSuccessMessage: false });
+        this.setState({ hasLoginFailed: true });
+        alert("Invalid Credentials or something is wrong")
+      });
   }
 
   changeState() {
@@ -72,7 +81,20 @@ class LoginComponent extends Component {
     const currentActive = isLogginActive ? "login" : "register";
     return (
       <div className="App">
+         {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
+              <div className="alert alert-warning fix-alert">
+                Invalid Credentials or something is wrong
+              </div>
+            )}
+          {this.state.showSuccessMessage && !this.state.hasLoginFailed && !this.state.registerSuccessful
+            && <div className="alert alert-success fix-alert">
+                Login successful
+              </div>}
+          {this.state.registerSuccessful && !this.state.showSuccessMessage && !this.state.hasLoginFailed && <div className="alert alert-success fix-alert">
+                Register successful
+              </div>} */}
         <div className="login">
+       
           <RightSide
             current={current}
             currentActive={currentActive}
@@ -85,6 +107,7 @@ class LoginComponent extends Component {
               this.container = ref;
             }}
           >
+            
             {isLogginActive && (
               <Login
                 handleChange={this.handleChange}
@@ -94,14 +117,11 @@ class LoginComponent extends Component {
             )}
             {!isLogginActive && (
               <Register 
-                containerRef={ref => (this.current = ref)} />
+                containerRef={ref => (this.current = ref)} handleChange={this.handleChange}
+                handleRegister={this.handleRegister}
+                />
             )}
-            {this.state.hasLoginFailed && (
-              <div className="alert alert-warning">
-                Invalid Credentials or something is wrong
-              </div>
-            )}
-            {this.state.showSuccessMessage && <div>Login Successful</div>}
+           
           </div>
         </div>
       </div>
@@ -112,7 +132,7 @@ class LoginComponent extends Component {
 const RightSide = props => {
   return (
     <div
-      className="right-side"
+      className="right-side right"
       ref={props.containerRef}
       onClick={props.onClick}
     >

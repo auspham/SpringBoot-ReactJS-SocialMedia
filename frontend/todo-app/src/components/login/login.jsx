@@ -1,6 +1,5 @@
 import React from "react";
 import loginImg from "../../login.svg";
-import GoogleButton from 'react-google-button';
 import { SocialLogin } from "./SocialLogin";
 
 export class Login extends React.Component {

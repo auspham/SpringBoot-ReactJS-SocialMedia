@@ -4,37 +4,27 @@ import { API_URL, JPA_API_URL } from '../../Constants'
 class TodoDataService {
 
     retrieveAllTodos(name) {
-        return axios.get(`${JPA_API_URL}/users/${name}/todos`, {
-            headers: { authorization: sessionStorage.getItem('USER_TOKEN')}
-        });
+        return axios.get(`${JPA_API_URL}/users/${name}/todos`);
     }
 
     retrieveTodo(name, id) {
         //console.log('executed service')
-        return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}`, {
-            headers: { authorization: sessionStorage.getItem('USER_TOKEN')}
-        });
+        return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}`);
     }
 
     deleteTodo(name, id) {
         //console.log('executed service')
-        return axios.delete(`${JPA_API_URL}/users/${name}/todos/${id}`, {
-            headers: { authorization: sessionStorage.getItem('USER_TOKEN')}
-        });
+        return axios.delete(`${JPA_API_URL}/users/${name}/todos/${id}`);
     }
 
     updateTodo(name, id, todo) {
         //console.log('executed service')
-        return axios.put(`${JPA_API_URL}/users/${name}/todos/${id}`, todo, {
-            headers: { authorization: sessionStorage.getItem('USER_TOKEN')}
-        });
+        return axios.put(`${JPA_API_URL}/users/${name}/todos/${id}`, todo);
     }
 
     createTodo(name, todo) {
         //console.log('executed service')
-        return axios.post(`${JPA_API_URL}/users/${name}/todos/`, todo, {
-            headers: { authorization: sessionStorage.getItem('USER_TOKEN')}
-        });
+        return axios.post(`${JPA_API_URL}/users/${name}/todos/`, todo);
     }
 
 }

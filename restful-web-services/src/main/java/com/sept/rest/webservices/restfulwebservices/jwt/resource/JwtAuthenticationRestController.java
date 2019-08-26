@@ -4,6 +4,10 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
+import com.sept.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
+import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
+import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
-import com.sept.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
@@ -38,7 +40,7 @@ public class JwtAuthenticationRestController {
   private JwtTokenUtil jwtTokenUtil;
 
   @Autowired
-  private UserDetailsService jwtInMemoryUserDetailsService;
+  private JwtUserDetailsService jwtInMemoryUserDetailsService;
 
   @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
   public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
@@ -51,6 +53,11 @@ public class JwtAuthenticationRestController {
     final String token = jwtTokenUtil.generateToken(userDetails);
 
     return ResponseEntity.ok(new JwtTokenResponse(token));
+  }
+
+  @RequestMapping(value = "/register", method = RequestMethod.POST)
+  public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+    return ResponseEntity.ok(jwtInMemoryUserDetailsService.save(user));
   }
 
   @RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.GET)

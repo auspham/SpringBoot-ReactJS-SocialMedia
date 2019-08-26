@@ -8,9 +8,9 @@ insert into todo(id, username,description,target_date,is_done)
 values(10003, 'sept', 'Learn Microservices', sysdate(), false);
 
 
-insert into User (id, username, email, password)
-values (1, 'JohnCitizen', 'john@gmail.com', 'pass');
+insert into User(username, password)
+values ('JohnCitizen', 'pass');
 
 
-insert into User (id, username, email, password)
-values (2, 'Mike', 'Mike@gmail.com', 'pass2');
+insert into User(username, password)
+values ('Mike', 'pass2');

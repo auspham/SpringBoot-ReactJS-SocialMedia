@@ -4,7 +4,7 @@ matrix:
       jdk: oraclejdk8
       dist: trusty
       before_install: cd restful-web-services/
-      install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      install: mvn install
       script: mvn test -B
 
     - language: node_js

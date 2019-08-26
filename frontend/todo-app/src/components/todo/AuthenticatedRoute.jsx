@@ -20,7 +20,7 @@ class AuthenticatedRoute extends Component {
             }
         )
     }
-    componentDidMount() {
+    componentWillMount() {
         this.setupAxiosInterceptors();
     }
     render() {

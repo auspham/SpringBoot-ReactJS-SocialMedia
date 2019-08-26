@@ -1,4 +1,4 @@
-package com.sept.rest.webservices.restfulwebservices.jwt;
+package com.sept.rest.webservices.restfulwebservices.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +18,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.sept.rest.webservices.restfulwebservices.jwt.JwtUnAuthorizedResponseAuthenticationEntryPoint;
+import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenAuthorizationOncePerRequestFilter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtUnAuthorizedResponseAuthenticationEntryPoint jwtUnAuthorizedResponseAuthenticationEntryPoint;
@@ -56,7 +58,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-            .csrf().disable()
+            .csrf().disable()// dont authenticate this particular request
+                .authorizeRequests().antMatchers("/authenticate", "/register").permitAll().and()
             .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
@@ -74,6 +77,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity
+            .ignoring().antMatchers(HttpMethod.POST, "/register").and()
             .ignoring()
             .antMatchers(
                 HttpMethod.POST,

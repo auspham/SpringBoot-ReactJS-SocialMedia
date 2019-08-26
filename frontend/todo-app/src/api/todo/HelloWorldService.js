@@ -11,15 +11,8 @@ class HelloWorldService {
     }
 
     executeHelloWorldPathVariableService(name) {
-
-        return axios.get(`http://localhost:8080/hello-world/path-variable/${name}`
-            , 
-                {
-                    headers : {
-                        authorization: sessionStorage.getItem("USER_TOKEN")
-                    }
-                }
-        );
+        console.log(sessionStorage.getItem("USER_TOKEN"))
+        return axios.get(`http://localhost:8080/hello-world/path-variable/${name}`);
 
     }
 

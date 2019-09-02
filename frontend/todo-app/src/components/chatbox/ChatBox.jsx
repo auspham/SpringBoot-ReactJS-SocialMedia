@@ -5,12 +5,14 @@ var stompClient = null;
 
 export default class ChatBoxComponent extends Component {
     constructor(props) {
+        super(props);
         this.state = {
             chatMessage: "",
             username: sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME),
             channelConnected: false,
             broadcastMessage: [],
         }
+        this.connect();
     }
 
     connect = () => {
@@ -42,7 +44,7 @@ export default class ChatBoxComponent extends Component {
        console.error(error);
     }
 
-    sendMessage = (typoe, value) => {
+    sendMessage = (type, value) => {
         if (stompClient) {
             let chatMessage = {
               sender: this.state.username,
@@ -86,7 +88,7 @@ export default class ChatBoxComponent extends Component {
 
     handleSendMessage = () => {
 
-        this.props.sendMessage('CHAT', this.state.chatMessage)
+        this.sendMessage('CHAT', this.state.chatMessage)
 
             this.setState({
               chatMessage: ''
@@ -103,19 +105,16 @@ export default class ChatBoxComponent extends Component {
     };
 
     render() {
-      return (
-          <div class="chatBox">
+      return(
+          <div className="chatBox">
               <ul className="chatView">
-                {
-                    this.state.broadcastMessage.map((msg, i) => {
+                {this.state.broadcastMessage.map((msg, i) => 
                         <li key={i}>{msg.sender}: {msg.message}</li>
-                    })
-                }
+                )}
               </ul>
               <input value={this.state.chatMessage} onChange={this.handleTyping}/>
               <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
-          </div>
-      );
+      </div>);
     }
 
 }

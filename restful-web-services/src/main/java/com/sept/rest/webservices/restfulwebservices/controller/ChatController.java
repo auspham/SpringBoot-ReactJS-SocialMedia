@@ -13,6 +13,7 @@ public class ChatController {
     @MessageMapping("/sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        System.out.println("+ Receving message from client");
         return chatMessage;
     }
 

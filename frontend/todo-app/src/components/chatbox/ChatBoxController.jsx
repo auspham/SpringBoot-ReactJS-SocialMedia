@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
-var stompClient = null;
-
-export default class ChatBoxComponent extends Component {
+export default class ChatBoxController extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,7 +84,6 @@ export default class ChatBoxComponent extends Component {
     }
 
     handleSendMessage = () => {
-
         this.sendMessage('CHAT', this.state.chatMessage)
 
             this.setState({
@@ -103,18 +99,4 @@ export default class ChatBoxComponent extends Component {
         this.sendMessage('TYPING', event.target.value);
 
     };
-
-    render() {
-      return(
-          <div className="chatBox">
-              <ul className="chatView">
-                {this.state.broadcastMessage.map((msg, i) => 
-                        <li key={i}>{msg.sender}: {msg.message}</li>
-                )}
-              </ul>
-              <input value={this.state.chatMessage} onChange={this.handleTyping}/>
-              <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
-      </div>);
-    }
-
 }

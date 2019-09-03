@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './chatbox.scss';
+import ChatModule from './ChatModule';
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 var stompClient = null;
@@ -9,12 +10,11 @@ export default class ChatBoxSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chatMessage: "",
             username: sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME),
             channelConnected: false,
             broadcastMessage: [],
             userList: [],
-            receiver: ""
+            receiver: [] // Users who i'm chatting with
         }
         this.connect();
     }
@@ -89,19 +89,13 @@ export default class ChatBoxSide extends Component {
         }
     }
 
-    scrollToBottom = () => {
-        var object = this.refs.messageBox;
-        if (object)
-          object.scrollTop = object.scrollHeight;
-    }
-
-    componentDidUpdate() {
-        this.scrollToBottom();
-    }
-
     onMessageReceived = (payload) => {
         let message = JSON.parse(payload.body);
-        console.log("onReceived", message)
+        if (message.receiver == this.state.username && !this.state.receiver.includes(message.sender)) {
+            this.setState(prevState => ({
+                receiver: [...prevState.receiver, message.sender]
+            }))
+        }
         if (message.type === 'JOIN') {
             // if(!this.state.userList.includes(message.sender)) {
             //     this.setState(prevState => ({
@@ -119,7 +113,8 @@ export default class ChatBoxSide extends Component {
           this.state.broadcastMessage.push({
             message: message.content,
             sender: message.sender,
-            dateTime: message.dateTime
+            dateTime: message.dateTime,
+            receiver: message.receiver
           })
           this.setState({
             broadcastMessage: this.state.broadcastMessage,
@@ -130,50 +125,30 @@ export default class ChatBoxSide extends Component {
         }
     }
 
-    handleSendMessage = () => {
-        this.sendMessage('CHAT', this.state.chatMessage, this.state.receiver);
-        
-        this.setState({ chatMessage: ''})
-    }
 
-    handleTyping = (event) => {
-
-        this.setState({
-            chatMessage: event.target.value,
-        });
-        this.sendMessage('TYPING', event.target.value, this.state.receiver);
-
-    };
 
     handleSelectUser = (event) => {
-        this.setState({ receiver: event.target.innerText }, 
-            console.log("sending to" + this.state.receiver));
+        let select = event.target.innerText;
+        if(!select.includes(this.state.username) && !this.state.receiver.includes(select)) {
+            this.setState(prevState => ({
+                receiver: [...prevState.receiver, select]
+            }))
+        }
     }
     render() {
+        const components = [];
+        for(var i = 0; i < this.state.receiver.length; i++) {
+            components.push(<ChatModule receiver={this.state.receiver[i]} broadcastMessage={this.state.broadcastMessage}
+                sendMessage={this.sendMessage} username={this.state.username} key={i} style={i == 0 ? {right: 273 + 'px'} : {right: 276 * (i+1) + "px"}}/>);
+        }
         return(
             <div>
                 <div className="cbox-slide">
                     {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder" onClick={this.handleSelectUser}>
-                        {user}
+                        {this.state.username == user ? user + " (You)" : user}
                     </div>)}
                 </div>
-                <div className="chatBox">
-                    <div className="chatTitle">
-                        {this.state.receiver}
-                        <div className="chatBox-right">
-                            <input type="button" value="X"/>
-                        </div>
-                    </div>
-                    <ul className="chatView" ref="messageBox">
-                    {this.state.broadcastMessage.map((msg, i) => 
-                            <li key={i}>{msg.sender}: {msg.message}</li>
-                    )}
-                    </ul>
-                    <div className="chatControl">
-                        <input value={this.state.chatMessage} onChange={this.handleTyping}/>
-                        <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
-                    </div>
-                </div>
+                {components}
             </div>);
     }
 }

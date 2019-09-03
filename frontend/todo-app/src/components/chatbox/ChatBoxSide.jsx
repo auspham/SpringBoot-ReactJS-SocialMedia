@@ -37,7 +37,7 @@ export default class ChatBoxSide extends Component {
         console.log('stomp', stompClient);
         // Subscribing to the public topic
         stompClient.subscribe('/topic/public', this.onMessageReceived);
-        // stompClient.subscribe('/topic/getUser', this.onMessageReceived);
+        stompClient.subscribe('/topic/getUser', this.onRefreshUserList);
 
         // Registering user to server
         stompClient.send("/app/addUser",
@@ -45,11 +45,20 @@ export default class ChatBoxSide extends Component {
         JSON.stringify({ sender: this.state.username, type: 'JOIN' })
         )
 
+        stompClient.send("/app/getUserlist", {}, this.state.username);
+
 
     }
 
     onError = (error) => {
        console.error(error);
+    }
+
+    onRefreshUserList = (payload) => {
+        let users = JSON.parse(payload.body);
+        this.setState(prevState => ({
+            userList: users
+        }), );
     }
 
     sendMessage = (type, value) => {
@@ -69,20 +78,16 @@ export default class ChatBoxSide extends Component {
 
     onMessageReceived = (payload) => {
         let message = JSON.parse(payload.body);
-        console.log('message payload', message);
+
         if (message.type === 'JOIN') {
-            if(!this.state.userList.includes(message.sender)) {
-                this.setState(prevState => ({
-                    userList: [...prevState.userList, message.sender]
-                }), );
-            }
+            // if(!this.state.userList.includes(message.sender)) {
+            //     this.setState(prevState => ({
+            //         userList: [...prevState.userList, message.sender]
+            //     }), );
+            // }
         }
         else if (message.type === 'LEAVE') {     
-            if(this.state.userList.includes(message.sender)) {
-                this.setState(prevState => ({
-                    userList: prevState.userList.filter(user => user != message.sender)
-                }), );
-            }
+            stompClient.send("/app/getUserlist", {}, this.state.username);
         }
         else if (message.type === 'TYPING') {
             // TODO:

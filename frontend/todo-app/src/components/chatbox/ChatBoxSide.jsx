@@ -146,7 +146,7 @@ export default class ChatBoxSide extends Component {
         for(var i = 0; i < this.state.receiver.length; i++) {
             components.push(<ChatModule receiver={this.state.receiver[i]} broadcastMessage={this.state.broadcastMessage}
                 handleCloseUser={this.handleCloseUser}
-                sendMessage={this.sendMessage} username={this.state.username} key={i} style={i == 0 ? {right: 273 + 'px'} : {right: 276 * (i+1) + "px"}}/>);
+                sendMessage={this.sendMessage} username={this.state.username} key={i}/>);
         }
         return(
             <div>
@@ -155,7 +155,9 @@ export default class ChatBoxSide extends Component {
                         {this.state.username == user ? user + " (You)" : user}
                     </div>)}
                 </div>
-                {components}
+                <div className="chatArea">
+                    {components}
+                </div>
             </div>);
     }
 }

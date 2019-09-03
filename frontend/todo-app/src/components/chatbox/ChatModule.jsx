@@ -52,15 +52,14 @@ export default class ChatModule extends Component {
     }
     render() {
         return (
-        <div className="chatBox" style={this.props.style}>
+        <div className="chatBox" style={this.state.hide ? {bottom: -330 + 'px'} : {}}>
             <div className="chatTitle" onClick={this.handleToggle}>
                 {this.props.receiver}
                 <div className="chatBox-right"> <a onClick={this.handleClose} className="closeBtn">
                     <YourSvg/> </a>
                 </div>
             </div>
-            {!this.state.hide && 
-            <>
+            
             <ul className="chatView" ref="messageBox">
             {this.props.broadcastMessage.map((msg, i) => 
                 ( (msg.receiver == this.props.receiver && msg.sender == this.props.username) || 
@@ -76,7 +75,6 @@ export default class ChatModule extends Component {
                 }}/>
                 <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
             </div>
-            </>}
         </div>);
     }
 }

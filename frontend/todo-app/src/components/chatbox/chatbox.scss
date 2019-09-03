@@ -4,8 +4,9 @@
         position: fixed;
         text-align: initial;
         bottom: 0;
+        width: 273px;
         border-radius: 10px 10px 0 0;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, .3);
+        box-shadow: 0 -.2px 10px rgba(0, 0, 0, .3);
         & ul {
             list-style-type: none;
             padding: 0;
@@ -23,6 +24,7 @@
 
         }
 
+       
         & .chatView{
             height: 300px;
             overflow: auto;
@@ -38,6 +40,10 @@
             font-weight: bold;
             border-radius: 10px 10px 0 0;
 
+            &:hover{
+                cursor: pointer;
+            }
+    
             &::before {
                 background: green;
                 border-radius: 100%;
@@ -52,6 +58,23 @@
             & .chatBox-right {
                 right: 1em;
                 position: absolute;
+                position: absolute;
+                align-items: center;
+                align-content: center;
+                display: flex;
+
+                & .closeBtn {
+                    width: 15px;
+                    align-self: center;
+                    position: relative;
+                    justify-self: center;
+                    height: 22px;
+                    color: darkgrey;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
             }
         }
 
@@ -85,6 +108,10 @@
             content: '';
             position: absolute;
             right: 1em;
+        }
+
+        &:hover {
+            cursor: pointer;
         }
     }
 }

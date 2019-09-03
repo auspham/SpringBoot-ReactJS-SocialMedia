@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { ReactComponent as YourSvg } from './assets/close.svg';
 
 export default class ChatModule extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chatMessage: ""
+            chatMessage: "",
+            hide: false
         }
     }
 
@@ -41,15 +43,24 @@ export default class ChatModule extends Component {
 
     };
 
+    handleClose = () => {
+        this.props.handleCloseUser(this.props.receiver);
+    }
+
+    handleToggle = () => {
+        this.setState({hide: !this.state.hide});
+    }
     render() {
         return (
         <div className="chatBox" style={this.props.style}>
-            <div className="chatTitle">
+            <div className="chatTitle" onClick={this.handleToggle}>
                 {this.props.receiver}
-                <div className="chatBox-right">
-                    <input type="button" value="X"/>
+                <div className="chatBox-right"> <a onClick={this.handleClose} className="closeBtn">
+                    <YourSvg/> </a>
                 </div>
             </div>
+            {!this.state.hide && 
+            <>
             <ul className="chatView" ref="messageBox">
             {this.props.broadcastMessage.map((msg, i) => 
                 ( (msg.receiver == this.props.receiver && msg.sender == this.props.username) || 
@@ -57,7 +68,7 @@ export default class ChatModule extends Component {
             <li key={i}> {(msg.sender == this.props.username) ? "You" : msg.sender} : {msg.message}</li> : null
             )}
             </ul>
-            <div className="chatControl">
+            <div className="chatControl" ref="chatControl">
                 <input value={this.state.chatMessage} onChange={this.handleTyping} onKeyPress={event => {
                     if (event.key === 'Enter') {
                         this.handleSendMessage();
@@ -65,6 +76,7 @@ export default class ChatModule extends Component {
                 }}/>
                 <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
             </div>
+            </>}
         </div>);
     }
 }

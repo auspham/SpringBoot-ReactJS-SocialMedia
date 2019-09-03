@@ -135,10 +135,17 @@ export default class ChatBoxSide extends Component {
             }))
         }
     }
+
+    handleCloseUser = (remove) => {
+        this.setState(prevState => ({
+            receiver: prevState.receiver.filter(user => user !== remove)
+        }))
+    }
     render() {
         const components = [];
         for(var i = 0; i < this.state.receiver.length; i++) {
             components.push(<ChatModule receiver={this.state.receiver[i]} broadcastMessage={this.state.broadcastMessage}
+                handleCloseUser={this.handleCloseUser}
                 sendMessage={this.sendMessage} username={this.state.username} key={i} style={i == 0 ? {right: 273 + 'px'} : {right: 276 * (i+1) + "px"}}/>);
         }
         return(

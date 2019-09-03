@@ -6,12 +6,26 @@ public class ChatMessage {
     private String content;
     private String sender;
     private LocalDateTime dateTime=LocalDateTime.now();;
+    private String receiver;
 
     public enum MessageType {
         CHAT,
         JOIN,
         LEAVE,
         TYPING
+    }
+
+    public ChatMessage() {
+        // Empty
+    }
+
+    public ChatMessage(String sender, String content) {
+        this.sender = sender;
+        this.content = content;
+    }
+
+    public String getReceiver() {
+        return this.receiver;
     }
 
     public MessageType getType() {
@@ -32,6 +46,10 @@ public class ChatMessage {
 
     public String getSender() {
         return sender;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public void setSender(String sender) {

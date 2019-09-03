@@ -1,5 +1,55 @@
 .content-wrapper {
+    .chatBox {
+        display: block;
+        position: fixed;
+        text-align: initial;
+        right: 200px;
+        bottom: 0;
 
+        & ul {
+            list-style-type: none;
+            padding: 0;
+            background: lightblue;
+            margin: 0;
+
+            & li {
+                padding: 1em;
+            }
+        }
+
+        & .chatView{
+            height: 300px;
+            overflow: auto;
+        }
+
+        & .chatTitle {
+            background: #f2f3f5;
+            color: black;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, .3);
+            padding: 1em;
+            position: relative;
+            align-items: center;
+            display: flex;
+            font-weight: bold;
+            &::before {
+                background: green;
+                border-radius: 100%;
+                width: 10px;
+                height: 10px;
+                display: block;
+                content: '';
+                position: absolute;
+                right: 3em;
+            }
+
+            & .chatBox-right {
+                right: 1em;
+                position: absolute;
+            }
+        }
+
+    }
     .cbox-slide {
         flex: 1;
         background: #ECF3FF;

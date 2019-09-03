@@ -3,6 +3,7 @@ import './chatbox.scss';
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 var stompClient = null;
+var sessionId = null;
 
 export default class ChatBoxSide extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ export default class ChatBoxSide extends Component {
             username: sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME),
             channelConnected: false,
             broadcastMessage: [],
-            userList: []
+            userList: [],
+            receiver: ""
         }
         this.connect();
     }
@@ -34,11 +36,22 @@ export default class ChatBoxSide extends Component {
         this.setState({
           channelConnected: true
         })
+
+        let url = stompClient.ws._transport.url;
+        url = url.replace("ws://localhost:8080/ws",  "");
+        url = url.replace("/websocket", "");
+        url = url.replace(/^[0-9]+\//, "");
+        console.log("Your current session is: " + url);
+
+        sessionId = url;
+
         console.log('stomp', stompClient);
         // Subscribing to the public topic
         stompClient.subscribe('/topic/public', this.onMessageReceived);
         stompClient.subscribe('/topic/getUser', this.onRefreshUserList);
-
+        stompClient.subscribe('/queue/specific-user', (msg) => {
+            console.log('msg', msg);
+        });
         // Registering user to server
         stompClient.send("/app/addUser",
         {},
@@ -61,12 +74,13 @@ export default class ChatBoxSide extends Component {
         }), );
     }
 
-    sendMessage = (type, value) => {
+    sendMessage = (type, value, receiver) => {
         if (stompClient) {
             let chatMessage = {
               sender: this.state.username,
               content: type === 'TYPING' ? value : value,
-              type: type      
+              type: type,
+              receiver: receiver  
             };
       
             stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
@@ -75,10 +89,19 @@ export default class ChatBoxSide extends Component {
         }
     }
 
+    scrollToBottom = () => {
+        var object = this.refs.messageBox;
+        if (object)
+          object.scrollTop = object.scrollHeight;
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
 
     onMessageReceived = (payload) => {
         let message = JSON.parse(payload.body);
-
+        console.log("onReceived", message)
         if (message.type === 'JOIN') {
             // if(!this.state.userList.includes(message.sender)) {
             //     this.setState(prevState => ({
@@ -108,11 +131,9 @@ export default class ChatBoxSide extends Component {
     }
 
     handleSendMessage = () => {
-        this.sendMessage('CHAT', this.state.chatMessage)
-
-            this.setState({
-              chatMessage: ''
-            })
+        this.sendMessage('CHAT', this.state.chatMessage, this.state.receiver);
+        
+        this.setState({ chatMessage: ''})
     }
 
     handleTyping = (event) => {
@@ -120,16 +141,39 @@ export default class ChatBoxSide extends Component {
         this.setState({
             chatMessage: event.target.value,
         });
-        this.sendMessage('TYPING', event.target.value);
+        this.sendMessage('TYPING', event.target.value, this.state.receiver);
 
     };
 
+    handleSelectUser = (event) => {
+        this.setState({ receiver: event.target.innerText }, 
+            console.log("sending to" + this.state.receiver));
+    }
     render() {
         return(
-            <div className="cbox-slide">
-                {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder">
-                    {user}
-                </div>)}
+            <div>
+                <div className="cbox-slide">
+                    {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder" onClick={this.handleSelectUser}>
+                        {user}
+                    </div>)}
+                </div>
+                <div className="chatBox">
+                    <div className="chatTitle">
+                        {this.state.receiver}
+                        <div className="chatBox-right">
+                            <input type="button" value="X"/>
+                        </div>
+                    </div>
+                    <ul className="chatView" ref="messageBox">
+                    {this.state.broadcastMessage.map((msg, i) => 
+                            <li key={i}>{msg.sender}: {msg.message}</li>
+                    )}
+                    </ul>
+                    <div className="chatControl">
+                        <input value={this.state.chatMessage} onChange={this.handleTyping}/>
+                        <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
+                    </div>
+                </div>
             </div>);
     }
 }

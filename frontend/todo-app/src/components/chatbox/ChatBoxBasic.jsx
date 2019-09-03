@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 var stompClient = null;

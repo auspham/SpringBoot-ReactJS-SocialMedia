@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import HelloWorldService from '../../api/todo/HelloWorldService.js'
-import ChatBox from '../chatbox/ChatBox'
 class WelcomeComponent extends Component {
 
     constructor(props) {
@@ -17,7 +16,6 @@ class WelcomeComponent extends Component {
     render() {
         return (
             <>
-                <ChatBox />
                 <h1>Welcome!</h1>
                 <div className="container">
                     Welcome {this.props.match.params.name}.

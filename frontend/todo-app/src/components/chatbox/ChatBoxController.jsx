@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
+var stompClient = null;
 export default class ChatBoxController extends Component {
     constructor(props) {
         super(props);
@@ -8,6 +10,7 @@ export default class ChatBoxController extends Component {
             username: sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME),
             channelConnected: false,
             broadcastMessage: [],
+            userList: []
         }
         this.connect();
     }
@@ -20,20 +23,26 @@ export default class ChatBoxController extends Component {
         stompClient.connect({}, this.onConnected, this.onError);
     }
 
+    getUserList = () => {
+      return this.state.userList;
+    }
+
     onConnected = () => {
 
         this.setState({
           channelConnected: true
         })
     
-        // Subscribing to the public topic
-        stompClient.subscribe('/topic/public', this.onMessageReceived);
-    
-        // Registering user to server
-        stompClient.send("/app/addUser",
-          {},
-          JSON.stringify({ sender: this.state.username, type: 'JOIN' })
-        )
+        if(stompClient.status === 'CONNECTED') {
+          // Subscribing to the public topic
+          stompClient.subscribe('/topic/public', this.onMessageReceived);
+      
+          // Registering user to server
+          stompClient.send("/app/addUser",
+            {},
+            JSON.stringify({ sender: this.state.username, type: 'JOIN' })
+          )
+        }
 
     }
 
@@ -58,9 +67,10 @@ export default class ChatBoxController extends Component {
 
     onMessageReceived = (payload) => {
         let message = JSON.parse(payload.body);
-    
+        console.log('message payload', message);
         if (message.type === 'JOIN') {
             // TODO:
+            this.state.userList.push(message.sender)
         }
         else if (message.type === 'LEAVE') {     
             // TODO:

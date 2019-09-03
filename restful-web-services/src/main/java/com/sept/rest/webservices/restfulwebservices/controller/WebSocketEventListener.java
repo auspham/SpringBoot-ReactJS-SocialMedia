@@ -11,12 +11,15 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import java.util.ArrayList;
+
 @Component
 public class WebSocketEventListener {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
+
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -28,6 +31,8 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
         String username = (String) headerAccessor.getSessionAttributes().get("username");
+        ChatController.userList.remove(username);
+
         if(username != null) {
             logger.info("User Disconnected : " + username);
 

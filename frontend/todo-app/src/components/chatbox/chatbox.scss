@@ -1,0 +1,38 @@
+.content-wrapper {
+
+    .cbox-slide {
+        flex: 1;
+        background: #ECF3FF;
+        position: fixed;
+        height: 100%;
+        right: 0;
+        width: 200px;
+        top: 55px;
+        text-align: initial;
+    }
+
+    .main-content{
+        width: calc(100% - 200px);
+    }
+
+    .user-holder{
+        padding: 1em;
+        font-weight: bold;
+        position: relative;
+        justify-content: center;
+        &:before {
+            background: green;
+            border-radius: 100%;
+            width: 10px;
+            height: 10px;
+            display: block;
+            content: '';
+            position: absolute;
+            right: 1em;
+        }
+    }
+}
+header {
+    z-index: 9999;
+    position: relative;
+}

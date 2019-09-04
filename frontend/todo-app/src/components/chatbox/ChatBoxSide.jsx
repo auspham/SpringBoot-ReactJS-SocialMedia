@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import './chatbox.scss';
+import ChatModule from './ChatModule';
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 var stompClient = null;
+var sessionId = null;
 
 export default class ChatBoxSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chatMessage: "",
             username: sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME),
             channelConnected: false,
             broadcastMessage: [],
-            userList: []
+            userList: [],
+            receiver: [] // Users who i'm chatting with
         }
         this.connect();
     }
@@ -34,11 +36,22 @@ export default class ChatBoxSide extends Component {
         this.setState({
           channelConnected: true
         })
+
+        let url = stompClient.ws._transport.url;
+        url = url.replace("ws://localhost:8080/ws",  "");
+        url = url.replace("/websocket", "");
+        url = url.replace(/^[0-9]+\//, "");
+        console.log("Your current session is: " + url);
+
+        sessionId = url;
+
         console.log('stomp', stompClient);
         // Subscribing to the public topic
         stompClient.subscribe('/topic/public', this.onMessageReceived);
         stompClient.subscribe('/topic/getUser', this.onRefreshUserList);
-
+        stompClient.subscribe('/queue/specific-user', (msg) => {
+            console.log('msg', msg);
+        });
         // Registering user to server
         stompClient.send("/app/addUser",
         {},
@@ -61,12 +74,13 @@ export default class ChatBoxSide extends Component {
         }), );
     }
 
-    sendMessage = (type, value) => {
+    sendMessage = (type, value, receiver) => {
         if (stompClient) {
             let chatMessage = {
               sender: this.state.username,
               content: type === 'TYPING' ? value : value,
-              type: type      
+              type: type,
+              receiver: receiver  
             };
       
             stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
@@ -75,10 +89,13 @@ export default class ChatBoxSide extends Component {
         }
     }
 
-
     onMessageReceived = (payload) => {
         let message = JSON.parse(payload.body);
-
+        if (message.receiver == this.state.username && !this.state.receiver.includes(message.sender)) {
+            this.setState(prevState => ({
+                receiver: [...prevState.receiver, message.sender]
+            }))
+        }
         if (message.type === 'JOIN') {
             // if(!this.state.userList.includes(message.sender)) {
             //     this.setState(prevState => ({
@@ -96,7 +113,8 @@ export default class ChatBoxSide extends Component {
           this.state.broadcastMessage.push({
             message: message.content,
             sender: message.sender,
-            dateTime: message.dateTime
+            dateTime: message.dateTime,
+            receiver: message.receiver
           })
           this.setState({
             broadcastMessage: this.state.broadcastMessage,
@@ -107,29 +125,39 @@ export default class ChatBoxSide extends Component {
         }
     }
 
-    handleSendMessage = () => {
-        this.sendMessage('CHAT', this.state.chatMessage)
 
-            this.setState({
-              chatMessage: ''
-            })
+
+    handleSelectUser = (event) => {
+        let select = event.target.innerText;
+        if(!select.includes(this.state.username) && !this.state.receiver.includes(select)) {
+            this.setState(prevState => ({
+                receiver: [...prevState.receiver, select]
+            }))
+        }
     }
 
-    handleTyping = (event) => {
-
-        this.setState({
-            chatMessage: event.target.value,
-        });
-        this.sendMessage('TYPING', event.target.value);
-
-    };
-
+    handleCloseUser = (remove) => {
+        this.setState(prevState => ({
+            receiver: prevState.receiver.filter(user => user !== remove)
+        }))
+    }
     render() {
+        const components = [];
+        for(var i = 0; i < this.state.receiver.length; i++) {
+            components.push(<ChatModule receiver={this.state.receiver[i]} broadcastMessage={this.state.broadcastMessage}
+                handleCloseUser={this.handleCloseUser}
+                sendMessage={this.sendMessage} username={this.state.username} key={i}/>);
+        }
         return(
-            <div className="cbox-slide">
-                {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder">
-                    {user}
-                </div>)}
+            <div>
+                <div className="cbox-slide">
+                    {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder" onClick={this.handleSelectUser}>
+                        {this.state.username == user ? user + " (You)" : user}
+                    </div>)}
+                </div>
+                <div className="chatArea">
+                    {components}
+                </div>
             </div>);
     }
 }

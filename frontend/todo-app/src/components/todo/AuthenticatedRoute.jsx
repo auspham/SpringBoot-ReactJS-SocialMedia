@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
 import axios from 'axios'
+import ChatBox from '../chatbox/ChatBoxSide'
+
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 class AuthenticatedRoute extends Component {
@@ -25,7 +27,7 @@ class AuthenticatedRoute extends Component {
     }
     render() {
         if (AuthenticationService.isUserLoggedIn()) {
-            return <Route {...this.props} />
+            return <div className="content-wrapper"><div className="main-content"><Route {...this.props} /></div><ChatBox /> </div>
         } else {
             return <Redirect to="/login" />
         }

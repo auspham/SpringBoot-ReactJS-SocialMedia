@@ -14,3 +14,6 @@ values ('JohnCitizen', 'pass');
 
 insert into User(username, password)
 values ('Mike', 'pass2');
+
+insert into Profile(email, firstname, lastname, studentnumber)
+values ('john@gmail.com', 'John', 'Citizen', 's3718662')

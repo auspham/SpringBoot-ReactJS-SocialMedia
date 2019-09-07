@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/rockmanvnx6/SEPT2019.svg?token=PBNhG2eVeatqToEz8PCp&branch=master)](https://travis-ci.com/rockmanvnx6/SEPT2019)
+[![Build Status](https://travis-ci.com/rockmanvnx6/SEPT2019.svg?token=PBNhG2eVeatqToEz8PCp&branch=master)](https://travis-ci.com/RMIT-SEPT/Tom-Yum/)
 # Your First Full Stack Application with React and Spring Boot
 
 

@@ -1,6 +1,7 @@
 package com.sept.rest.webservices.restfulwebservices.jwt.resource;
 
 import java.util.Objects;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,6 +67,7 @@ public class JwtAuthenticationRestController {
     }
   }
 
+
   @RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.GET)
   public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
     String authToken = request.getHeader(tokenHeader);
@@ -85,6 +87,7 @@ public class JwtAuthenticationRestController {
   public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
   }
+
 
   private void authenticate(String username, String password) {
     Objects.requireNonNull(username);

@@ -22,8 +22,8 @@ import com.sept.rest.webservices.restfulwebservices.todo.Todo;
 @RestController
 public class TodoJpaResource {
 	
-	@Autowired
-	private TodoHardcodedService todoService;
+	// @Autowired
+	// private TodoHardcodedService todoService;
 
 	@Autowired
 	private TodoJpaRepository todoJpaRepository;
@@ -34,6 +34,7 @@ public class TodoJpaResource {
 		return todoJpaRepository.findByUsername(username);
 		//return todoService.findAll();
 	}
+	
 
 	@GetMapping("/jpa/users/{username}/todos/{id}")
 	public Todo getTodo(@PathVariable String username, @PathVariable long id){

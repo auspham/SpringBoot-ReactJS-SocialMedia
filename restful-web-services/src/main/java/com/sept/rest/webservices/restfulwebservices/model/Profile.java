@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "profile")
-public class Classmate {
+public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,20 @@ public class Classmate {
     private String email;
     @Column
     private String studentnumber;
+
+
+    //oneToOne Relationship with UserID
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private DAOUser user;
+
+    public Profile(String firstname, String lastname, String email, String studentnumber, DAOUser user) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.studentnumber = studentnumber;
+        this.user = user;
+    }
 
     public String getFirstname() {
         return firstname;

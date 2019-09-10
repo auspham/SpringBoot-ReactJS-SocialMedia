@@ -18,12 +18,18 @@ public class Profile {
     private String email;
     @Column
     private String studentnumber;
+    @Column
+    private String phonenumber;
+    @Column
+    private String aboutme;
 
 
     //oneToOne Relationship with UserID
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private DAOUser user;
+
+
 
     public Profile(String firstname, String lastname, String email, String studentnumber, DAOUser user) {
         this.firstname = firstname;

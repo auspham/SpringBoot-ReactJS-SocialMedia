@@ -17,6 +17,10 @@ public class DAOUser {
     @JsonIgnore
     private String password;
 
+    //OneToOne with Profile
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
+
     public String getUsername() {
         return username;
     }

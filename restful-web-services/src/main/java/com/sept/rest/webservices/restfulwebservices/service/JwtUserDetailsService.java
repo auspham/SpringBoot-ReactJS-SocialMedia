@@ -49,4 +49,16 @@ public class JwtUserDetailsService implements UserDetailsService {
             return null;
         }
     }
+
+    /* Edit the username of a current user on the database,passes a Data Transfer Object of a user, and the username to be set */
+    public DAOUser editUsername(UserDTO user, String username) {
+        List<DAOUser> exists = userRepository.findByUsername(user.getUsername());
+        if(exists.isEmpty()) {
+            DAOUser newUser = new DAOUser();
+            newUser.setUsername(username);
+            return userDao.save(newUser);
+        } else {
+            return null;
+        }
+    }
 }

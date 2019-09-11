@@ -10,8 +10,8 @@ class NewsFeedComponent extends React.Component{
     render(){
         return(
             <div className="col4">
+                <ListTodoComponents history={this.props.history}/>
             </div>
-
         )
     }
 }

@@ -1,0 +1,76 @@
+.ui-custom{
+    text-align: initial;
+    padding: 1.5em;
+
+    .btn-status {
+        border-radius: 9999px;   
+    }
+
+    .status-head{
+        overflow: hidden;
+        .status-left {
+            float: left;
+            font-weight: bold;
+            color: black;
+            font-size: 1.5em;
+            .date {
+                font-weight: light;
+                color: lightgray;
+                font-size: .5em;
+            }
+        }
+
+        .status-right {
+            float: right;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                margin-left: 1em;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .status-content{
+        margin-top: .5em;
+        color: #1c1e21;
+        font-size: 1.2em;
+    }
+
+    .create-tool {
+        margin-top: 20px;
+        display: flex;
+        float:right;
+        position: relative;
+
+        &::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .btn-status {
+            font-weight: bold;
+        }
+
+    }
+
+    .create-content{
+        .post-status {
+            border: 0;
+
+            &:focus{
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        .form-control.post-status:focus{
+            box-shadow: none;
+        }
+    }
+
+}

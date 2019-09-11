@@ -3,6 +3,7 @@ import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
+import "../profilewall/status.scss"
 
 class TodoComponent extends Component {
     constructor(props) {
@@ -76,7 +77,6 @@ class TodoComponent extends Component {
 
         return (
             <div>
-                <h1>Todo</h1>
                 <div className="container">
                     <Formik
                         initialValues={{ description, targetDate }}
@@ -93,15 +93,17 @@ class TodoComponent extends Component {
                                         className="alert alert-warning" />
                                     <ErrorMessage name="targetDate" component="div"
                                         className="alert alert-warning" />
-                                    <fieldset className="form-group">
-                                        <label>Description</label>
-                                        <Field className="form-control" type="text" name="description" />
+
+
+                                    <fieldset className="form-group ui-block ui-custom">
+                                        <div className="create-content">
+                                            <Field className="form-control post-status" type="text" name="description" placeHolder={"Hey " + this.props.username + ", what are you thinking?"}/>
+                                        </div>
+                                        <div className="create-tool">
+                                            <button className="btn btn-primary btn-status" type="submit">Post</button>
+                                        </div>
+
                                     </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Target Date</label>
-                                        <Field className="form-control" type="date" name="targetDate" />
-                                    </fieldset>
-                                    <button className="btn btn-success" type="submit">Save</button>
                                 </Form>
                             )
                         }

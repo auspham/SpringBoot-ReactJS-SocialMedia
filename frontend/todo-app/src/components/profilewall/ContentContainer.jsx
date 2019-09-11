@@ -14,7 +14,7 @@ class ContentContainer extends React.Component{
             <div className="container">
                 <div className="row">
                     <SideContentComponent></SideContentComponent>
-                    <NewsFeedComponent history={this.props.history} match={this.props.match}></NewsFeedComponent>
+                    <NewsFeedComponent history={this.props.history} match={this.props.match} username={this.props.username}></NewsFeedComponent>
                 </div>
             </div>
 

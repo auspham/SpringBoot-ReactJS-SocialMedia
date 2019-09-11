@@ -60,10 +60,10 @@ class TodoComponent extends Component {
 
         if (this.state.id === -1) {
             TodoDataService.createTodo(username, todo)
-                .then(() => this.props.history.push('/todos'))
+                .then(() => {this.props.history.push('/profile'); window.location.reload()})
         } else {
             TodoDataService.updateTodo(username, this.state.id, todo)
-                .then(() => this.props.history.push('/todos'))
+                .then(() => {this.props.history.push('/profile'); window.location.reload()})
         }
 
         console.log(values);

@@ -97,7 +97,7 @@ class TodoComponent extends Component {
 
                                     <fieldset className="form-group ui-block ui-custom">
                                         <div className="create-content">
-                                            <Field className="form-control post-status" type="text" name="description" placeHolder={"Hey " + this.props.username + ", what are you thinking?"}/>
+                                            <Field className="form-control post-status" type="text" name="description" placeholder={"Hey " + this.props.username + ", what are you thinking?"}/>
                                         </div>
                                         <div className="create-tool">
                                             <button className="btn btn-primary btn-status" type="submit">Post</button>

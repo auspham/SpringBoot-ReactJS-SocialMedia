@@ -5,6 +5,8 @@ import moment from 'moment'
 import { ReactComponent as Close } from './assets/times.svg';
 import { ReactComponent as Edit } from './assets/edit.svg';
 
+var Modal = require('react-bootstrap-modal')
+
 class ListTodosComponent extends Component {
     constructor(props) {
         console.log('constructor')
@@ -17,6 +19,7 @@ class ListTodosComponent extends Component {
         this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.addTodoClicked = this.addTodoClicked.bind(this)
         this.refreshTodos = this.refreshTodos.bind(this)
+        this.show = false;
     }
 
     componentWillUnmount() {
@@ -70,23 +73,24 @@ class ListTodosComponent extends Component {
         this.props.history.push(`/todos/${id}`)
     }
 
+    handleClose = () => this.setShow(false);
+    handleShow = () => this.setShow(true);
+    
+    setShow = (value) => {
+        this.setState({
+            show: value
+        })
+    }
     render() {
-        console.log('render')
+
+        let closeModal = () => this.setState({ open: false })
+
         return (
             <div>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
-                    <table className="table">
-                        {/* <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Target Date</th>
-                                <th>IsCompleted?</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead> */}
-                        <tbody>
+                    <div className="table">
+                        <div>
                             {
                                 this.state.todos.map(
                                     todo =>
@@ -99,7 +103,7 @@ class ListTodosComponent extends Component {
                                                 <div className="status-right">
                                                     {/* <button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button> */}
                                                     {/* <button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}><Close/></button> */}
-                                                    <Edit onClick={() => this.updateTodoClicked(todo.id)}/>
+                                                    <Edit onClick={this.handleShow}/>
                                                     <Close onClick={() => this.deleteTodoClicked(todo.id)}/>
                                                 </div>
                                             </div>
@@ -107,20 +111,34 @@ class ListTodosComponent extends Component {
                                                 {todo.description}
                                             </div>
                                         </div>
-                                        // <tr key={todo.id}>
-                                        //     <td>{todo.description}</td>
-                                        //     <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                        //     <td>{todo.done.toString()}</td>
-                                        //     <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
-                                        //     <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
-                                        // </tr>
+                        
                                 )
                             }
-                        </tbody>
-                    </table>
-                    <div className="row">
-                        {/* <button className="btn btn-success" onClick={this.addTodoClicked}>Add</button> */}
+                        </div>
                     </div>
+                    <Modal
+                    show={this.state.show}
+                    onHide={closeModal}
+                    aria-labelledby="ModalHeader"
+                    >
+                    <Modal.Header closeButton>
+                        <Modal.Title id='ModalHeader'>A Title Goes here</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Some Content here</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        // If you don't have anything fancy to do you can use
+                        // the convenient `Dismiss` component, it will
+                        // trigger `onHide` when clicked
+                        <Modal.Dismiss className='btn btn-default'>Cancel</Modal.Dismiss>
+            
+                        // Or you can create your own dismiss buttons
+                        <button className='btn btn-primary'>
+                        Save
+                        </button>
+                    </Modal.Footer>
+                    </Modal>
                 </div>
             </div>
         )

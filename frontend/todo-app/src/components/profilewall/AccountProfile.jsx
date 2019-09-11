@@ -19,7 +19,7 @@ class AccountProfile extends React.Component {
     return (
       <div className="body">
         <ProfileContainer username={this.state.username}></ProfileContainer>
-        <ContentContainer history={this.props.history}></ContentContainer>
+        <ContentContainer history={this.props.history} match={this.props.match}></ContentContainer>
       </div>
     );
   }

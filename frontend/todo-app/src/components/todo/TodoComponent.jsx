@@ -9,7 +9,7 @@ class TodoComponent extends Component {
         super(props)
 
         this.state = {
-            id: this.props.match.params.id,
+            id: this.props.match.params.id ? this.props.match.params : -1,
             description: '',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }

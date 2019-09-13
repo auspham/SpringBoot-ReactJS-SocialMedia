@@ -24,6 +24,7 @@ class ListTodosComponent extends Component {
 
     componentWillUnmount() {
         console.log('componentWillUnmount')
+        this.props.onRef(undefined)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -34,8 +35,11 @@ class ListTodosComponent extends Component {
     }
 
     componentDidMount() {
+        this.props.onRef(this)
+
         console.log('componentDidMount')
         this.refreshTodos();
+
         console.log(this.state)
     }
 
@@ -92,7 +96,7 @@ class ListTodosComponent extends Component {
                     <div className="table">
                         <div>
                             {
-                                this.state.todos.map(
+                                this.state.todos.reverse().map(
                                     todo =>
                                         <div className="ui-block ui-custom" key={todo.id}>
                                             <div className="status-head">

@@ -47,7 +47,6 @@ class TodoComponent extends Component {
         }
 
         return errors
-
     }
 
     onSubmit(values) {
@@ -61,13 +60,20 @@ class TodoComponent extends Component {
 
         if (this.state.id === -1) {
             TodoDataService.createTodo(username, todo)
-                .then(() => {this.props.history.push('/profile'); window.location.reload()})
+                .then(() => {this.props.history.push('/profile'); this.props.refreshTodos()})
         } else {
             TodoDataService.updateTodo(username, this.state.id, todo)
-                .then(() => {this.props.history.push('/profile'); window.location.reload()})
+                .then(() => {this.props.history.push('/profile'); this.props.refreshTodos()})
         }
 
+        this.setState({description: ''})
         console.log(values);
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            description: event.target.value
+        });
     }
 
     render() {
@@ -94,10 +100,10 @@ class TodoComponent extends Component {
                                     <ErrorMessage name="targetDate" component="div"
                                         className="alert alert-warning" />
 
-
+                                
                                     <fieldset className="form-group ui-block ui-custom">
                                         <div className="create-content">
-                                            <Field className="form-control post-status" type="text" name="description" placeholder={"Hey " + this.props.username + ", what are you thinking?"}/>
+                                            <Field className="form-control post-status" type="text" name="description" value={this.state.description} placeholder={"Hey " + this.props.username + ", what are you thinking?"} onChange={this.handleChange}/>
                                         </div>
                                         <div className="create-tool">
                                             <button className="btn btn-primary btn-status" type="submit">Post</button>

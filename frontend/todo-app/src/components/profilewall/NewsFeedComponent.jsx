@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ListTodoComponents from '../../components/todo/ListTodosComponent.jsx'
 
 
 class NewsFeedComponent extends React.Component{
@@ -8,7 +9,7 @@ class NewsFeedComponent extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="col4">
             </div>
 
         )

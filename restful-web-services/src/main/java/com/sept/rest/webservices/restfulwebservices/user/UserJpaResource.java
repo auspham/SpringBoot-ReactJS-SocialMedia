@@ -1,8 +1,12 @@
 package com.sept.rest.webservices.restfulwebservices.user;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
+
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +40,17 @@ public class UserJpaResource {
 
 	@GetMapping("/jpa/users/all/profile")
 	public List<DAOUser> getAll(){
+		// System.out.println(UserRepository.findAll().get(0).getUsername());
+		// System.out.println(UserRepository.findAll().get(0).getPassword());
+		// System.out.println(UserRepository.findAll().get(1).getUsername());
+		// System.out.println(UserRepository.findAll().get(1).getPassword());
+		// System.out.println(UserRepository.findAll().get(2).getUsername());
+		// System.out.println(UserRepository.findAll().get(2).getPassword());
+		// List<DAOUser> hardcodeList = new ArrayList<DAOUser>();
+		// DAOUser hardcodeUser = new DAOUser();
+		// hardcodeList.add(hardcodeUser);
+		// hardcodeUser.setEmail("email@hardcode.com");
+		// return hardcodeList;
 		return UserRepository.findAll();
 		//return todoService.findAll();
 	}

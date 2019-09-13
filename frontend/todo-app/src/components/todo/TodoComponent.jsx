@@ -20,7 +20,6 @@ class TodoComponent extends Component {
     }
 
     componentDidMount() {
-
         if (this.state.id === -1) {
             return
         }

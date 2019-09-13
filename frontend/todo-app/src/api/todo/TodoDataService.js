@@ -8,7 +8,7 @@ class TodoDataService {
     }
 
     retrieveTodo(name, id) {
-        //console.log('executed service')
+        console.log('executed service Todo')
         return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}`);
     }
 

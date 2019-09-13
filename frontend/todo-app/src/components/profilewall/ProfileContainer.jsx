@@ -9,8 +9,11 @@ import "./profile.scss";
 class ProfileContainer extends React.Component {
 
   constructor(props){
-    super(props);
+    super(props)
 
+    this.state={
+      username: this.props.username
+    }
 
   }
   render() {
@@ -45,7 +48,7 @@ class ProfileContainer extends React.Component {
                         alt="avatar"
                       ></img>
                     </div>
-                    <div className="avatar-author-content">Duy Linh Nguyen</div>
+                    <div className="avatar-author-content">{this.props.username}</div>
                   </div>
                   <div className="col2">
                     <ul className="profile-menu">

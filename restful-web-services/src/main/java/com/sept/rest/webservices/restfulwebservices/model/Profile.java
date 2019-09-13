@@ -22,6 +22,8 @@ public class Profile {
     private String phonenumber;
     @Column
     private String aboutme;
+    @Column
+    private String courses;
 
 
     //oneToOne Relationship with UserID

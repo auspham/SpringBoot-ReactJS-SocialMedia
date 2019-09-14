@@ -32,7 +32,6 @@ class AccountProfile extends React.Component {
       AccountProfileService.retrieveInfo(username)
         .then(response => {
           if(!response.data.length == 0){
-              console.error("response", response);
               this.setState({
                 value: response.data[0].username
               });

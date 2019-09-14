@@ -29,15 +29,18 @@ class AccountProfile extends React.Component {
 
   refreshInfo() {
     let username = this.state.username;
-    AccountProfileService.retrieveInfo(username)
-      .then(response => {
-        if(typeof response.data[0].username != "undefined"){
-            console.error("response", response);
-            this.setState({
-              value: response.data[0].username
-            });
-      }
-      })
+      AccountProfileService.retrieveInfo(username)
+        .then(response => {
+          if(!response.data.length == 0){
+              console.error("response", response);
+              this.setState({
+                value: response.data[0].username
+              });
+          }
+          else{
+            window.location.href = "http://localhost:4200/welcome/sept";
+          }
+        })
   }
 }
 

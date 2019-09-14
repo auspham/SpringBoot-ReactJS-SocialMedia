@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 import moment from 'moment'
-import { ReactComponent as Close } from './assets/times.svg';
-import { ReactComponent as Edit } from './assets/edit.svg';
-
-var Modal = require('react-bootstrap-modal')
-
+import TodoCard from "./TodoCard"
 class ListTodosComponent extends Component {
     constructor(props) {
         console.log('constructor')
@@ -50,7 +46,7 @@ class ListTodosComponent extends Component {
             .then(
                 response => {
                     console.log('response', response);
-                    this.setState({ todos: response.data })
+                    this.setState({ todos: response.data.reverse() })
                 }
             )
     }
@@ -78,13 +74,7 @@ class ListTodosComponent extends Component {
     }
 
     handleClose = () => this.setShow(false);
-    handleShow = () => this.setShow(true);
     
-    setShow = (value) => {
-        this.setState({
-            show: value
-        })
-    }
     render() {
 
         let closeModal = () => this.setState({ open: false })
@@ -96,53 +86,13 @@ class ListTodosComponent extends Component {
                     <div className="table">
                         <div>
                             {
-                                this.state.todos.reverse().map(
+                                this.state.todos.map(
                                     todo =>
-                                        <div className="ui-block ui-custom" key={todo.id}>
-                                            <div className="status-head">
-                                                <div className="status-left">
-                                                    {this.props.username}
-                                                    <div className="date">{moment(todo.targetDate).format('YYYY-MM-DD')}</div>
-                                                </div>
-                                                <div className="status-right">
-                                                    {/* <button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button> */}
-                                                    {/* <button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}><Close/></button> */}
-                                                    <Edit onClick={this.handleShow}/>
-                                                    <Close onClick={() => this.deleteTodoClicked(todo.id)}/>
-                                                </div>
-                                            </div>
-                                            <div className="status-content">
-                                                {todo.description}
-                                            </div>
-                                        </div>
-                        
+                                       <TodoCard todo={todo} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username}/>
                                 )
                             }
                         </div>
                     </div>
-                    <Modal
-                    show={this.state.show}
-                    onHide={closeModal}
-                    aria-labelledby="ModalHeader"
-                    >
-                    <Modal.Header closeButton>
-                        <Modal.Title id='ModalHeader'>A Title Goes here</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Some Content here</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        // If you don't have anything fancy to do you can use
-                        // the convenient `Dismiss` component, it will
-                        // trigger `onHide` when clicked
-                        <Modal.Dismiss className='btn btn-default'>Cancel</Modal.Dismiss>
-            
-                        // Or you can create your own dismiss buttons
-                        <button className='btn btn-primary'>
-                        Save
-                        </button>
-                    </Modal.Footer>
-                    </Modal>
                 </div>
             </div>
         )

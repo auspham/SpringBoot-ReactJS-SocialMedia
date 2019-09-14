@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import AuthenticatedRoute from './AuthenticatedRoute.jsx'
 import LoginComponent from './LoginComponent.jsx'
 import ListTodosComponent from './ListTodosComponent.jsx'
@@ -11,33 +11,83 @@ import LogoutComponent from './LogoutComponent.jsx'
 import WelcomeComponent from './WelcomeComponent.jsx'
 import TodoComponent from './TodoComponent.jsx'
 import AccountProfile from '../profilewall/AccountProfile.jsx'
+import AuthenticationService from "../todo/AuthenticationService";
+import AccountProfileService from "../../api/todo/AccountProfileService";
 
 class TodoApp extends Component {
-    render() {
-        return (
-            <div className="TodoApp">
-                <Router>
-                    <>  
-                        <HeaderComponent/>
-                        {/* <NavigationComponent></NavigationComponent> */}
-                        <Switch>
-                            <Route path="/" exact component={LoginComponent}/>
-                            <Route path="/login" component={LoginComponent}/>
-                            <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
-                            <AuthenticatedRoute path="/todos/:id" component={TodoComponent}/>
-                            <AuthenticatedRoute path="/todos" component={ListTodosComponent}/>
-                            <AuthenticatedRoute path="/profile" component={AccountProfile}/>
-                            <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
-                            <Route component={ErrorComponent}/>
-                        </Switch>
-                        {/* <FooterComponent/> */}
-                    </>
-                </Router>
-                {/*<LoginComponent/>
-                <WelcomeComponent/>*/}
-            </div>
-        )
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            value: '',
+            renderValue: ''
+        }
+        this.handleClick.bind();
+        this.handleChange.bind();
     }
+
+    handleClick = (e) => {
+        e.preventDefault();
+        console.warn("Clicked!!!");
+        console.log(this.state.value);
+        this.refreshInfo();
+        this.redirect();
+    }
+
+
+    handleChange = e => {
+        console.log("handleChange");
+        console.log(e.target.value);
+        this.setState({ value: e.target.value }, function () {
+            console.log(this.state.value);
+        });
+    };
+
+    redirect(){
+        console.log("JS fuck",this.state.value);
+        
+        window.location.href = "http://localhost:4200/profile/" + this.state.value;
+    }
+
+    refreshInfo() {
+        console.log("refreshInfo");
+        let username = this.state.value;
+        AccountProfileService.retrieveInfo(username)
+            .then(response => {
+                console.error("response", response);
+        this.setState({
+            renderValue: response.data[0]
+        });   
+    })
+
+}
+
+
+render() {
+    return (
+        <div className="TodoApp">
+            <Router>
+                <>
+                    <HeaderComponent refreshInfo={this.refreshInfo} handleClick={this.handleClick} handleChange={this.handleChange} />
+                    {/* <NavigationComponent></NavigationComponent> */}
+                    <Switch>
+                        <Route path="/" exact component={LoginComponent} />
+                        <Route path="/login" component={LoginComponent} />
+                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
+                        <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
+                        <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
+                        <AuthenticatedRoute path="/profile/:username" renderValue={this.state.renderValue} component={AccountProfile} />
+                        <AuthenticatedRoute path="/logout" component={LogoutComponent} />
+                        <Route component={ErrorComponent} />
+                    </Switch>
+                    {/* <FooterComponent/> */}
+                </>
+            </Router>
+            {/*<LoginComponent/>
+                <WelcomeComponent/>*/}
+        </div>
+    )
+}
 }
 
 export default TodoApp

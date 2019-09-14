@@ -2,56 +2,42 @@ import React, { Component } from "react";
 import "./profile.scss";
 import ProfileContainer from "../profilewall/ProfileContainer";
 import ContentContainer from "../profilewall/ContentContainer";
-import AuthenticationService from "../todo/AuthenticationService";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AccountProfileService from "../../api/todo/AccountProfileService"
+
 
 class AccountProfile extends React.Component {
   constructor(props) {
-    console.log('account profile')
     super(props);
     this.state = {
-      username: '',
-    };
+      username: this.props.match.params.username,
+      value: ''
+    }
   }
 
   render() {
-    console.warn("Debugging AccountProfile, the username: " + this.state.username);
     return (
       <div className="body">
-        <ProfileContainer username={this.state.username}></ProfileContainer>
+        <ProfileContainer username={this.state.value}></ProfileContainer>
         <ContentContainer></ContentContainer>
       </div>
     );
   }
 
-  // componentWillUnmount() {
-  //   console.log('componentWillUnmount AP')
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('shouldComponentUpdate AP')
-  //   console.log(nextProps)
-  //   console.log(nextState)
-  //   return true
-  // }
-
   componentDidMount() {
-    console.warn("componentDidMount AP");
-    this.refreshInfo();
-    console.log(this.state);
+      this.refreshInfo();
   }
 
   refreshInfo() {
-    let username = AuthenticationService.getLoggedInUserName();
-    // console.log("get username AP: ", username);
-    // this.state.username = username;
+    let username = this.state.username;
     AccountProfileService.retrieveInfo(username)
-    .then(response => {
-      console.error("response", response);
-      this.setState({
-        username: response.data[0].username
-      });
-    })
+      .then(response => {
+        if(typeof response.data[0].username != "undefined"){
+            console.error("response", response);
+            this.setState({
+              value: response.data[0].username
+            });
+      }
+      })
   }
 }
 

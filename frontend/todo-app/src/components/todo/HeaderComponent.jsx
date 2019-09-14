@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
+import SearchBarComponent from './SearchBarComponent.jsx'
 
 
 class HeaderComponent extends Component {
+    constructor(props){
+        super(props)
+    }
+
     render() {
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
         //console.log(isUserLoggedIn);
@@ -15,6 +20,7 @@ class HeaderComponent extends Component {
                         {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/SEPT">Home</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/profile">Profile</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Wall</Link></li>}
+                        <SearchBarComponent refreshInfo={this.props.refreshInfo} handleChange = {this.props.handleChange} handleClick = {this.props.handleClick}></SearchBarComponent>
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}

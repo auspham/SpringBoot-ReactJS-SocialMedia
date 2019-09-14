@@ -75,13 +75,21 @@
 
 }
 
-
+.status-content{
+    overflow: hidden;
+}
 .editableContent {
     textarea {
         width: 100%;
+        border: 0;
+        border-bottom: 4px solid #e490bf;
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0;
+        }
     }
 
-    
 }
 #blockColorblindContent {
     background: #edf2f6;

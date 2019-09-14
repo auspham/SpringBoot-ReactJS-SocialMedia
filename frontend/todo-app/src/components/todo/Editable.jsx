@@ -24,13 +24,17 @@ export default class Editable extends Component {
 
         TodoDataService.updateTodo(this.props.username, this.props.todo.id, todo)
                 .then(() => {this.props.refreshTodos()})
+
+        this.props.toggleShow();
     }
 
     render() {
         return (
             <div className="editableContent">
                 <textarea onChange={this.handleChange} value={this.state.content}></textarea>
-                <button className="btn btn-primary btn-status" onClick={this.handleUpdate} type="submit">Save</button>
+                <div className="create-tool">
+                    <button className="btn btn-primary btn-status" onClick={this.handleUpdate} type="submit">Save</button>
+                </div>
             </div>
         )
     }

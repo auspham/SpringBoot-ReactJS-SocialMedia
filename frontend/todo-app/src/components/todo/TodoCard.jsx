@@ -12,9 +12,8 @@ export default class TodoCard extends Component {
         }
     }
 
-    handleShow = (event) => {
-        this.setShow(true);
-        console.log("parent",  event.target.parentNode);
+    toggleShow = (event) => {
+        this.setShow(!this.state.show);
     }
     
     setShow = (value) => {
@@ -34,13 +33,13 @@ export default class TodoCard extends Component {
                 <div className="status-right">
                     {/* <button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button> */}
                     {/* <button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}><Close/></button> */}
-                    <Edit onClick={this.handleShow}/>
+                    <Edit onClick={this.toggleShow}/>
                     <Close onClick={() => this.props.deleteTodoClicked(this.props.todo.id)}/>
                 </div>
             </div>
             <div className="status-content">
-                {this.props.todo.description}
-                {this.state.show && <Editable todo={this.props.todo} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description}></Editable>}
+                {!this.state.show && this.props.todo.description}
+                {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description}></Editable>}
             </div>
         </div>);
     }

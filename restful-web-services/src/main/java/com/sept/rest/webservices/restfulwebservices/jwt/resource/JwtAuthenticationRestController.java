@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
 import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
+import com.sept.rest.webservices.restfulwebservices.model.Profile;
+import com.sept.rest.webservices.restfulwebservices.model.ProfileDTO;
 import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
 import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,14 @@ public class JwtAuthenticationRestController {
     } else {
         return ResponseEntity.badRequest().body("Duplicated User");
     }
+  }
+  
+  @RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
+  public ResponseEntity<?> updateProfile(@RequestBody ProfileDTO profile) throws Exception{
+	  Profile updated = jwtInMemoryUserDetailsService.update(profile);
+	  
+	return ResponseEntity.ok(updated);
+	  
   }
 
 

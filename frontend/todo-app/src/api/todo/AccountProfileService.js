@@ -8,6 +8,11 @@ class AccountProfileService{
         return axios.get(`${JPA_API_URL}/users/${name}/profile`);
     }
 
+    retrieveDetails(name) {
+        console.log('executed service')
+        return axios.get(`${JPA_API_URL}/users/${name}/profile/details`);
+    }
+
     retrieveAllInfo() {
         console.log('executed service')
         return axios.get(`${JPA_API_URL}/users/all/profile`);

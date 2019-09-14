@@ -11,6 +11,8 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
+    private String username;
+    @Column
     private String firstname;
     @Column
     private String lastname;
@@ -18,6 +20,10 @@ public class Profile {
     private String email;
     @Column
     private String studentnumber;
+    @Column
+    private String phonenumber;
+    @Column
+    private String aboutme;
 
 
     //oneToOne Relationship with UserID
@@ -25,14 +31,25 @@ public class Profile {
     @JoinColumn(unique = true)
     private DAOUser user;
 
-    public Profile(String firstname, String lastname, String email, String studentnumber, DAOUser user) {
+   /* public Profile(String username, String firstname, String lastname, String email, String studentnumber, String phonenumber, String aboutme, DAOUser user) {
+    	this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.studentnumber = studentnumber;
+        this.phonenumber = phonenumber;
+        this.aboutme = aboutme;
         this.user = user;
     }
-
+   */
+    
+    public void setUsername(String username) {
+    	this.username = username;
+    }
+    public String getUsername() {
+    	return username;
+    }
+    
     public String getFirstname() {
         return firstname;
     }
@@ -63,5 +80,21 @@ public class Profile {
 
     public void setStudentnumber(String studentnumber) {
         this.studentnumber = studentnumber;
+    }
+    
+    public String getPhonenumber() {
+    	return phonenumber;
+    }
+    
+    public void setPhonenumber(String phonenumber) {
+    	this.phonenumber = phonenumber;
+    }
+    
+    public String getAboutme() {
+    	return aboutme;
+    }
+    
+    public void setAboutme(String aboutme) {
+    	this.aboutme = aboutme;
     }
 }

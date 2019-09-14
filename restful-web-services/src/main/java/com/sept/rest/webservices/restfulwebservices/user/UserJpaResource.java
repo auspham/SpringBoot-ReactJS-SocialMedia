@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
+import com.sept.rest.webservices.restfulwebservices.model.Profile;
+import com.sept.rest.webservices.restfulwebservices.model.ProfileRepository;
 import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
 
 
@@ -31,11 +33,23 @@ public class UserJpaResource {
     @Autowired
 	private UserRepository UserRepository;
 
+    @Autowired
+    private ProfileRepository profileRepository;
 	
 	@GetMapping("/jpa/users/{username}/profile")
 	public List<DAOUser> getUser(@PathVariable String username){
 		return UserRepository.findByUsername(username);
 		//return todoService.findAll();
+	}
+	
+	@GetMapping("/jpa/users/{username}/profile/details")
+	public Profile getProfileDetails(@PathVariable String username) {
+		Profile test = new Profile();
+		test.setUsername(username);
+		test.setFirstname("Lam");
+		test.setLastname("Tran");
+		profileRepository.save(test);
+		return profileRepository.findByUsername(username);
 	}
 
 	@GetMapping("/jpa/users/all/profile")

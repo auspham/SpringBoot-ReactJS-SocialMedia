@@ -2,6 +2,9 @@ package com.sept.rest.webservices.restfulwebservices.service;
 
 import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
 import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
+import com.sept.rest.webservices.restfulwebservices.model.Profile;
+import com.sept.rest.webservices.restfulwebservices.model.ProfileDTO;
+import com.sept.rest.webservices.restfulwebservices.model.ProfileRepository;
 import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
 import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private ProfileRepository profileRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,6 +54,27 @@ public class JwtUserDetailsService implements UserDetailsService {
         } else {
             return null;
         }
+    }
+    
+    public Profile update(ProfileDTO profile) {
+    	Profile exists = profileRepository.findByUsername(profile.getUsername());
+    	Profile newProfile = new Profile();
+    	if(exists == null) {
+    		newProfile.setUsername(profile.getUsername());
+    	}
+    	else {
+    		newProfile = exists;
+    	}
+    	
+    	newProfile.setFirstname(profile.getFirstname());
+    	newProfile.setLastname(profile.getLastname());
+    	newProfile.setStudentnumber(profile.getStudentnumber());
+    	newProfile.setPhonenumber(profile.getPhonenumber());
+    	newProfile.setEmail(profile.getEmail());
+    	newProfile.setAboutme(profile.getAboutme());
+    	
+		return profileRepository.save(newProfile);
+    	
     }
 
     /* Edit the username of a current user on the database,passes a Data Transfer Object of a user, and the username to be set */

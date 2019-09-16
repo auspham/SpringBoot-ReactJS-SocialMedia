@@ -13,7 +13,7 @@ class NewsFeedComponent extends React.Component{
 
     refreshTodos = () => {
        this.child.refreshTodos();
-        console.log("child", this.child);
+       console.log("child", this.child);
     }
 
     render(){

@@ -42,6 +42,21 @@ public class TodoJpaResource {
 		//return todoService.findById(id);
 	}
 
+	@GetMapping("/jpa/users/{username}/todos/{id}/comments")
+	public List<TodoComment> getComments(@PathVariable String username, @PathVariable long id){
+		return todoJpaRepository.findById(id).get().getComments();
+	}
+
+	@PostMapping("/jpa/users/{username}/todos/{id}/comments")
+	public ResponseEntity<TodoComment> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody TodoComment comment){
+		Todo updatedTodo = todoJpaRepository.findById(id).get().addComment(comment);
+		Todo createdTodo = todoJpaRepository.save(updatedTodo);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}/comments").buildAndExpand(createdTodo.getId()).toUri();
+
+		return ResponseEntity.created(uri).build();
+	}
+
 	// DELETE /users/{username}/todos/{id}
 	@DeleteMapping("/jpa/users/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(

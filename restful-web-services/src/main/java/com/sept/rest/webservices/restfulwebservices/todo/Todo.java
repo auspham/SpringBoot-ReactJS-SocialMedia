@@ -1,6 +1,9 @@
 package com.sept.rest.webservices.restfulwebservices.todo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +18,9 @@ public class Todo {
 	private Date targetDate;
 	private boolean isDone;
 
+	@ElementCollection(targetClass=Integer.class)
+	private List<TodoComment> comments = new ArrayList<>();
+
 	public Todo() {
 
 	}
@@ -27,8 +33,16 @@ public class Todo {
 		this.description = description;
 		this.targetDate = targetDate;
 		this.isDone = isDone;
+		this.comments = new ArrayList<TodoComment>();
+	}
+	public Todo addComment(TodoComment comment) {
+		this.comments.add(comment);
+		return this;
 	}
 
+	public List<TodoComment> getComments() {
+		return this.comments;
+	}
 	public Long getId() {
 		return id;
 	}

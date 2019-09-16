@@ -14,6 +14,8 @@ class AccountProfile extends React.Component {
     };
   }
 
+  
+
   render() {
     console.warn("Debugging AccountProfile, the username: " + this.state.username);
     return (

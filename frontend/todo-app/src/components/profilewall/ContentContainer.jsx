@@ -30,7 +30,13 @@ class ContentContainer extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <SideContentComponent></SideContentComponent>
+                    <SideContentComponent
+                    firstname={this.state.firstname}
+                    lastname={this.state.lastname}
+                    studentnumber={this.state.studentnumber}
+                    email={this.state.email}
+                    phonenumber={this.state.phonenumber}
+                    aboutme={this.state.aboutme}></SideContentComponent>
                     <UpdateDetails
                         firstname={this.state.firstname}
                         lastname={this.state.lastname}

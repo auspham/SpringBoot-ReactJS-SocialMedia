@@ -23,7 +23,7 @@ class ContentContainer extends React.Component {
 
     triggerEditState = () => {
         this.setState({
-          ...this.state,
+         
           isEmptyState: false,
           isEditState: true
         })

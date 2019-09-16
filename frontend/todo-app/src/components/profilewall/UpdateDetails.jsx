@@ -94,7 +94,7 @@ class UpdateDetails extends React.Component {
         if (values.email == null) {
             errors.email = 'Enter your email'
         } else if (!emailCheck.test(values.email)) {
-            errors.lastname = 'Please enter a valid email'
+            errors.email = 'Please enter a valid email'
         }
 
 

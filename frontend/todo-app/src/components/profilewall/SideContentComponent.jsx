@@ -43,7 +43,7 @@ class SideContentComponent extends React.Component{
         return(
             <div className="col3">
                 <div className="ui-block">
-                    <div className="ui-title">Profile Info</div>
+                    <div className="ui-title" style={{ display: "flex", justifyContent: 'flex-end' }}>Contact Details<button onClick={this.props.edit} style={{ marginLeft : "auto" }}>Edit</button></div>
                     <div className="ui-content">
                         <div className="personal-info">
 

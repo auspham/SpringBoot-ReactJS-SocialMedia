@@ -6,6 +6,7 @@ import AuthenticationService from "../todo/AuthenticationService";
 import AccountProfileService from "../../api/todo/AccountProfileService";
 
 
+
 class ContentContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -15,11 +16,20 @@ class ContentContainer extends React.Component {
             studentnumber: 'Student number',
             email: 'Email',
             phonenumber: 'Phone number',
-            aboutme: 'About me'
+            aboutme: 'About me',
+            isEmptyState: true
         };
     }
 
-
+    triggerEditState = () => {
+        this.setState({
+          ...this.state,
+          isEmptyState: false,
+          isEditState: true
+        })
+      }
+    
+    
     componentDidMount() {
         console.warn("componentDidMount CC");
         this.refreshInfo();
@@ -30,13 +40,18 @@ class ContentContainer extends React.Component {
         return (
             <div className="container">
                 <div className="row">
+
+                    {this.state.isEmptyState &&
                     <SideContentComponent
+                    edit = {this.triggerEditState}
                     firstname={this.state.firstname}
                     lastname={this.state.lastname}
                     studentnumber={this.state.studentnumber}
                     email={this.state.email}
                     phonenumber={this.state.phonenumber}
-                    aboutme={this.state.aboutme}></SideContentComponent>
+                    aboutme={this.state.aboutme}></SideContentComponent> }
+
+                    {this.state.isEditState &&
                     <UpdateDetails
                         firstname={this.state.firstname}
                         lastname={this.state.lastname}
@@ -44,7 +59,7 @@ class ContentContainer extends React.Component {
                         email={this.state.email}
                         phonenumber={this.state.phonenumber}
                         aboutme={this.state.aboutme}
-                    ></UpdateDetails>
+                    ></UpdateDetails> }
                     <NewsFeedComponent></NewsFeedComponent>
                 </div>
             </div>

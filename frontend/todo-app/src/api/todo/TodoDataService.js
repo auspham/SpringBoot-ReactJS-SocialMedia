@@ -27,6 +27,14 @@ class TodoDataService {
         return axios.post(`${JPA_API_URL}/users/${name}/todos/`, todo);
     }
 
+    retrieveTodoComments(name, id) {
+        return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}/comments`);
+    }
+
+    postTodoComment(name, id, comment) {
+        return axios.post(`${JPA_API_URL}/users/${name}/todos/${id}/comments`, comment);
+    }
+
 }
 
 export default new TodoDataService()

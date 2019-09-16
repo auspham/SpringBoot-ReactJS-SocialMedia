@@ -17,9 +17,55 @@ class UpdateDetails extends React.Component {
             aboutme: this.props.aboutme
         }
         this.validate = this.validate.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
-    
+    componentDidMount() {
+        console.warn("componentDidMount CC");
+        this.refreshInfo();
+        console.log(this.state);
+    }
+
+    refreshInfo() {
+        let username = AuthenticationService.getLoggedInUserName();
+        AccountProfileService.retrieveDetails(username)
+            .then(response => {
+                console.error("response cc", response.data);
+                this.setState({
+                    firstname: response.data.firstname,
+                    lastname: response.data.lastname,
+                    studentnumber: response.data.studentnumber,
+                    email:response.data.email,
+                    studentnumber: response.data.studentnumber,
+                    phonenumber: response.data.phonenumber,
+                    aboutme: response.data.aboutme
+                });
+            })
+    }
+
+    onSubmit(values) {
+        let username = AuthenticationService.getLoggedInUserName()
+
+        this.setState({
+            firstname: values.firstname,
+            lastname: values.lastname,
+            studentnumber: values.studentnumber,
+            email: values.email,
+            phonenumber: values.phonenumber,
+            aboutme: values.aboutme
+        })
+
+      
+        AccountProfileService.updateDetails(username,
+            this.state.firstname,
+            this.state.lastname,
+            this.state.email,
+            this.state.studentnumber,
+            this.state.phonenumber,
+            this.state.aboutme)
+                
+       
+    }
 
     validate(values) {
         let errors = {}
@@ -66,8 +112,8 @@ class UpdateDetails extends React.Component {
                         <div className="personal-info">
                         <Formik
                      
-                      //  onSubmit={this.onSubmit}
-                       mapPropsToValues={this.state}
+                       onSubmit={this.onSubmit}
+                       initialValues={this.state}
                         validateOnChange={this.validate}
                         validateOnBlur={this.validate}
                         validateOnSubmit ={this.validate}

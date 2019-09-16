@@ -1,5 +1,6 @@
 import React from "react";
 import loginImg from "../../login.svg";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 export class Register extends React.Component {
   constructor(props) {

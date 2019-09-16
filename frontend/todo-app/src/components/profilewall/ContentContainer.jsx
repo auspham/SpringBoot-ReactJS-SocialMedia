@@ -20,7 +20,11 @@ class ContentContainer extends React.Component {
     }
 
 
-    
+    componentDidMount() {
+        console.warn("componentDidMount CC");
+        this.refreshInfo();
+        console.log(this.state);
+    }
 
     render() {
         return (
@@ -42,17 +46,13 @@ class ContentContainer extends React.Component {
         )
     }
 
-    componentDidMount() {
-        console.warn("componentDidMount AP");
-        this.refreshInfo();
-        console.log(this.state);
-    }
+   
 
     refreshInfo() {
         let username = AuthenticationService.getLoggedInUserName();
         AccountProfileService.retrieveDetails(username)
             .then(response => {
-                console.error("response", response.data);
+                console.error("response cc", response.data);
                 this.setState({
                     firstname: response.data.firstname,
                     lastname: response.data.lastname,

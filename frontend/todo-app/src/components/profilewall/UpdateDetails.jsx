@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./profile.scss";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import AuthenticationService from "../todo/AuthenticationService";
+import AccountProfileService from "../../api/todo/AccountProfileService";
 
 class UpdateDetails extends React.Component {
 
@@ -17,31 +19,33 @@ class UpdateDetails extends React.Component {
         this.validate = this.validate.bind(this)
     }
 
+    
+
     validate(values) {
         let errors = {}
         const nameCheck = /^[a-zA-Z\s]*$/
         const phoneCheck = /(\(+61\)|\+61|\(0[1-9]\)|0[1-9])?( ?-?[0-9]){6,9}/
         const emailCheck = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
-        if (!values.firstname) {
+        if (values.firstname == null) {
             errors.firstname = 'Enter your first name'
         } else if (!nameCheck.test(values.firstname)) {
             errors.firstname = 'Please enter a valid name'
         }
 
-        if (!values.lastname) {
+        if (values.lastname == null) {
             errors.lastname = 'Enter your last name'
         } else if (!nameCheck.test(values.lastname)) {
             errors.lastname = 'Please enter a valid name'
         }
 
-        if (!values.phonenumber) {
+        if (values.phonenumber == null) {
             errors.phonenumber = 'Enter your phone number'
         } else if (!phoneCheck.test(values.phonenumber)) {
             errors.phonenumber = 'Please enter a valid phone number'
         }
 
-        if (!values.email) {
+        if (values.email == null) {
             errors.email = 'Enter your email'
         } else if (!emailCheck.test(values.email)) {
             errors.lastname = 'Please enter a valid email'
@@ -63,7 +67,7 @@ class UpdateDetails extends React.Component {
                         <Formik
                      
                       //  onSubmit={this.onSubmit}
-                       initialValues={this.state}
+                       mapPropsToValues={this.state}
                         validateOnChange={this.validate}
                         validateOnBlur={this.validate}
                         validateOnSubmit ={this.validate}
@@ -120,6 +124,10 @@ class UpdateDetails extends React.Component {
             </div>
         )
     }
+
+    
+
+    
 }
 
 export default UpdateDetails

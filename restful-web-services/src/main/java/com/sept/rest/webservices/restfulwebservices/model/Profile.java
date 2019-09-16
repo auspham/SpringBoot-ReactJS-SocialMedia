@@ -42,6 +42,13 @@ public class Profile {
         this.user = user;
     }
    */
+    public void setID(Long id) {
+    	this.id = id;
+    }
+    
+    public long getID() {
+    	return id;
+    }
     
     public void setUsername(String username) {
     	this.username = username;

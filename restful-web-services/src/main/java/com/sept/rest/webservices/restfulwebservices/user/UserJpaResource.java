@@ -44,11 +44,6 @@ public class UserJpaResource {
 	
 	@GetMapping("/jpa/users/{username}/profile/details")
 	public Profile getProfileDetails(@PathVariable String username) {
-		Profile test = new Profile();
-		test.setUsername(username);
-		test.setFirstname("Lam");
-		test.setLastname("Tran");
-		profileRepository.save(test);
 		return profileRepository.findByUsername(username);
 	}
 

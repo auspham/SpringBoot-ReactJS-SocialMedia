@@ -27,6 +27,9 @@ public class DBFileStorageService {
             }
 
             DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+//            dbFile.setData(file.getBytes());
+//            dbFile.setFileName(file.getOriginalFilename());
+//            dbFile.setFileType(file.getContentType());
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {

@@ -1,3 +1,4 @@
+
 .content-wrapper {
     .chatArea {
         position: fixed;
@@ -94,6 +95,7 @@
         position: fixed;
         height: 100%;
         right: 0;
+
         width: 273px;
         top: 55px;
         text-align: initial;
@@ -126,5 +128,6 @@
 }
 header {
     z-index: 9999;
-    position: relative;
+    position: fixed;
+    width: 100%;
 }

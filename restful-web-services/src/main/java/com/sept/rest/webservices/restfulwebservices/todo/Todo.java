@@ -1,14 +1,13 @@
 package com.sept.rest.webservices.restfulwebservices.todo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Todo")
 public class Todo {
 	@Id
 	@GeneratedValue
@@ -18,7 +17,7 @@ public class Todo {
 	private Date targetDate;
 	private boolean isDone;
 
-	@ElementCollection(targetClass=Integer.class)
+	@ElementCollection(fetch = FetchType.LAZY)
 	private List<TodoComment> comments = new ArrayList<>();
 
 	public Todo() {
@@ -43,6 +42,7 @@ public class Todo {
 	public List<TodoComment> getComments() {
 		return this.comments;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -81,6 +81,13 @@ public class Todo {
 
 	public void setDone(boolean isDone) {
 		this.isDone = isDone;
+	}
+
+	public void printComments() {
+		System.out.println("Print comments");
+		System.out.println(Arrays.toString(comments.toArray()));
+		System.out.println("Print first comment");
+		System.out.println(comments.get(0).toString());
 	}
 
 	@Override

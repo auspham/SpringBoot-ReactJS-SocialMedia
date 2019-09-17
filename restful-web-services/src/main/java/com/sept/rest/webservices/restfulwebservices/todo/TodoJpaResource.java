@@ -28,13 +28,11 @@ public class TodoJpaResource {
 	@Autowired
 	private TodoJpaRepository todoJpaRepository;
 
-	
 	@GetMapping("/jpa/users/{username}/todos")
 	public List<Todo> getAllTodos(@PathVariable String username){
 		return todoJpaRepository.findByUsername(username);
 		//return todoService.findAll();
 	}
-	
 
 	@GetMapping("/jpa/users/{username}/todos/{id}")
 	public Todo getTodo(@PathVariable String username, @PathVariable long id){
@@ -48,22 +46,26 @@ public class TodoJpaResource {
 	}
 
 	@PostMapping("/jpa/users/{username}/todos/{id}/comments")
-	public ResponseEntity<TodoComment> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody TodoComment comment){
+	public ResponseEntity<Void> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody TodoComment comment){
+		System.out.println("id " + id);
+		System.out.println("Comment: " + comment);
 		Todo updatedTodo = todoJpaRepository.findById(id).get().addComment(comment);
-		Todo createdTodo = todoJpaRepository.save(updatedTodo);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}/comments").buildAndExpand(createdTodo.getId()).toUri();
 
-		return ResponseEntity.created(uri).build();
+//		updatedTodo.printComments();
+		updatedTodo.setUsername(username);
+
+		System.out.println("updatedTodo ID: " + updatedTodo.getId());
+		System.out.println("updatedTodo Username: " + updatedTodo.getUsername());
+
+		todoJpaRepository.save(updatedTodo); // here lies the problem
+
+		return ResponseEntity.noContent().build();
 	}
 
 	// DELETE /users/{username}/todos/{id}
 	@DeleteMapping("/jpa/users/{username}/todos/{id}")
-	public ResponseEntity<Void> deleteTodo(
-			@PathVariable String username, @PathVariable long id) {
-
+	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
 		todoJpaRepository.deleteById(id);
-
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -98,5 +100,4 @@ public class TodoJpaResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
-		
 }

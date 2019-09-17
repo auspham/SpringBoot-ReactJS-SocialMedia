@@ -35,6 +35,7 @@ export default class TodoCard extends Component {
         console.log("refreshing comments");
         TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
             this.setState({comments: res.data});
+            this.scrollToBottom();
         });
     }
 
@@ -62,6 +63,12 @@ export default class TodoCard extends Component {
         this.setState({content: ''});
     }
 
+    scrollToBottom = () => {
+        var object = this.refs.comments;
+        if (object)
+          object.scrollTop = object.scrollHeight;
+    }
+
     render() {
         return (   
         <div className="ui-block ui-custom" key={this.props.todo.id}>
@@ -80,11 +87,14 @@ export default class TodoCard extends Component {
                 {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description}></Editable>}
             </div>
             <div className="comments">
-                <div>
-                    {this.state.comments.map((comment, i) => <div className="todo" key={i}>{comment.username}: {comment.description}</div>)}
+                <div className="commentHolder" ref="comments">
+                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div class="cmt-avatar"></div><div className="commenter">{comment.username}</div> <div className="comment-desc">{comment.description}</div></div>)}
                 </div>
-                <input type="text" onChange={this.handleChange} value={this.state.content}></input>
-                <button onClick={this.handleComment}>Comment</button>
+
+                <div className="comment-control form-row">
+                    <input type="text" className="col-md-9" onChange={this.handleChange} value={this.state.content}></input>
+                    <button className="btn btn-primary btn-status col-md-2" onClick={this.handleComment}>Comment</button>
+                </div>
             </div>
         </div>);
     }

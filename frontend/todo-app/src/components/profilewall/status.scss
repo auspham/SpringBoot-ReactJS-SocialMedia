@@ -77,6 +77,7 @@
 
 .status-content{
     overflow: hidden;
+    margin-bottom: 1em;
 }
 .editableContent {
     textarea {
@@ -93,4 +94,56 @@
 }
 #blockColorblindContent {
     background: #edf2f6;
+}
+
+.comments{
+    & .commentHolder{
+        overflow: auto;
+        height: 200px;
+    }
+    & .comment-control {
+  
+    }
+
+    & .comment {
+        margin: 1em 0;
+        color: #000;
+        float: left;
+        display: block;
+        overflow: hidden;
+        width: 100%;
+
+        & .cmt-avatar {
+            background: lightgray;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            float: left;
+            margin-right: 1em;
+        }
+
+        & .commenter{
+            color: darkcyan;
+            font-weight: bold;
+        }
+
+        & .comment-desc {
+        }
+    }
+
+    & input {
+        margin-right: 1em;
+        border: 0;
+        border-bottom: 2px solid lightblue;
+        flex: 1;
+        max-width: initial;
+        &:focus{
+            outline: 0;
+            box-shadow: 0;
+        }
+    }
+
+    & .comment-control {
+        margin: 0 auto;
+    }
 }

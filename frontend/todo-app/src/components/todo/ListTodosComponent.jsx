@@ -85,8 +85,8 @@ class ListTodosComponent extends Component {
                         <div>
                             {
                                 this.state.todos.map(
-                                    todo =>
-                                       <TodoCard todo={todo} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username}/>
+                                    (todo,i) =>
+                                       <TodoCard key={todo.id} todo={todo} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username}/>
                                 )
                             }
                         </div>

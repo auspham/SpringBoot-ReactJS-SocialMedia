@@ -28,11 +28,15 @@ export default class TodoCard extends Component {
     }
 
     componentDidMount() {
-        this.refreshComments();
+        console.log("setting up", this.props.todo.id); // IT RECEIVES 1 as PROPS.
+        // console.log("setting up2", this.props.key); // IT RECEIVES 1 as PROPS.
+
+        this.setState({comments: this.props.todo.comments});
     }
 
     refreshComments = () => {
-        console.log("refreshing comments for todo", this.props.todo.id);
+        console.warn("refreshing comments for todo", this.props.todo.id);
+        
         TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
             this.setState({comments: res.data});
             this.scrollToBottom();
@@ -88,7 +92,7 @@ export default class TodoCard extends Component {
             </div>
             <div className="comments">
                 <div className="commentHolder" ref="comments">
-                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div class="cmt-avatar"></div><div className="commenter">{comment.username}</div> <div className="comment-desc">{comment.description}</div></div>)}
+                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div className="cmt-avatar"></div><div className="commenter">{comment.username}</div> <div className="comment-desc">{comment.description}</div></div>)}
                 </div>
 
                 <div className="comment-control form-row">

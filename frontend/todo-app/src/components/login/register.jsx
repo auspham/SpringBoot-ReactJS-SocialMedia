@@ -25,6 +25,10 @@ export class Register extends React.Component {
     const studentnumberCheck = /^s[0-9]{7}$/
     const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
 
+    if (values.username == null) {
+      errors.username = "Please enter your username"
+    }
+
     if (!passwordCheck.test(values.password)) {
       errors.password = "Minumum 8 characters long, 1 lower and upper case, 1 number"
     }
@@ -87,6 +91,8 @@ export class Register extends React.Component {
                   <fieldset className="form-group">
                   <label htmlFor="username">Username</label>
                   <Field className="field" type="text" name="username" />
+                  <ErrorMessage name="username" component="div"
+                    className="checkError" />
                   </fieldset>
 
                   <fieldset className="form-group">

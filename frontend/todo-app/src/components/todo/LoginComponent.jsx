@@ -41,7 +41,7 @@ class LoginComponent extends Component {
       .then(response => {
         console.log('register response:', response);
         if (response.status === 200) {
-          this.setState({ registerSuccessful: true })
+          this.setState({ registerSuccessful: true})
           alert("Register Successful");
 
           AccountProfileService.updateDetails(values.username,
@@ -52,6 +52,7 @@ class LoginComponent extends Component {
             values.phonenumber,
             values.aboutme)
 
+            this.changeState();
 
         }
       })

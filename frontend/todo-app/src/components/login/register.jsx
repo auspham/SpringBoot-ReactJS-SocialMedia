@@ -6,7 +6,6 @@ export class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recheckpassword: "",
       firstname: this.props.firstname,
       lastname: this.props.lastname,
       studentnumber: this.props.studentnumber,
@@ -32,6 +31,10 @@ export class Register extends React.Component {
 
     if (!passwordCheck.test(values.password)) {
       errors.password = "Minumum 8 characters long, 1 lower and upper case, 1 number"
+    }
+
+    if(values.retypepassword != values.password) {
+      errors.retypepassword = "Password doesn't match"
     }
 
     if (values.firstname == null) {
@@ -100,6 +103,13 @@ export class Register extends React.Component {
                   <label htmlFor="password">Password</label>
                   <Field className="field" type="password" name="password" />
                   <ErrorMessage name="password" component="div"
+                    className="checkError" />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                  <label htmlFor="retypepassword">Retype Password</label>
+                  <Field className="field" type="password" name="retypepassword" />
+                  <ErrorMessage name="retypepassword" component="div"
                     className="checkError" />
                   </fieldset>
 

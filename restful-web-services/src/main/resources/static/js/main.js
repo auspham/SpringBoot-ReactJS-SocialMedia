@@ -45,6 +45,7 @@ function uploadMultipleFiles(files) {
     xhr.onload = function() {
         console.log(xhr.responseText);
         var response = JSON.parse(xhr.responseText);
+        console.log("res",response);
         if(xhr.status == 200) {
             multipleFileUploadError.style.display = "none";
             var content = "<p>All Files Uploaded Successfully</p>";

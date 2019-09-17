@@ -97,9 +97,11 @@
 }
 
 .comments{
+    border-top: 1px solid #d3d3d338;
     & .commentHolder{
         overflow: auto;
-        height: 200px;
+        max-height: 200px;
+        margin-top: .5em;
     }
     & .comment-control {
   
@@ -134,7 +136,11 @@
     & input {
         margin-right: 1em;
         border: 0;
-        border-bottom: 2px solid lightblue;
+        border-radius: 99px;
+        background: #f1f0f0;
+        color: #636363;
+        padding-left: 20px!important;
+        padding-right: 20px!important;
         flex: 1;
         max-width: initial;
         &:focus{
@@ -144,6 +150,6 @@
     }
 
     & .comment-control {
-        margin: 0 auto;
+        margin-top: 1em;
     }
 }

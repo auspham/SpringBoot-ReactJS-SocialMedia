@@ -32,7 +32,7 @@ export default class TodoCard extends Component {
     }
 
     refreshComments = () => {
-        console.log("refreshing comments");
+        console.log("refreshing comments for todo", this.props.todo.id);
         TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
             this.setState({comments: res.data});
             this.scrollToBottom();
@@ -92,7 +92,7 @@ export default class TodoCard extends Component {
                 </div>
 
                 <div className="comment-control form-row">
-                    <input type="text" className="col-md-9" onChange={this.handleChange} value={this.state.content}></input>
+                    <input type="text" className="col-md-9" onChange={this.handleChange} value={this.state.content} placeholder="Write a comment.."></input>
                     <button className="btn btn-primary btn-status col-md-2" onClick={this.handleComment}>Comment</button>
                 </div>
             </div>

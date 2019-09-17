@@ -10,6 +10,7 @@ export default class TodoCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            target: this.props.username,
             show: false,
             comments: [],
             content: ''
@@ -27,10 +28,13 @@ export default class TodoCard extends Component {
     }
 
     componentDidMount() {
-        let username = AuthenticationService.getLoggedInUserName()
+        this.refreshComments();
+    }
 
-        TodoDataService.retrieveTodoComments(username, this.props.todo.id).then(data => {
-            this.setState({comments: data});
+    refreshComments = () => {
+        console.log("refreshing comments");
+        TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
+            this.setState({comments: res.data});
         });
     }
 
@@ -49,12 +53,13 @@ export default class TodoCard extends Component {
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
 
-        TodoDataService.postTodoComment(username, this.props.todo.id, comment).then((res,err) => {
+        TodoDataService.postTodoComment(this.state.target, this.props.todo.id, comment).then((res,err) => {
             if(err) {
                 console.log("err comment", err);
             }
-            console.log("response", res);
+            this.refreshComments();
         });
+        this.setState({content: ''});
     }
 
     render() {
@@ -75,6 +80,9 @@ export default class TodoCard extends Component {
                 {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description}></Editable>}
             </div>
             <div className="comments">
+                <div>
+                    {this.state.comments.map((comment, i) => <div className="todo" key={i}>{comment.username}: {comment.description}</div>)}
+                </div>
                 <input type="text" onChange={this.handleChange} value={this.state.content}></input>
                 <button onClick={this.handleComment}>Comment</button>
             </div>

@@ -40,9 +40,7 @@ class ListTodosComponent extends Component {
     }
 
     refreshTodos() {
-        let username = AuthenticationService.getLoggedInUserName();
-
-        TodoDataService.retrieveAllTodos(username)
+        TodoDataService.retrieveAllTodos(this.props.username)
             .then(
                 response => {
                     console.log('response', response);

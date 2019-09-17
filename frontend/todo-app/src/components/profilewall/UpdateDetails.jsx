@@ -34,7 +34,6 @@ class UpdateDetails extends React.Component {
                 this.setState({
                     firstname: response.data.firstname,
                     lastname: response.data.lastname,
-                    studentnumber: response.data.studentnumber,
                     email: response.data.email,
                     studentnumber: response.data.studentnumber,
                     phonenumber: response.data.phonenumber,
@@ -123,10 +122,6 @@ class UpdateDetails extends React.Component {
                                 {
                                     (props) => (
                                         <Form>
-                                           
-
-
-
 
                                             <fieldset className="form-group">
                                                 <label className="title">First name</label>
@@ -134,7 +129,7 @@ class UpdateDetails extends React.Component {
                                             </fieldset>
                                             <ErrorMessage name="firstname" component="div"
                                                 className="alert alert-warning" />
-                                            
+
                                             <fieldset className="form-group">
                                                 <label className="title">Last name</label>
                                                 <Field className="form-control" type="text" name="lastname" />
@@ -145,7 +140,7 @@ class UpdateDetails extends React.Component {
                                                 <label className="title">Student number</label>
                                                 <Field className="form-control" type="text" readOnly name="studentnumber" />
                                             </fieldset>
-                                            
+
                                             <fieldset className="form-group">
                                                 <label className="title">Email</label>
                                                 <Field className="form-control" type="text" name="email" />

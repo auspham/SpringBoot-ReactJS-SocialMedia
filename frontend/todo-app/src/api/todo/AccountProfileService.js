@@ -40,6 +40,12 @@ class AccountProfileService{
         })
     }
 
+    checkDuplicateUsername(username) {
+        if(username != null){
+        return axios.get(`${JPA_API_URL}/checkuser/${username}`);
+        }
+    }
+
     createInfo(name, profile) {
         //console.log('executed service')
         return axios.post(`${JPA_API_URL}/users/${name}/profile/`, profile);

@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .csrf().disable()// dont authenticate this particular request
-                .authorizeRequests().antMatchers("/updateProfile","/authenticate", "/register", "/ws/**", "/ws", "/app/**", "/topic/**").permitAll().and()
+                .authorizeRequests().antMatchers("/jpa/checkuser/**","/updateProfile","/authenticate", "/register", "/ws/**", "/ws", "/app/**", "/topic/**").permitAll().and()
             .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity
-            .ignoring().antMatchers(HttpMethod.POST, "/register","/updateProfile").and()
+            .ignoring().antMatchers(HttpMethod.POST, "/register","/updateProfile","/jpa/checkuser/**").and()
             .ignoring()
             .antMatchers(
                 HttpMethod.POST,

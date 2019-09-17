@@ -17,7 +17,7 @@ class SideContentComponent extends React.Component{
     }
 
     componentDidMount() {
-        console.warn("componentDidMount CC");
+        
         this.refreshInfo();
         console.log(this.state);
     }

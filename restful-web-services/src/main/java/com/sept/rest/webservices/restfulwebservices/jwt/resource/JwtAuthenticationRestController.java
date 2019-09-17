@@ -2,6 +2,7 @@ package com.sept.rest.webservices.restfulwebservices.jwt.resource;
 
 import java.util.Objects;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +25,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,6 +72,23 @@ public class JwtAuthenticationRestController {
     }
   }
   
+  
+  @GetMapping("/jpa/checkuser/{username}")
+	public boolean checkDuplicateUser(@PathVariable String username){
+	  boolean exist = jwtInMemoryUserDetailsService.checkUsername(username);
+	 
+	    if (exist == false) {
+	    	System.out.println("No user " + username);
+	        return exist;
+	    } else {
+	    	System.out.println("Found user " + username);
+	        return exist;
+	    }
+	  
+
+	}
+  
+  
   @RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
   public ResponseEntity<?> updateProfile(@RequestBody ProfileDTO profile) throws Exception{
 	  Profile updated = jwtInMemoryUserDetailsService.update(profile);
@@ -76,6 +96,8 @@ public class JwtAuthenticationRestController {
 	return ResponseEntity.ok(updated);
 	  
   }
+  
+  
 
 
   @RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.GET)

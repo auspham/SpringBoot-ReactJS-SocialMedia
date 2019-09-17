@@ -76,6 +76,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return profileRepository.save(newProfile);
     	
     }
+    
+    public boolean checkUsername(String username) {
+    	boolean exist = false;
+    	List<DAOUser> found = userRepository.findByUsername(username);
+    	if(found.isEmpty()) {
+    		exist = false;
+    	}
+    	else {
+    		exist = true;
+    	}
+    	return exist;
+    }
 
     /* Edit the username of a current user on the database,passes a Data Transfer Object of a user, and the username to be set */
     public DAOUser editUsername(UserDTO user, String username) {

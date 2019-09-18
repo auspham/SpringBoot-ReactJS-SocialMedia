@@ -69,7 +69,7 @@ class UpdateDetails extends React.Component {
     }
 
     checkDuplicateEmail(email) {
-        if (email != null) {
+        if (email != null && email != this.state.email) {
             AccountProfileService.checkDuplicateEmail(email)
                 .then(response => {
                     console.warn(response.data);
@@ -90,7 +90,7 @@ class UpdateDetails extends React.Component {
     }
 
     checkDuplicatePhonenumber(phonenumber) {
-        if (phonenumber != null) {
+        if (phonenumber != null && phonenumber != this.state.phonenumber) {
             AccountProfileService.checkDuplicatePhonenumber(phonenumber)
                 .then(response => {
                     console.warn(response.data);

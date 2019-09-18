@@ -43,6 +43,9 @@ public class Todo {
 		return this.comments;
 	}
 
+	public void setComments(List<TodoComment> list) {
+		this.comments = list;
+	}
 	public Long getId() {
 		return id;
 	}

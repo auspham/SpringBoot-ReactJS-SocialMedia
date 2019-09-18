@@ -14,7 +14,9 @@ class UpdateDetails extends React.Component {
             studentnumber: this.props.studentnumber,
             email: this.props.email,
             phonenumber: this.props.phonenumber,
-            aboutme: this.props.aboutme
+            aboutme: this.props.aboutme,
+            isEmailDuplicate: false,
+            isPhonenumberDuplicate: false
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -66,11 +68,56 @@ class UpdateDetails extends React.Component {
         window.location.reload();
     }
 
+    checkDuplicateEmail(email) {
+        if (email != null) {
+            AccountProfileService.checkDuplicateEmail(email)
+                .then(response => {
+                    console.warn(response.data);
+
+                    if (response.data == true) {
+                        this.setState({
+                            isEmailDuplicate: true
+                        });
+                    }
+                    else if (response.data == false) {
+                        this.setState({
+                            isEmailDuplicate: false
+                        });
+                    }
+
+                })
+        }
+    }
+
+    checkDuplicatePhonenumber(phonenumber) {
+        if (phonenumber != null) {
+            AccountProfileService.checkDuplicatePhonenumber(phonenumber)
+                .then(response => {
+                    console.warn(response.data);
+
+                    if (response.data == true) {
+                        this.setState({
+                            isPhonenumberDuplicate: true
+                        });
+                    }
+                    else if (response.data == false) {
+                        this.setState({
+                            isPhonenumberDuplicate: false
+                        });
+                    }
+
+                })
+        }
+    }
+
     validate(values) {
         let errors = {}
         const nameCheck = /^[a-zA-Z\s]*$/
         const phoneCheck = /^\(?(?:\+?61|0)(?:(?:2\)?[ -]?(?:3[ -]?[38]|[46-9][ -]?[0-9]|5[ -]?[0-35-9])|3\)?(?:4[ -]?[0-57-9]|[57-9][ -]?[0-9]|6[ -]?[1-67])|7\)?[ -]?(?:[2-4][ -]?[0-9]|5[ -]?[2-7]|7[ -]?6)|8\)?[ -]?(?:5[ -]?[1-4]|6[ -]?[0-8]|[7-9][ -]?[0-9]))(?:[ -]?[0-9]){6}|4\)?[ -]?(?:(?:[01][ -]?[0-9]|2[ -]?[0-57-9]|3[ -]?[1-9]|4[ -]?[7-9]|5[ -]?[018])[ -]?[0-9]|3[ -]?0[ -]?[0-5])(?:[ -]?[0-9]){5})$/
         const emailCheck = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
+        this.checkDuplicateEmail(values.email);
+        this.checkDuplicatePhonenumber(values.phonenumber);
 
         if (values.firstname == null) {
             errors.firstname = 'Enter your first name'
@@ -88,12 +135,17 @@ class UpdateDetails extends React.Component {
             errors.phonenumber = 'Enter your phone number'
         } else if (!phoneCheck.test(values.phonenumber)) {
             errors.phonenumber = 'Please enter a valid phone number'
+        } else if (this.state.isPhonenumberDuplicate == true) {
+            console.warn("test checkphonenumber");
+            errors.phonenumber = 'This phone number is already in use'
         }
 
         if (values.email == null) {
             errors.email = 'Enter your email'
         } else if (!emailCheck.test(values.email)) {
             errors.email = 'Please enter a valid email'
+        } else if (this.state.isEmailDuplicate == true) {
+            errors.email = 'This email is already in use'
         }
 
 
@@ -117,7 +169,7 @@ class UpdateDetails extends React.Component {
                                 validateOnBlur={this.validate}
                                 validateOnSubmit={this.validate}
                                 validate={this.validate}
-                                enableReinitialize={true}
+                                enableReinitialize={false}
                             >
                                 {
                                     (props) => (

@@ -42,9 +42,28 @@ class AccountProfileService{
 
     checkDuplicateUsername(username) {
         if(username != null){
-        return axios.get(`${JPA_API_URL}/checkuser/${username}`);
+        return axios.get(`${JPA_API_URL}/checkuser/username/${username}`);
         }
     }
+
+    checkDuplicateStudentnumber(studentnumber) {
+        if(studentnumber != null){
+        return axios.get(`${JPA_API_URL}/checkuser/studentnumber/${studentnumber}`);
+        }
+    }
+
+    checkDuplicateEmail(email) {
+        if(email != null){
+        return axios.get(`${JPA_API_URL}/checkuser/email/${email}`);
+        }
+    }
+
+    checkDuplicatePhonenumber(phonenumber) {
+        if(phonenumber != null){
+        return axios.get(`${JPA_API_URL}/checkuser/phonenumber/${phonenumber}`);
+        }
+    }
+
 
     createInfo(name, profile) {
         //console.log('executed service')

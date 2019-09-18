@@ -88,6 +88,42 @@ public class JwtUserDetailsService implements UserDetailsService {
     	}
     	return exist;
     }
+    
+    public boolean checkStudentnumber(String studentnumber) {
+    	boolean exist = false;
+    	Profile found = profileRepository.findByStudentnumber(studentnumber);
+    	if(found == null) {
+    		exist = false;
+    	}
+    	else {
+    		exist = true;
+    	}
+    	return exist;
+    }
+    
+    public boolean checkEmail(String email) {
+    	boolean exist = false;
+    	Profile found = profileRepository.findByEmail(email);
+    	if (found == null) {
+    		exist = false;
+    	}
+    	else {
+    		exist = true;
+    	}
+    	return exist;
+    }
+    
+    public boolean checkPhonenumber(String phonenumber) {
+    	boolean exist = false;
+    	Profile found = profileRepository.findByPhonenumber(phonenumber);
+    	if (found == null) {
+    		exist = false;
+    	}
+    	else {
+    		exist = true;
+    	}
+    	return exist;
+    }
 
     /* Edit the username of a current user on the database,passes a Data Transfer Object of a user, and the username to be set */
     public DAOUser editUsername(UserDTO user, String username) {

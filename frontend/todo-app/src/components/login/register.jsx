@@ -13,30 +13,98 @@ export class Register extends React.Component {
       email: this.props.email,
       phonenumber: this.props.phonenumber,
       aboutme: this.props.aboutme,
-      usernamecheck: false
+      usernamecheck: false,
+      isStudentnumberDuplicate: false,
+      isEmailDuplicate: false,
+      isPhonenumberDuplicate: false
     }
     this.validate = this.validate.bind(this)
 
   }
 
   checkDuplicateUser(username) {
+    if (username != null) {
+      AccountProfileService.checkDuplicateUsername(username)
+        .then(response => {
+          console.warn(response.data);
 
-    AccountProfileService.checkDuplicateUsername(username)
-      .then(response => {
-        console.warn(response.data);
+          if (response.data == true) {
+            this.setState({
+              usernamecheck: true
+            });
+          }
+          else if (response.data == false) {
+            this.setState({
+              usernamecheck: false
+            });
+          }
 
-        if (response.data == true){
-          this.setState({
-            usernamecheck: true
-          });
-        }
-        else if(response.data == false){
-          this.setState({
-            usernamecheck: false
-          });
-        }
+        })
+    }
+  }
 
-      })
+  checkDuplicateStudentnumber(studentnumber) {
+
+    if (studentnumber != null) {
+      AccountProfileService.checkDuplicateStudentnumber(studentnumber)
+        .then(response => {
+          console.warn(response.data);
+
+          if (response.data == true) {
+            this.setState({
+              isStudentnumberDuplicate: true
+            });
+          }
+          else if (response.data == false) {
+            this.setState({
+              isStudentnumberDuplicate: false
+            });
+          }
+
+        })
+    }
+  }
+
+  checkDuplicateEmail(email) {
+    if (email != null) {
+      AccountProfileService.checkDuplicateEmail(email)
+        .then(response => {
+          console.warn(response.data);
+
+          if (response.data == true) {
+            this.setState({
+              isEmailDuplicate: true
+            });
+          }
+          else if (response.data == false) {
+            this.setState({
+              isEmailDuplicate: false
+            });
+          }
+
+        })
+    }
+  }
+
+  checkDuplicatePhonenumber(phonenumber) {
+    if (phonenumber != null) {
+      AccountProfileService.checkDuplicatePhonenumber(phonenumber)
+        .then(response => {
+          console.warn(response.data);
+
+          if (response.data == true) {
+            this.setState({
+              isPhonenumberDuplicate: true
+            });
+          }
+          else if (response.data == false) {
+            this.setState({
+              isPhonenumberDuplicate: false
+            });
+          }
+
+        })
+    }
   }
 
   validate(values) {
@@ -49,6 +117,9 @@ export class Register extends React.Component {
     const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
 
     this.checkDuplicateUser(values.username);
+    this.checkDuplicateEmail(values.email);
+    this.checkDuplicateStudentnumber(values.studentnumber);
+    this.checkDuplicatePhonenumber(values.phonenumber);
 
     if (values.username == null) {
       errors.username = "Please enter your username"
@@ -85,18 +156,25 @@ export class Register extends React.Component {
       errors.phonenumber = 'Enter your phone number'
     } else if (!phoneCheck.test(values.phonenumber)) {
       errors.phonenumber = 'Please enter a valid phone number'
+    } else if (this.state.isPhonenumberDuplicate == true) {
+      console.warn("test checkphonenumber");
+      errors.phonenumber = 'This phone number is already in use'
     }
 
     if (values.email == null) {
       errors.email = 'Enter your email'
     } else if (!emailCheck.test(values.email)) {
       errors.email = 'Please enter a valid email'
+    } else if (this.state.isEmailDuplicate == true) {
+      errors.email = 'This email is already in use'
     }
 
     if (values.studentnumber == null) {
       errors.studentnumber = 'Enter your student number'
     } else if (!studentnumberCheck.test(values.studentnumber)) {
       errors.studentnumber = 'Please enter a valid student number (includes the s)'
+    } else if (this.state.isStudentnumberDuplicate == true) {
+      errors.studentnumber = 'This student number is already in use'
     }
 
     return errors

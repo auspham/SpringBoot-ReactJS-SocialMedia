@@ -8,6 +8,10 @@ import AccountProfileService from '../../api/todo/AccountProfileService'
 class HeaderComponent extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            username: AuthenticationService.getLoggedInUserName()
+        }
     }
 
     render() {
@@ -15,15 +19,14 @@ class HeaderComponent extends Component {
         const username = AuthenticationService.getLoggedInUserName();
         const newTo = { 
             pathname: "/profile/" + username, 
-          };
+        };
 
         return (
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <ul className="navbar-nav">
                         {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/SEPT">Home</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to={newTo}>Profile</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Wall</Link></li>}
+                        {isUserLoggedIn && <li><a className="nav-link" href={'/profile/' + username}>Profile</a></li>}
                         <SearchBarComponent refreshInfo={this.props.refreshInfo} handleChange={this.props.handleChange} handleClick={this.props.handleClick}></SearchBarComponent>
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">

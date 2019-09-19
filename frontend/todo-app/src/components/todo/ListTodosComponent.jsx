@@ -40,9 +40,7 @@ class ListTodosComponent extends Component {
     }
 
     refreshTodos() {
-        let username = AuthenticationService.getLoggedInUserName();
-
-        TodoDataService.retrieveAllTodos(username)
+        TodoDataService.retrieveAllTodos(this.props.username)
             .then(
                 response => {
                     console.log('response', response);
@@ -87,8 +85,8 @@ class ListTodosComponent extends Component {
                         <div>
                             {
                                 this.state.todos.map(
-                                    todo =>
-                                       <TodoCard todo={todo} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username}/>
+                                    (todo,i) =>
+                                       <TodoCard key={todo.id} todo={todo} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username}/>
                                 )
                             }
                         </div>

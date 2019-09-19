@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { ReactComponent as Close } from './assets/times.svg';
 import { ReactComponent as Edit } from './assets/edit.svg';
+import AuthenticationService from './AuthenticationService'
+import TodoDataService from '../../api/todo/TodoDataService'
 import Editable from './Editable'
 import moment from 'moment'
 
@@ -8,7 +10,10 @@ export default class TodoCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            show: false
+            target: this.props.username,
+            show: false,
+            comments: [],
+            content: ''
         }
     }
 
@@ -22,6 +27,49 @@ export default class TodoCard extends Component {
         })
     }
 
+    componentDidMount() {
+        this.setState({comments: this.props.todo.comments}, this.scrollToBottom());
+    }
+
+    refreshComments = () => {
+        console.warn("refreshing comments for todo", this.props.todo.id);
+        
+        TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
+            this.setState({comments: res.data});
+            this.scrollToBottom();
+        });
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            content: event.target.value
+        })
+    }
+
+    handleComment = () => {
+        let username = AuthenticationService.getLoggedInUserName()
+
+        let comment = {
+            username: username,
+            description: this.state.content,
+            targetDate: moment(new Date()).format('YYYY-MM-DD')
+        }
+
+        TodoDataService.postTodoComment(this.state.target, this.props.todo.id, comment).then((res,err) => {
+            if(err) {
+                console.log("err comment", err);
+            }
+            this.refreshComments();
+        });
+        this.setState({content: ''});
+    }
+
+    scrollToBottom = () => {
+        var object = this.refs.comments;
+        if (object)
+          object.scrollTop = object.scrollHeight;
+    }
+
     render() {
         return (   
         <div className="ui-block ui-custom" key={this.props.todo.id}>
@@ -30,16 +78,28 @@ export default class TodoCard extends Component {
                     {this.props.username}
                     <div className="date">{moment(this.props.todo.targetDate).format('YYYY-MM-DD')}</div>
                 </div>
-                <div className="status-right">
-                    {/* <button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button> */}
-                    {/* <button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}><Close/></button> */}
+                {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">
                     <Edit onClick={this.toggleShow}/>
                     <Close onClick={() => this.props.deleteTodoClicked(this.props.todo.id)}/>
-                </div>
+                </div> : ""}
             </div>
             <div className="status-content">
                 {!this.state.show && this.props.todo.description}
                 {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description}></Editable>}
+            </div>
+            <div className="comments">
+                <div className="commentHolder" ref="comments">
+                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div className="cmt-avatar"></div><div className="commenter">{comment.username}</div> <div className="comment-desc">{comment.description}</div></div>)}
+                </div>
+
+                <div className="comment-control form-row">
+                    <input type="text" className="col-md-9" onChange={this.handleChange} value={this.state.content} placeholder="Write a comment.." onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                        this.handleComment();
+                    }
+                }}></input>
+                    <button className="btn btn-primary btn-status col-md-2" onClick={this.handleComment}>Comment</button>
+                </div>
             </div>
         </div>);
     }

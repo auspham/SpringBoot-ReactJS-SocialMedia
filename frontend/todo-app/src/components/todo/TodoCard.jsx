@@ -28,10 +28,7 @@ export default class TodoCard extends Component {
     }
 
     componentDidMount() {
-        console.log("setting up", this.props.todo.id); // IT RECEIVES 1 as PROPS.
-        // console.log("setting up2", this.props.key); // IT RECEIVES 1 as PROPS.
-
-        this.setState({comments: this.props.todo.comments});
+        this.setState({comments: this.props.todo.comments}, this.scrollToBottom());
     }
 
     refreshComments = () => {
@@ -81,10 +78,10 @@ export default class TodoCard extends Component {
                     {this.props.username}
                     <div className="date">{moment(this.props.todo.targetDate).format('YYYY-MM-DD')}</div>
                 </div>
-                <div className="status-right">
+                {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">
                     <Edit onClick={this.toggleShow}/>
                     <Close onClick={() => this.props.deleteTodoClicked(this.props.todo.id)}/>
-                </div>
+                </div> : ""}
             </div>
             <div className="status-content">
                 {!this.state.show && this.props.todo.description}

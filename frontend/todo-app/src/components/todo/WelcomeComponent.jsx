@@ -3,6 +3,7 @@ import TodoDataService from '../../api/todo/TodoDataService'
 import AuthenticationService from './AuthenticationService'
 import { ReactComponent as Empty } from './assets/empty.svg';
 import TodoCard from './TodoCard'
+import TodoComponent from './TodoComponent';
 class WelcomeComponent extends Component {
 
     constructor(props) {
@@ -41,6 +42,7 @@ class WelcomeComponent extends Component {
     render() {
         return (
             <div className="generalTodo">
+                <TodoComponent refreshTodos={this.retrieveAllTodos} username={AuthenticationService.getLoggedInUserName()}/>
                 {this.state.todos.length > 0 ? <>
                 {this.state.todos.map(
                     (todo,i) =>

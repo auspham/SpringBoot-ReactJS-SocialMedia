@@ -73,7 +73,7 @@ public class ChatController {
         System.out.println(headerAccessor.getSubscriptionId());
         return chatMessage;
     }
-
+    
 }
 
 

@@ -19,9 +19,10 @@ class NewsFeedComponent extends React.Component{
     render(){
         return(
             <div className="col4">
-                <div className="container">
-                    <TodoComponent match={this.props.match} refreshTodos={this.refreshTodos} username={this.props.username} history={this.props.history}/>
-                </div>
+                {AuthenticationService.getLoggedInUserName() == this.props.username ?
+                    <div className="container">
+                        <TodoComponent match={this.props.match} refreshTodos={this.refreshTodos} username={this.props.username} history={this.props.history}/>
+                    </div> : ""}
                 <ListTodoComponents history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username}/>
             </div>
         )

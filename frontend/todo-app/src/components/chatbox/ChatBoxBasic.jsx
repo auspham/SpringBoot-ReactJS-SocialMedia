@@ -32,7 +32,7 @@ export default class ChatBoxBasic extends Component {
     
         // Subscribing to the public topic
         stompClient.subscribe('/topic/public', this.onMessageReceived);
-    
+
         // Registering user to server
         stompClient.send("/app/addUser",
           {},

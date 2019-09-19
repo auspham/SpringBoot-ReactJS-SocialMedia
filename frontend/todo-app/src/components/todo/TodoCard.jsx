@@ -75,7 +75,7 @@ export default class TodoCard extends Component {
         <div className="ui-block ui-custom" key={this.props.todo.id}>
             <div className="status-head">
                 <div className="status-left">
-                    {this.props.username}
+                    <a href={'/profile/' + this.props.username}>{this.props.username}</a>
                     <div className="date">{moment(this.props.todo.targetDate).format('YYYY-MM-DD')}</div>
                 </div>
                 {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">
@@ -89,7 +89,7 @@ export default class TodoCard extends Component {
             </div>
             <div className="comments">
                 <div className="commentHolder" ref="comments">
-                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div className="cmt-avatar"></div><div className="commenter">{comment.username}</div> <div className="comment-desc">{comment.description}</div></div>)}
+                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div className="cmt-avatar"></div><div className="commenter"><a href={'/profile/' + comment.username}>{comment.username}</a></div> <div className="comment-desc">{comment.description}</div></div>)}
                 </div>
 
                 <div className="comment-control form-row">

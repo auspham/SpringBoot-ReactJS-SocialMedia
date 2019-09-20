@@ -5,7 +5,9 @@ import AuthenticationService from './AuthenticationService'
 import TodoDataService from '../../api/todo/TodoDataService'
 import Editable from './Editable'
 import moment from 'moment'
+import Socket from './StartSocket'
 
+let stompClient = null;
 export default class TodoCard extends Component {
     constructor(props) {
         super(props)
@@ -29,11 +31,10 @@ export default class TodoCard extends Component {
 
     componentDidMount() {
         this.setState({comments: this.props.todo.comments}, this.scrollToBottom());
+        this.refreshComments();
     }
 
     refreshComments = () => {
-        console.warn("refreshing comments for todo", this.props.todo.id);
-        
         TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
             this.setState({comments: res.data});
             this.scrollToBottom();
@@ -60,6 +61,7 @@ export default class TodoCard extends Component {
                 console.log("err comment", err);
             }
             this.refreshComments();
+            this.props.stompClient.send("/app/postStatus", {}, true);
         });
         this.setState({content: ''});
     }

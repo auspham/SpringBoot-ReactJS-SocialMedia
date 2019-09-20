@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './chatbox.scss';
 import ChatModule from './ChatModule';
+import Socket from '../todo/StartSocket';
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 var stompClient = null;
@@ -20,10 +21,7 @@ export default class ChatBoxSide extends Component {
     }
 
     connect = () => {
-        const Stomp = require('stompjs');
-        let SockJS = require('sockjs-client');
-        SockJS = new SockJS('http://localhost:8080/ws')
-        stompClient = Stomp.over(SockJS);
+        stompClient = Socket.connect();
         stompClient.connect({}, this.onConnected, this.onError);
     }
 

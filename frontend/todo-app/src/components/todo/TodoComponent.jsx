@@ -60,14 +60,15 @@ class TodoComponent extends Component {
 
         if (this.state.id === -1) {
             TodoDataService.createTodo(username, todo)
-                .then(() => {this.props.refreshTodos()})
+                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
         } else {
             TodoDataService.updateTodo(username, this.state.id, todo)
-                .then(() => {this.props.refreshTodos()})
+                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
         }
 
         this.setState({description: ''})
         console.log(values);
+
     }
 
     handleChange = (event) => {

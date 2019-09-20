@@ -16,6 +16,7 @@ class ListTodosComponent extends Component {
         this.addTodoClicked = this.addTodoClicked.bind(this)
         this.refreshTodos = this.refreshTodos.bind(this)
         this.show = false;
+        this.refers = [];
     }
 
     componentWillUnmount() {
@@ -41,6 +42,7 @@ class ListTodosComponent extends Component {
     }
 
     refreshTodos() {
+
         TodoDataService.retrieveAllTodos(this.props.username)
             .then(
                 response => {
@@ -48,6 +50,8 @@ class ListTodosComponent extends Component {
                     this.setState({ todos: response.data.reverse() })
                 }
             )
+        
+        this.refers.forEach(refer => refer.refreshComments());
     }
 
     deleteTodoClicked(id) {
@@ -75,9 +79,6 @@ class ListTodosComponent extends Component {
     handleClose = () => this.setShow(false);
     
     render() {
-
-        let closeModal = () => this.setState({ open: false })
-
         return (
             <div>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
@@ -87,7 +88,7 @@ class ListTodosComponent extends Component {
                             {
                                 this.state.todos.map(
                                     (todo,i) =>
-                                       <TodoCard key={todo.id} todo={todo} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username}/>
+                                       <TodoCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username} stompClient={this.props.stompClient}/>
                                 )
                             }
                         </div>

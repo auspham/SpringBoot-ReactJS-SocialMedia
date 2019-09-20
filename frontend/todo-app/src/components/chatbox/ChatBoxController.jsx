@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
-var stompClient = null;
 export default class ChatBoxController extends Component {
     constructor(props) {
         super(props);
@@ -12,53 +11,44 @@ export default class ChatBoxController extends Component {
             broadcastMessage: [],
             userList: []
         }
-        this.connect();
-    }
-
-    connect = () => {
-        const Stomp = require('stompjs');
-        let SockJS = require('sockjs-client');
-        SockJS = new SockJS('http://localhost:8080/ws')
-        stompClient = Stomp.over(SockJS);
-        stompClient.connect({}, this.onConnected, this.onError);
     }
 
     getUserList = () => {
       return this.state.userList;
     }
 
+    componentDidMount() {
+      this.props.stompClient.connect({}, this.onConnected, this.onError);
+    }
+
     onConnected = () => {
-
-        this.setState({
-          channelConnected: true
-        })
+      this.setState({
+        channelConnected: true
+      })
+      if(this.props.stompClient.status === 'CONNECTED') {
+        // Subscribing to the public topic
+        this.props.stompClient.subscribe('/topic/public', this.onMessageReceived);
     
-        if(stompClient.status === 'CONNECTED') {
-          // Subscribing to the public topic
-          stompClient.subscribe('/topic/public', this.onMessageReceived);
-      
-          // Registering user to server
-          stompClient.send("/app/addUser",
-            {},
-            JSON.stringify({ sender: this.state.username, type: 'JOIN' })
-          )
-        }
-
+        // Registering user to server
+        this.props.stompClient.send("/app/addUser",
+          {},
+          JSON.stringify({ sender: this.state.username, type: 'JOIN' })
+        )
+      }
     }
 
     onError = (error) => {
-       console.error(error);
+        console.error(error);
     }
-
     sendMessage = (type, value) => {
-        if (stompClient) {
+        if ( this.props.stompClient) {
             let chatMessage = {
               sender: this.state.username,
               content: type === 'TYPING' ? value : value,
               type: type      
             };
       
-            stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
+            this.props.stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
       
             // clear message text box after sending the message
         }

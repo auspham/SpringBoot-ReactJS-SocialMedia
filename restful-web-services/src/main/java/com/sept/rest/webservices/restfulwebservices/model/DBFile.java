@@ -16,6 +16,11 @@ public class DBFile {
 
     private String fileType;
 
+   //OneToOne with UserID
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private DAOUser user;
+
     @Lob
     private byte[] data;
 

@@ -36,7 +36,7 @@ class NewsFeedComponent extends React.Component{
                     <div className="container">
                         <TodoComponent match={this.props.match} stompClient={stompClient} refreshTodos={this.refreshTodos} username={this.props.username} history={this.props.history}/>
                     </div> : ""}
-                <ListTodoComponents history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username}/>
+                <ListTodoComponents history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username} stompClient={stompClient}/>
             </div>
         )
     }

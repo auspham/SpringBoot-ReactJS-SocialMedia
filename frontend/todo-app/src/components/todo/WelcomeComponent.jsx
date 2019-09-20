@@ -15,7 +15,6 @@ class WelcomeComponent extends Component {
             todos: []
         }
         this.refers = [];
-        this.child = React.createRef();
     }
 
     componentDidMount() {

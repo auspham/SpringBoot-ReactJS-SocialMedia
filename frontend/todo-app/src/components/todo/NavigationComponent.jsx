@@ -10,6 +10,7 @@ class NavigationComponent extends Component {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
         <div classnpm="navbar-nav">
+            <form class="search-bar"></form>
             <a href="#" class="nav-item nav-link active">Home</a>
             <a href="#" class="nav-item nav-link">Profile</a>
             <a href="#" class="nav-item nav-link">Messages</a>

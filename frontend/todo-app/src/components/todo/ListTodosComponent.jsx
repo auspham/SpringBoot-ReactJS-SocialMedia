@@ -75,9 +75,6 @@ class ListTodosComponent extends Component {
     handleClose = () => this.setShow(false);
     
     render() {
-
-        let closeModal = () => this.setState({ open: false })
-
         return (
             <div>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}

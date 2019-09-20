@@ -7,6 +7,13 @@ import ChatBox from '../chatbox/ChatBoxSide'
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
 class AuthenticatedRoute extends Component {
+    constructor() {
+        super();
+        this.state = {
+            stompClient: null
+        }
+        this.connect();
+    }
     isUserLoggedIn() {
         let user = sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
         if (user === null) return false;
@@ -22,12 +29,24 @@ class AuthenticatedRoute extends Component {
             }
         )
     }
+
+
+    connect = () => {
+        const Stomp = require('stompjs');
+        let SockJS = require('sockjs-client');
+        SockJS = new SockJS('http://localhost:8080/ws')
+        this.setState({
+            stompClient: Stomp.over(SockJS)
+        });
+    }
+
+
     componentWillMount() {
         this.setupAxiosInterceptors();
     }
     render() {
         if (AuthenticationService.isUserLoggedIn()) {
-            return <div className="content-wrapper"><div className="main-content"><Route {...this.props} /></div><ChatBox /> </div>
+            return <div className="content-wrapper"><div className="main-content"><Route {...this.props} stompClient={this.state.stompClient}/></div><ChatBox /> </div>
         } else {
             return <Redirect to="/login" />
         }

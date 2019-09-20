@@ -26,13 +26,17 @@ public class Profile {
     private String aboutme;
 
 
+
+
     //oneToOne Relationship with UserID
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private DAOUser user;
 
+
    /* public Profile(String username, String firstname, String lastname, String email, String studentnumber, String phonenumber, String aboutme, DAOUser user) {
     	this.username = username;
+
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;

@@ -1,9 +1,11 @@
 package com.sept.rest.webservices.restfulwebservices.controller;
 
+import com.sept.rest.webservices.restfulwebservices.dao.DBFileRepository;
 import com.sept.rest.webservices.restfulwebservices.model.DBFile;
-import com.sept.rest.webservices.restfulwebservices.model.DBFileDTO;
+import com.sept.rest.webservices.restfulwebservices.model.Profile;
 import com.sept.rest.webservices.restfulwebservices.payload.UploadFileResponse;
 import com.sept.rest.webservices.restfulwebservices.service.DBFileStorageService;
+import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
 public class FileController {
 
@@ -28,19 +26,61 @@ public class FileController {
     @Autowired
     private DBFileStorageService DBFileStorageService;
 
-    @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+    @Autowired
+    private DBFileRepository dbFileRepository;
+
+    @Autowired
+    JwtUserDetailsService jwtInMemoryUserDetailsService;
+
+    @PostMapping("/uploadAvatar")
+    public UploadFileResponse uploadAvatar(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
         DBFile dbFile = DBFileStorageService.storeFile(file);
+
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(dbFile.getId())
                 .toUriString();
 
+        System.out.println("File URL: " + fileDownloadUri);
+
+        dbFile.setFileURL(fileDownloadUri);
+        dbFileRepository.save(dbFile);
+        System.out.println(dbFile);
+
+
+        Profile updated = jwtInMemoryUserDetailsService.assignAvatar(username, dbFile);
+
+
         return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
 
+    @PostMapping("/uploadBackground")
+    public UploadFileResponse uploadBackground(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
+        DBFile dbFile = DBFileStorageService.storeFile(file);
+
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(dbFile.getId())
+                .toUriString();
+
+        System.out.println("File URL: " + fileDownloadUri);
+
+        dbFile.setFileURL(fileDownloadUri);
+        dbFileRepository.save(dbFile);
+        System.out.println(dbFile);
+
+
+        Profile updated = jwtInMemoryUserDetailsService.assignBackground(username, dbFile);
+
+
+        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
+                file.getContentType(), file.getSize());
+    }
+
+    /*
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files, DBFileDTO username) {
         return Arrays.asList(files)
@@ -48,6 +88,8 @@ public class FileController {
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
     }
+
+     */
 
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {

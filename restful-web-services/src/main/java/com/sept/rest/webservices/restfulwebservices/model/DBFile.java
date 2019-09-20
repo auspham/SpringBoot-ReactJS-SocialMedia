@@ -11,10 +11,14 @@ public class DBFile {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    @Column
     private String username;
+    @Column
     private String fileName;
-
+    @Column
     private String fileType;
+    @Column
+    private String fileURL;
 
    //OneToOne with UserID
    @OneToOne(cascade = CascadeType.ALL)
@@ -72,5 +76,17 @@ public class DBFile {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getFileURL() {
+        return fileURL;
+    }
+
+    public void setFileURL(String fileURL) {
+        this.fileURL = fileURL;
+    }
+    @Override
+    public String toString() {
+        return String.format("File: %s", fileURL);
     }
 }

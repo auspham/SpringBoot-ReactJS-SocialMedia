@@ -53,19 +53,32 @@ public class JwtUserDetailsService implements UserDetailsService {
             return null;
         }
     }
-    
+    public Profile assignAvatar(String username, DBFile file){
+    	Profile profile = profileRepository.findByUsername(username);
+    	profile.setAvatar(file.getFileURL());
+
+    	return profileRepository.save(profile);
+	}
+
+	public Profile assignBackground(String username, DBFile file){
+		Profile profile = profileRepository.findByUsername(username);
+		profile.setBackground(file.getFileURL());
+
+		return profileRepository.save(profile);
+	}
+
+
     public Profile update(ProfileDTO profile) {
     	Profile exists = profileRepository.findByUsername(profile.getUsername());
     	Profile newProfile = new Profile();
-    	DBFile fileExist = dbFileRepository.findByUsername(profile.getUsername());
-    	DBFile file = new DBFile();
-    	if(exists == null && fileExist == null) {
+
+    	if(exists == null) {
     		newProfile.setUsername(profile.getUsername());
-    		file.setUsername(profile.getUsername());
+
     	}
     	else {
     		newProfile = exists;
-    		file = fileExist;
+
 
     	}
     	

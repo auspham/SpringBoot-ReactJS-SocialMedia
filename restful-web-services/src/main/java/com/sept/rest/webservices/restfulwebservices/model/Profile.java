@@ -24,9 +24,18 @@ public class Profile {
     private String phonenumber;
     @Column
     private String aboutme;
+    @Column
+    private String avatar;
+    @Column
+    private String background;
 
+    public String getBackground() {
+        return background;
+    }
 
-
+    public void setBackground(String background) {
+        this.background = background;
+    }
 
     //oneToOne Relationship with UserID
     @OneToOne(cascade = CascadeType.ALL)
@@ -49,7 +58,7 @@ public class Profile {
     public void setID(Long id) {
     	this.id = id;
     }
-    
+
     public long getID() {
     	return id;
     }
@@ -107,5 +116,16 @@ public class Profile {
     
     public void setAboutme(String aboutme) {
     	this.aboutme = aboutme;
+    }
+     public void setAvatar(String avatar){
+        this.avatar = avatar;
+     }
+     public String getAvatar(){
+        return avatar;
+     }
+
+    @Override
+    public String toString() {
+        return String.format("username: %s, avatar: %s", username, avatar);
     }
 }

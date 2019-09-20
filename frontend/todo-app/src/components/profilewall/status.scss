@@ -1,6 +1,7 @@
 .ui-custom{
     text-align: initial;
     padding: 1.5em;
+    font-size: 12px;
 
     .btn-status {
         border-radius: 9999px;   
@@ -124,7 +125,7 @@
             margin-right: 1em;
         }
 
-        & .commenter{
+        & .commenter a{
             color: darkcyan;
             font-weight: bold;
         }
@@ -152,4 +153,14 @@
     & .comment-control {
         margin-top: 1em;
     }
+}
+
+.generalTodo {
+    margin-top: 56px;
+    margin-right: 72px;
+    padding: 2em;
+}
+
+.main-content {
+    min-height: 100vh;
 }

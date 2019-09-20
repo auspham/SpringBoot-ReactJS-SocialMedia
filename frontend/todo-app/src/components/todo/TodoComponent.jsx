@@ -10,7 +10,7 @@ class TodoComponent extends Component {
         super(props)
 
         this.state = {
-            id: this.props.match.params.id ? this.props.match.params : -1,
+            id: this.props.match ? this.props.match.params.id ? this.props.match.params : -1 : -1,
             description: '',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
@@ -60,10 +60,10 @@ class TodoComponent extends Component {
 
         if (this.state.id === -1) {
             TodoDataService.createTodo(username, todo)
-                .then(() => {this.props.history.push('/profile/' + username); this.props.refreshTodos()})
+                .then(() => {this.props.refreshTodos()})
         } else {
             TodoDataService.updateTodo(username, this.state.id, todo)
-                .then(() => {this.props.history.push('/profile' + username); this.props.refreshTodos()})
+                .then(() => {this.props.refreshTodos()})
         }
 
         this.setState({description: ''})
@@ -83,7 +83,6 @@ class TodoComponent extends Component {
 
         return (
             <div>
-                <div className="container">
                     <Formik
                         initialValues={{ description, targetDate }}
                         onSubmit={this.onSubmit}
@@ -115,7 +114,7 @@ class TodoComponent extends Component {
                         }
                     </Formik>
 
-                </div>
+
             </div>
         )
     }

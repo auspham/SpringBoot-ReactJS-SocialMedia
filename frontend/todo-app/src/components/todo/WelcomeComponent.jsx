@@ -1,70 +1,56 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import HelloWorldService from '../../api/todo/HelloWorldService.js'
+import TodoDataService from '../../api/todo/TodoDataService'
+import AuthenticationService from './AuthenticationService'
+import { ReactComponent as Empty } from './assets/empty.svg';
+import TodoCard from './TodoCard'
+import TodoComponent from './TodoComponent';
 class WelcomeComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this)
         this.state = {
-            welcomeMessage: ''
+            todos: []
         }
-        this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this)
-        this.handleError = this.handleError.bind(this)
     }
+
+    componentDidMount() {
+        this.retrieveAllTodos();
+    }
+
+    retrieveAllTodos = () => {
+        TodoDataService.retrieveAll().then(response => {
+            this.setState({
+                todos: response.data.sort(function(a,b) {
+                    return new Date(b.targetDate) - new Date(a.targetDate);
+                }).reverse()
+            })
+        });
+    }
+
+    deleteTodoClicked = (id) => {
+        let username = AuthenticationService.getLoggedInUserName();
+        let that = this;
+        //console.log(id + " " + username);
+        TodoDataService.deleteTodo(username, id)
+            .then(response => {
+                    that.retrieveAllTodos()
+                }
+            );
+    }   
+
 
     render() {
         return (
-            <>
-                <h1>Welcome!</h1>
-                <div className="container">
-                    Welcome {this.props.match.params.name}.
-                    You can manage your todos <Link to="/todos">here</Link>.
-                </div>
-                <div className="container">
-                    Click here to get a customized welcome message.
-                    <button onClick={this.retrieveWelcomeMessage}
-                        className="btn btn-success">Get Welcome Message</button>
-                </div>
-                <div className="container">
-                    {this.state.welcomeMessage}
-                </div>
-
-            </>
+            <div className="generalTodo">
+                <TodoComponent refreshTodos={this.retrieveAllTodos} username={AuthenticationService.getLoggedInUserName()}/>
+                {this.state.todos.length > 0 ? <>
+                {this.state.todos.map(
+                    (todo,i) =>
+                        <TodoCard key={todo.id} todo={todo} refreshTodos={this.retrieveAllTodos} deleteTodoClicked={this.deleteTodoClicked} username={todo.username}/>
+                )}
+                </> : <Empty width={500}/>}
+            </div>
         )
-    }
-
-    retrieveWelcomeMessage() {
-        // HelloWorldService.executeHelloWorldService()
-        // .then( response => this.handleSuccessfulResponse(response) )
-
-        // HelloWorldService.executeHelloWorldBeanService()
-        // .then( response => this.handleSuccessfulResponse(response) )
-
-        HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
-            .then(response => this.handleSuccessfulResponse(response))
-            .catch(error => this.handleError(error))
-    }
-
-    handleSuccessfulResponse(response) {
-        console.log(response)
-        this.setState({ welcomeMessage: response.data.message })
-    }
-
-    handleError(error) {
-
-        console.log(error.response)
-
-        let errorMessage = '';
-
-        if (error.message)
-            errorMessage += error.message
-
-        if (error.response && error.response.data) {
-            errorMessage += error.response.data.message
-        }
-
-        this.setState({ welcomeMessage: errorMessage })
     }
 
 }

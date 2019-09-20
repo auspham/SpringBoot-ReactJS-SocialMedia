@@ -20,7 +20,9 @@ class ListTodosComponent extends Component {
 
     componentWillUnmount() {
         console.log('componentWillUnmount')
-        this.props.onRef(undefined)
+        if(this.props.onRef) {
+            this.props.onRef(undefined)   
+        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -28,7 +30,9 @@ class ListTodosComponent extends Component {
     }
 
     componentDidMount() {
-        this.props.onRef(this)
+        if(this.props.onRef) {
+            this.props.onRef(this)
+        }
 
         console.log('componentDidMount')
         this.refreshTodos();

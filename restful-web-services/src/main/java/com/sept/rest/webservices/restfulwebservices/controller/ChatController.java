@@ -73,6 +73,13 @@ public class ChatController {
         System.out.println(headerAccessor.getSubscriptionId());
         return chatMessage;
     }
+
+    @MessageMapping("/postStatus")
+    @SendTo("/topic/status")
+    public boolean check(@Payload boolean status) {
+        System.out.println("Received status post");
+        return true;
+    }
     
 }
 

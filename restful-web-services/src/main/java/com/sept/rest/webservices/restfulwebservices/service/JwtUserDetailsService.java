@@ -1,14 +1,9 @@
 package com.sept.rest.webservices.restfulwebservices.service;
 
+import com.sept.rest.webservices.restfulwebservices.dao.DBFileRepository;
 import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
-import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
-import com.sept.rest.webservices.restfulwebservices.model.Profile;
-import com.sept.rest.webservices.restfulwebservices.model.ProfileDTO;
-import com.sept.rest.webservices.restfulwebservices.model.ProfileRepository;
-import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
-import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
+import com.sept.rest.webservices.restfulwebservices.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,6 +27,9 @@ public class JwtUserDetailsService implements UserDetailsService {
     
     @Autowired
     private ProfileRepository profileRepository;
+
+    @Autowired
+	private DBFileRepository dbFileRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -59,11 +57,16 @@ public class JwtUserDetailsService implements UserDetailsService {
     public Profile update(ProfileDTO profile) {
     	Profile exists = profileRepository.findByUsername(profile.getUsername());
     	Profile newProfile = new Profile();
-    	if(exists == null) {
+    	DBFile fileExist = dbFileRepository.findByUsername(profile.getUsername());
+    	DBFile file = new DBFile();
+    	if(exists == null && fileExist == null) {
     		newProfile.setUsername(profile.getUsername());
+    		file.setUsername(profile.getUsername());
     	}
     	else {
     		newProfile = exists;
+    		file = fileExist;
+
     	}
     	
     	newProfile.setFirstname(profile.getFirstname());

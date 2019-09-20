@@ -15,6 +15,7 @@ class WelcomeComponent extends Component {
 
     componentDidMount() {
         this.retrieveAllTodos();
+        console.log(this.props.stompClient);
     }
 
     retrieveAllTodos = () => {

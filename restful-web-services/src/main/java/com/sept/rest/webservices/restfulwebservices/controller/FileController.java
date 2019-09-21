@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class FileController {
 
@@ -32,8 +33,10 @@ public class FileController {
     @Autowired
     JwtUserDetailsService jwtInMemoryUserDetailsService;
 
-    @PostMapping("/uploadAvatar")
-    public UploadFileResponse uploadAvatar(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
+    
+    @PostMapping("/jpa/uploadAvatar/{username}")
+    public UploadFileResponse uploadAvatar( @PathVariable String username, @RequestBody MultipartFile file) {
+    	
         DBFile dbFile = DBFileStorageService.storeFile(file);
 
 
@@ -41,7 +44,7 @@ public class FileController {
                 .path("/downloadFile/")
                 .path(dbFile.getId())
                 .toUriString();
-
+        System.out.println("This user: " + username);
         System.out.println("File URL: " + fileDownloadUri);
 
         dbFile.setFileURL(fileDownloadUri);
@@ -56,7 +59,7 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
-    @PostMapping("/uploadBackground")
+    @PostMapping("/jpa/uploadBackground")
     public UploadFileResponse uploadBackground(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
         DBFile dbFile = DBFileStorageService.storeFile(file);
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import "./search.scss"
 import AccountProfileService from "../../api/todo/AccountProfileService"
-import Socket from '../todo/StartSocket';
 
 class SearchBarComponent extends React.Component {
 
@@ -17,8 +16,6 @@ class SearchBarComponent extends React.Component {
     }
 
     componentDidMount() {
-        let stompClient = Socket.connect();
-        stompClient.connect({}, this.onConnected, this.onError);
         this.getAllUser();
     }
 

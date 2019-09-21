@@ -36,9 +36,6 @@ public class TodoJpaResource {
 
 	@GetMapping("/jpa/users/")
 	public List<DAOUser> getAllUser() {
-		List<DAOUser> test = userRepository.findAll();
-		System.out.println("----------------------------------------s");
-		System.out.println(Arrays.toString(test.toArray()));
 		return userRepository.findAll();
 	}
 	@GetMapping("/jpa/users/todos")

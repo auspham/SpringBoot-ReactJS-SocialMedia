@@ -27,7 +27,7 @@ class HeaderComponent extends Component {
                     <ul className="navbar-nav">
                         {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/">Home</Link></li>}
                         {isUserLoggedIn && <li><a className="nav-link" href={'/profile/' + username}>Profile</a></li>}
-                        <SearchBarComponent refreshInfo={this.props.refreshInfo} handleChange={this.props.handleChange} handleClick={this.props.handleClick}></SearchBarComponent>
+                        <SearchBarComponent refreshInfo={this.props.refreshInfo}></SearchBarComponent>
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}

@@ -1,0 +1,35 @@
+.search-group {
+    align-self: center;
+    margin-left: 1em;
+    position: relative;
+    .searchBar {
+        background: #131413;
+        border: 0;
+        padding: 0.5em 1em;
+        width: 300px;
+        color: lightslategray;
+        font-size: .8em;
+        border-radius: 5px;
+
+        &:focus{ 
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    .resultBox {
+        width: 100%;
+        position: absolute;
+        background: #131413;
+        color: lightslategray;
+        margin-top: -2px;
+        border-radius: 0px 0px 10px 10px;
+        font-size: .8em;
+
+        .userSearch {
+            padding: 1em;
+            text-align: initial;
+            border-bottom: 1px solid #ffffff0d;
+        }
+    }
+}

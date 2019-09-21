@@ -3,13 +3,14 @@ import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
+import "../profilewall/status.scss"
 
 class TodoComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            id: this.props.match.params.id,
+            id: this.props.match ? this.props.match.params.id ? this.props.match.params : -1 : -1,
             description: '',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
@@ -46,7 +47,6 @@ class TodoComponent extends Component {
         }
 
         return errors
-
     }
 
     onSubmit(values) {
@@ -60,13 +60,21 @@ class TodoComponent extends Component {
 
         if (this.state.id === -1) {
             TodoDataService.createTodo(username, todo)
-                .then(() => this.props.history.push('/todos'))
+                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
         } else {
             TodoDataService.updateTodo(username, this.state.id, todo)
-                .then(() => this.props.history.push('/todos'))
+                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
         }
 
+        this.setState({description: ''})
         console.log(values);
+
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            description: event.target.value
+        });
     }
 
     render() {
@@ -76,8 +84,6 @@ class TodoComponent extends Component {
 
         return (
             <div>
-                <h1>Todo</h1>
-                <div className="container">
                     <Formik
                         initialValues={{ description, targetDate }}
                         onSubmit={this.onSubmit}
@@ -93,21 +99,23 @@ class TodoComponent extends Component {
                                         className="alert alert-warning" />
                                     <ErrorMessage name="targetDate" component="div"
                                         className="alert alert-warning" />
-                                    <fieldset className="form-group">
-                                        <label>Description</label>
-                                        <Field className="form-control" type="text" name="description" />
+
+                                
+                                    <fieldset className="form-group ui-block ui-custom">
+                                        <div className="create-content">
+                                            <Field className="form-control post-status" type="text" name="description" value={this.state.description} placeholder={"Hey " + this.props.username + ", what are you thinking?"} onChange={this.handleChange}/>
+                                        </div>
+                                        <div className="create-tool">
+                                            <button className="btn btn-primary btn-status" type="submit">Post</button>
+                                        </div>
+
                                     </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Target Date</label>
-                                        <Field className="form-control" type="date" name="targetDate" />
-                                    </fieldset>
-                                    <button className="btn btn-success" type="submit">Save</button>
                                 </Form>
                             )
                         }
                     </Formik>
 
-                </div>
+
             </div>
         )
     }

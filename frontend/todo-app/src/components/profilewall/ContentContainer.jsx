@@ -41,6 +41,7 @@ class ContentContainer extends React.Component {
             <div className="container">
                 <div className="row">
 
+
                     {this.state.isEmptyState &&
                     <SideContentComponent
                     edit = {this.triggerEditState}
@@ -60,7 +61,8 @@ class ContentContainer extends React.Component {
                         phonenumber={this.state.phonenumber}
                         aboutme={this.state.aboutme}
                     ></UpdateDetails> }
-                    <NewsFeedComponent></NewsFeedComponent>
+                    <NewsFeedComponent history={this.props.history} match={this.props.match} username={this.props.username}></NewsFeedComponent>
+
                 </div>
             </div>
 

@@ -106,9 +106,9 @@ class ProfileContainer extends React.Component {
                   </div>
                 </div>
                 <div className="control-block-button">
-                  <btn className="control-button"><img src={updateinfobtn}></img></btn>
-                  <btn className="control-button"><img src={msgbtn}></img></btn>
-                  <btn className="control-button"><img src={notificationbtn}></img></btn>
+                  <button className="control-button"><img src={updateinfobtn}></img></button>
+                  <button className="control-button"><img src={msgbtn}></img></button>
+                  <button className="control-button"><img src={notificationbtn}></img></button>
                 </div>
               </div>
             </div>

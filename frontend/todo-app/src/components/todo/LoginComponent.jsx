@@ -21,7 +21,6 @@ class LoginComponent extends Component {
       registerSuccessful: false
     };
     this.handleRegister = this.handleRegister.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }

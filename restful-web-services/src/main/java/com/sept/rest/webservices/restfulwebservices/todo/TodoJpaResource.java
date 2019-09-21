@@ -27,14 +27,16 @@ public class TodoJpaResource {
 
 	@Autowired
 	private TodoJpaRepository todoJpaRepository;
+	@GetMapping("/jpa/users/todos")
+	public List<Todo> getAll() {
+		return todoJpaRepository.findAll();
+	}
 
-	
 	@GetMapping("/jpa/users/{username}/todos")
 	public List<Todo> getAllTodos(@PathVariable String username){
 		return todoJpaRepository.findByUsername(username);
 		//return todoService.findAll();
 	}
-	
 
 	@GetMapping("/jpa/users/{username}/todos/{id}")
 	public Todo getTodo(@PathVariable String username, @PathVariable long id){
@@ -42,13 +44,32 @@ public class TodoJpaResource {
 		//return todoService.findById(id);
 	}
 
+	@GetMapping("/jpa/users/{username}/todos/{id}/comments")
+	public List<TodoComment> getComments(@PathVariable String username, @PathVariable long id){
+		return todoJpaRepository.findById(id).get().getComments();
+	}
+
+	@PostMapping("/jpa/users/{username}/todos/{id}/comments")
+	public ResponseEntity<Void> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody TodoComment comment){
+		System.out.println("id " + id);
+		System.out.println("Comment: " + comment);
+		Todo updatedTodo = todoJpaRepository.findById(id).get().addComment(comment);
+
+//		updatedTodo.printComments();
+		updatedTodo.setUsername(username);
+
+		System.out.println("updatedTodo ID: " + updatedTodo.getId());
+		System.out.println("updatedTodo Username: " + updatedTodo.getUsername());
+
+		todoJpaRepository.save(updatedTodo); // here lies the problem
+
+		return ResponseEntity.noContent().build();
+	}
+
 	// DELETE /users/{username}/todos/{id}
 	@DeleteMapping("/jpa/users/{username}/todos/{id}")
-	public ResponseEntity<Void> deleteTodo(
-			@PathVariable String username, @PathVariable long id) {
-
+	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
 		todoJpaRepository.deleteById(id);
-
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -61,7 +82,7 @@ public class TodoJpaResource {
 			@PathVariable long id, @RequestBody Todo todo){
 		
 		todo.setUsername(username);
-		
+		todo.setComments(todoJpaRepository.findById(id).get().getComments());
 		Todo todoUpdated = todoJpaRepository.save(todo);
 		
 		return new ResponseEntity<Todo>(todo, HttpStatus.OK);
@@ -83,5 +104,4 @@ public class TodoJpaResource {
 		
 		return ResponseEntity.created(uri).build();
 	}
-		
 }

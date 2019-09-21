@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<DAOUser, Long> {
     List<DAOUser> findByUsername(String username);
+    List<DAOUser> findAll();
 }

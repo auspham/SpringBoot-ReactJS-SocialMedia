@@ -14,7 +14,6 @@ class LoginComponent extends Component {
       registerSuccessful: false
     };
     this.handleRegister = this.handleRegister.bind(this);
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -28,7 +27,8 @@ class LoginComponent extends Component {
   handleRegister() {
       AuthenticationService.registerNewAccount(
         this.state.username,
-        this.state.password
+        this.state.password,
+        'email@email.com'
       )
         .then(response => {
           console.log('register response:', response);

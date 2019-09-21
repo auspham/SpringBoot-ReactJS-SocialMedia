@@ -17,11 +17,13 @@ class UpdateDetails extends React.Component {
             aboutme: this.props.aboutme,
             isEmailDuplicate: false,
             isPhonenumberDuplicate: false,
-            file: ""
+            avatarfile: "",
+            backgroundfile:"",
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-        this.handleFile = this.handleFile.bind(this)
+        this.handleAvatarFile = this.handleAvatarFile.bind(this)
+        this.handleBackgroundFile = this.handleBackgroundFile.bind(this)
     }
 
     componentDidMount() {
@@ -67,7 +69,8 @@ class UpdateDetails extends React.Component {
             this.state.phonenumber,
             this.state.aboutme);
         
-            AccountProfileService.uploadAvatar(this.state.file,username);
+            AccountProfileService.uploadAvatar(this.state.avatarfile,username);
+            AccountProfileService.uploadBackground(this.state.backgroundfile,username);
             window.location.reload();
     }
 
@@ -156,10 +159,17 @@ class UpdateDetails extends React.Component {
 
     }
 
-    handleFile = (event) => {
+    handleAvatarFile = (event) => {
         console.warn(event.target.files[0]);
         this.setState({
-            file: event.target.files[0]
+            avatarfile: event.target.files[0]
+        });
+    }
+
+    handleBackgroundFile = (event) => {
+        console.warn(event.target.files[0]);
+        this.setState({
+            backgroundfile: event.target.files[0]
         });
     }
     render() {
@@ -219,8 +229,11 @@ class UpdateDetails extends React.Component {
                                                 <Field className="form-control" type="text" name="aboutme" />
                                             </fieldset>
 
+                                            <label className="title">Change avatar</label>
+                                            <fieldset><input id="file" name="avatarfile" type="file" accept="image/png, image/jpeg" onChange={this.handleAvatarFile} className="form-control" /></fieldset>
 
-                                            <fieldset><input id="file" name="file" type="file" onChange={this.handleFile} className="form-control" /></fieldset>
+                                            <label className="title">Change background</label>
+                                            <fieldset><input id="file" name="backgroundfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
 
                                             <button className="btn btn-success" type="submit">Save</button>
                                         </Form>

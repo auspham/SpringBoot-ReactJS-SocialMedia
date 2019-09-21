@@ -58,9 +58,10 @@ public class FileController {
         return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
-
-    @PostMapping("/jpa/uploadBackground")
-    public UploadFileResponse uploadBackground(@RequestParam("file") MultipartFile file, @RequestParam("username") String username) {
+    
+    @PostMapping("/jpa/uploadBackground/{username}")
+    public UploadFileResponse uploadBackground( @PathVariable String username, @RequestBody MultipartFile file) {
+    	
         DBFile dbFile = DBFileStorageService.storeFile(file);
 
 
@@ -68,7 +69,7 @@ public class FileController {
                 .path("/downloadFile/")
                 .path(dbFile.getId())
                 .toUriString();
-
+        System.out.println("This user: " + username);
         System.out.println("File URL: " + fileDownloadUri);
 
         dbFile.setFileURL(fileDownloadUri);
@@ -82,6 +83,8 @@ public class FileController {
         return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
+
+    
 
     /*
     @PostMapping("/uploadMultipleFiles")

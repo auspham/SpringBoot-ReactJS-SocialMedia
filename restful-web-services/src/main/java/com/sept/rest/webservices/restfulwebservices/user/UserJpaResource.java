@@ -42,6 +42,19 @@ public class UserJpaResource {
 		//return todoService.findAll();
 	}
 	
+	@GetMapping("/jpa/users/{username}/profile/avatar")
+	public String getAvatarLink(@PathVariable String username){
+		return profileRepository.findByUsername(username).getAvatar();
+		//return todoService.findAll();
+	}
+	
+	@GetMapping("/jpa/users/{username}/profile/background")
+	public String getBackgroundLink(@PathVariable String username){
+		return profileRepository.findByUsername(username).getBackground();
+		//return todoService.findAll();
+	}
+	
+	
 	@GetMapping("/jpa/users/{username}/profile/details")
 	public Profile getProfileDetails(@PathVariable String username) {
 		return profileRepository.findByUsername(username);

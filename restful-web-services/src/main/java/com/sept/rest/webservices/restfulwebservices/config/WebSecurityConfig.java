@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .csrf().disable()// dont authenticate this particular request
-                .authorizeRequests().antMatchers("/downloadFile/*","/jpa/uploadAvatar/*","/jpa/checkuser/**","/updateProfile","/authenticate", "/register", "/ws/**", "/ws", "/app/**", "/topic/**").permitAll().and()
+                .authorizeRequests().antMatchers("/downloadFile/*","/jpa/uploadBackground/*","/jpa/uploadAvatar/*","/jpa/checkuser/**","/updateProfile","/authenticate", "/register", "/ws/**", "/ws", "/app/**", "/topic/**").permitAll().and()
             .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity
-            .ignoring().antMatchers(HttpMethod.POST, "/register","/updateProfile","/jpa/checkuser/**","/jpa/uploadAvatar/*","/downloadFile/*").and()
+            .ignoring().antMatchers(HttpMethod.POST, "/register","/updateProfile","/jpa/checkuser/**","/jpa/uploadAvatar/*","/downloadFile/*","/jpa/uploadBackground/*").and()
             .ignoring()
             .antMatchers(
                 HttpMethod.POST,

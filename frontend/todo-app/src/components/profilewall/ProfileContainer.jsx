@@ -10,13 +10,15 @@ import AccountProfileService from "../../api/todo/AccountProfileService";
 
 class ProfileContainer extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
-    this.state={
+    this.state = {
       username: this.props.username,
-      firstname:'',
-      lastname:''
+      firstname: '',
+      lastname: '',
+      avatarlink: '',
+      backgroundlink: ''
     }
 
   }
@@ -24,20 +26,37 @@ class ProfileContainer extends React.Component {
     console.warn("componentDidMount CC");
     this.refreshInfo();
     console.log(this.state);
-}
+  }
 
-refreshInfo() {
+  refreshInfo() {
     let username = AuthenticationService.getLoggedInUserName();
-    AccountProfileService.retrieveDetails(username)
-        .then(response => {
-           
-            this.setState({
-                firstname: response.data.firstname,
-                lastname: response.data.lastname,
 
-            });
+    AccountProfileService.retrieveDetails(username)
+      .then(response => {
+
+        this.setState({
+          username: username,
+          firstname: response.data.firstname,
+          lastname: response.data.lastname,
+
+
+        });
+      })
+    AccountProfileService.getAvatarLink(username)
+      .then(response => {
+        this.setState({
+          avatarlink: response.data
         })
-}
+      })
+
+    AccountProfileService.getBackgroundLink(username)
+      .then(response => {
+        this.setState({
+          backgroundlink: response.data
+        })
+      })
+
+  }
   render() {
     return (
       <div className="container">
@@ -45,7 +64,7 @@ refreshInfo() {
           <div className="col">
             <div className="ui-block">
               <div className="top-header-thumb">
-                <img className="banner" src={rmitlogo}></img>
+                <img className="banner" src={this.state.backgroundlink}></img>
               </div>
               <div className="profile-section">
                 <div className="row">
@@ -65,7 +84,7 @@ refreshInfo() {
                   <div className="avatar-container">
                     <div className="image-cropper">
                       <img
-                        src={judo}
+                        src={this.state.avatarlink}
                         className="profile-pic"
                         alt="avatar"
                       ></img>

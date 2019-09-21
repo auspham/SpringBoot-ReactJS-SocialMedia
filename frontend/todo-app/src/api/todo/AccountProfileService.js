@@ -82,13 +82,22 @@ class AccountProfileService {
     }
 
     uploadBackground(file, username) {
-        return axios.post(`${JPA_API_URL}/uploadBackground`, {
-            file,
-            username
-        }
-        )
+        const formData = new FormData();
+        formData.set("file", file);
+        return axios.post(`${JPA_API_URL}/uploadBackground/${username}`,formData,
+        {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }});
     }
 
+    getAvatarLink(username){
+        return axios.get(`${JPA_API_URL}/users/${username}/profile/avatar`);
+    }
+
+    getBackgroundLink(username){
+        return axios.get(`${JPA_API_URL}/users/${username}/profile/background`);
+    }
 }
 
 export default new AccountProfileService()

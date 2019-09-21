@@ -41,7 +41,10 @@ html {
 }
 
 .banner {
-  width: 100%;
+  max-width:100%;
+  
+  height:auto;
+  max-height: 360px;
 }
 
 .judo {
@@ -149,6 +152,7 @@ li {
   position: relative;
   text-size-adjust: 100%;
   width: 100%;
+  
 }
 
 .ui-content {

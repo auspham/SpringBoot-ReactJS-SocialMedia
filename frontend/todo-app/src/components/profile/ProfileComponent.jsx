@@ -1,26 +1,20 @@
 import React, { Component } from "react";
-import AuthenticationService from "./AuthenticationService";
-import { Login } from "../login/login";
-import { Register } from "../login/register";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AuthenticationService from "../todo/AuthenticationService";
+import { UpdateDetails } from "./updateDetails";
 
-class LoginComponent extends Component {
+
+class ProfileComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       password: "",
-      firstname: 'First name',
-      lastname: 'Last name',
-      studentnumber: 'Student number',
-      email: 'Email',
-      phonenumber: 'Phone number',
-      aboutme: 'About me',
       hasLoginFailed: false,
       showSuccessMessage: false,
       registerSuccessful: false
     };
     this.handleRegister = this.handleRegister.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -31,36 +25,24 @@ class LoginComponent extends Component {
     });
   }
 
-  handleRegister(values) {
-    AuthenticationService.registerNewAccount(
-      values.username,
-      values.password,
-      'email@email.com'
-    )
-      .then(response => {
-        console.log('register response:', response);
-        if (response.status === 200) {
-          this.setState({ registerSuccessful: true})
-          alert("Register Successful");
+  handleRegister() {
+      AuthenticationService.registerNewAccount(
+        this.state.username,
+        this.state.password
+      )
+        .then(response => {
+          console.log('register response:', response);
+          if(response.status === 200) {
+            this.setState({ registerSuccessful: true })
+            alert("Register Successful");
+          }
+        })
+        .catch(() => {
+          this.setState({ showSuccessMessage: false });
+          this.setState({ hasLoginFailed: true });
+          alert("User already exists or something is wrong")
 
-          AccountProfileService.updateDetails(values.username,
-            values.firstname,
-            values.lastname,
-            values.email,
-            values.studentnumber,
-            values.phonenumber,
-            values.aboutme)
-
-            this.changeState();
-
-        }
-      })
-      .catch(() => {
-        this.setState({ showSuccessMessage: false });
-        this.setState({ hasLoginFailed: true });
-        alert("User already exists or something is wrong")
-
-      });
+        });
   }
 
   handleSubmit() {
@@ -100,7 +82,7 @@ class LoginComponent extends Component {
     const currentActive = isLogginActive ? "login" : "register";
     return (
       <div className="App">
-        {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
+         {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
               <div className="alert alert-warning fix-alert">
                 Invalid Credentials or something is wrong
               </div>
@@ -113,7 +95,7 @@ class LoginComponent extends Component {
                 Register successful
               </div>} */}
         <div className="login">
-
+       
           <RightSide
             current={current}
             currentActive={currentActive}
@@ -126,7 +108,7 @@ class LoginComponent extends Component {
               this.container = ref;
             }}
           >
-
+            
             {isLogginActive && (
               <Login
                 handleChange={this.handleChange}
@@ -135,18 +117,12 @@ class LoginComponent extends Component {
               />
             )}
             {!isLogginActive && (
-              <Register
-                firstname={this.state.firstname}
-                lastname={this.state.lastname}
-                studentnumber={this.state.studentnumber}
-                email={this.state.email}
-                phonenumber={this.state.phonenumber}
-                aboutme={this.state.aboutme}
+              <Register 
                 containerRef={ref => (this.current = ref)} handleChange={this.handleChange}
                 handleRegister={this.handleRegister}
-              />
+                />
             )}
-
+           
           </div>
         </div>
       </div>
@@ -168,4 +144,4 @@ const RightSide = props => {
   );
 };
 
-export default LoginComponent;
+export default ProfileComponent;

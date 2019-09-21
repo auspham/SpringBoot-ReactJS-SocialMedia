@@ -5,15 +5,56 @@ import updateinfobtn from "../../img/setting.svg"
 import msgbtn from "../../img/message.svg"
 import notificationbtn from "../../img/notification.svg"
 import "./profile.scss";
+import AuthenticationService from "../todo/AuthenticationService";
+import AccountProfileService from "../../api/todo/AccountProfileService";
 
 class ProfileContainer extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
-    this.state={
-      username: this.props.username
+    this.state = {
+      username: this.props.username,
+      firstname: '',
+      lastname: '',
+      avatarlink: '',
+      backgroundlink: ''
     }
+
+  }
+  componentDidMount() {
+    console.warn("componentDidMount CC");
+    this.refreshInfo();
+    console.log(this.state);
+  }
+
+  refreshInfo() {
+    let username = AuthenticationService.getLoggedInUserName();
+
+    AccountProfileService.retrieveDetails(username)
+      .then(response => {
+
+        this.setState({
+          username: username,
+          firstname: response.data.firstname,
+          lastname: response.data.lastname,
+
+
+        });
+      })
+    AccountProfileService.getAvatarLink(username)
+      .then(response => {
+        this.setState({
+          avatarlink: response.data
+        })
+      })
+
+    AccountProfileService.getBackgroundLink(username)
+      .then(response => {
+        this.setState({
+          backgroundlink: response.data
+        })
+      })
 
   }
   render() {
@@ -23,7 +64,7 @@ class ProfileContainer extends React.Component {
           <div className="col">
             <div className="ui-block">
               <div className="top-header-thumb">
-                <img className="banner" src={rmitlogo}></img>
+                <img className="banner" src={this.state.backgroundlink}></img>
               </div>
               <div className="profile-section">
                 <div className="row">
@@ -43,12 +84,12 @@ class ProfileContainer extends React.Component {
                   <div className="avatar-container">
                     <div className="image-cropper">
                       <img
-                        src={judo}
+                        src={this.state.avatarlink}
                         className="profile-pic"
                         alt="avatar"
                       ></img>
                     </div>
-                    <div className="avatar-author-content">{this.props.username}</div>
+                    <div className="avatar-author-content">{this.state.firstname} {this.state.lastname}</div>
                   </div>
                   <div className="col2">
                     <ul className="profile-menu">

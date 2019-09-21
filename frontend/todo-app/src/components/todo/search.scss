@@ -25,11 +25,32 @@
         margin-top: -2px;
         border-radius: 0px 0px 10px 10px;
         font-size: .8em;
+        overflow: scroll;
+        max-height: 184px;
+
+        & a {
+            color: lightslategray;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
 
         .userSearch {
             padding: 1em;
             text-align: initial;
             border-bottom: 1px solid #ffffff0d;
+            border-radius: 0px 0px 0px 0px;
+
+            &:hover{
+                background: #434a51;
+                color: #e1dede;
+            }
+
+        }
+
+        & > .userSearch:last-child {
+            border-radius: 0px 0px 10px 10px;
         }
     }
 }

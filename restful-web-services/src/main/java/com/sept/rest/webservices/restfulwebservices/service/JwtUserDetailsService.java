@@ -1,14 +1,9 @@
 package com.sept.rest.webservices.restfulwebservices.service;
 
+import com.sept.rest.webservices.restfulwebservices.dao.DBFileRepository;
 import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
-import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
-import com.sept.rest.webservices.restfulwebservices.model.Profile;
-import com.sept.rest.webservices.restfulwebservices.model.ProfileDTO;
-import com.sept.rest.webservices.restfulwebservices.model.ProfileRepository;
-import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
-import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
+import com.sept.rest.webservices.restfulwebservices.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,6 +28,9 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private ProfileRepository profileRepository;
 
+    @Autowired
+	private DBFileRepository dbFileRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -55,15 +53,33 @@ public class JwtUserDetailsService implements UserDetailsService {
             return null;
         }
     }
-    
+    public Profile assignAvatar(String username, DBFile file){
+    	Profile profile = profileRepository.findByUsername(username);
+    	profile.setAvatar(file.getFileURL());
+
+    	return profileRepository.save(profile);
+	}
+
+	public Profile assignBackground(String username, DBFile file){
+		Profile profile = profileRepository.findByUsername(username);
+		profile.setBackground(file.getFileURL());
+
+		return profileRepository.save(profile);
+	}
+
+
     public Profile update(ProfileDTO profile) {
     	Profile exists = profileRepository.findByUsername(profile.getUsername());
     	Profile newProfile = new Profile();
+
     	if(exists == null) {
     		newProfile.setUsername(profile.getUsername());
+
     	}
     	else {
     		newProfile = exists;
+
+
     	}
     	
     	newProfile.setFirstname(profile.getFirstname());

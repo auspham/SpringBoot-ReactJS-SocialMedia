@@ -70,6 +70,22 @@ class AccountProfileService{
         return axios.post(`${JPA_API_URL}/users/${name}/profile/`, profile);
     }
 
+    uploadAvatar(username,file){
+        return axios.post(`${API_URL}/uploadAvatar` , {
+            username,
+            file
+            }
+    )
+    }
+
+    uploadBackground(username,file){
+        return axios.post(`${API_URL}/uploadBackground` , {
+                username,
+                file
+            }
+        )
+    }
+
 }
 
 export default new AccountProfileService()

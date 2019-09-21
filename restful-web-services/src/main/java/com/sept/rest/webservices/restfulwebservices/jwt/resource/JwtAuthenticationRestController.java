@@ -1,17 +1,8 @@
 package com.sept.rest.webservices.restfulwebservices.jwt.resource;
 
-import java.util.Objects;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
-import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
-import com.sept.rest.webservices.restfulwebservices.model.Profile;
-import com.sept.rest.webservices.restfulwebservices.model.ProfileDTO;
-import com.sept.rest.webservices.restfulwebservices.model.UserDTO;
+import com.sept.rest.webservices.restfulwebservices.model.*;
 import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,15 +13,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -71,6 +57,8 @@ public class JwtAuthenticationRestController {
 			return ResponseEntity.badRequest().body("Duplicated User");
 		}
 	}
+
+
 
 	@GetMapping("/jpa/checkuser/username/{username}")
 	public boolean checkDuplicateUser(@PathVariable String username) {

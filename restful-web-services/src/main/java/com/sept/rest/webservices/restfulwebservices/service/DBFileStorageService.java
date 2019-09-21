@@ -2,19 +2,24 @@ package com.sept.rest.webservices.restfulwebservices.service;
 
 import com.sept.rest.webservices.restfulwebservices.Exception.FileStorageException;
 import com.sept.rest.webservices.restfulwebservices.Exception.MyFileNotFoundException;
-import com.sept.rest.webservices.restfulwebservices.model.DBFile;
 import com.sept.rest.webservices.restfulwebservices.dao.DBFileRepository;
+import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
+import com.sept.rest.webservices.restfulwebservices.model.DBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 
 @Service
-public class DBFileStorageService {
+public class DBFileStorageService  {
 
     @Autowired
     private DBFileRepository dbFileRepository;
+
+    @Autowired
+    private UserDao userDao;
 
     public DBFile storeFile(MultipartFile file) {
         // Normalize file name
@@ -25,11 +30,11 @@ public class DBFileStorageService {
             if(fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-
+            //DBFile exists = dbFileRepository.findByUsername(dbfile.getUsername());
             DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
-//            dbFile.setData(file.getBytes());
-//            dbFile.setFileName(file.getOriginalFilename());
-//            dbFile.setFileType(file.getContentType());
+//            if(exists == null) {
+//                dbFile.setUsername(dbfile.getUsername());
+//            }
 
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {

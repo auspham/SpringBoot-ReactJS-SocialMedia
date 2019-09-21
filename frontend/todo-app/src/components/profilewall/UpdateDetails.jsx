@@ -16,7 +16,8 @@ class UpdateDetails extends React.Component {
             phonenumber: this.props.phonenumber,
             aboutme: this.props.aboutme,
             isEmailDuplicate: false,
-            isPhonenumberDuplicate: false
+            isPhonenumberDuplicate: false,
+            file: ""
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -65,6 +66,7 @@ class UpdateDetails extends React.Component {
             this.state.phonenumber,
             this.state.aboutme)
 
+        AccountProfileService.uploadAvatar(username, this.state.file);
         window.location.reload();
     }
 
@@ -153,6 +155,13 @@ class UpdateDetails extends React.Component {
 
     }
 
+    handleFile = (event) => {
+        console.log(event.target);
+        let file = event.target.files[0];
+        this.setState({
+            file: file
+        });
+    }
     render() {
 
         return (
@@ -209,6 +218,8 @@ class UpdateDetails extends React.Component {
                                                 <label className="title">About me</label>
                                                 <Field className="form-control" type="text" name="aboutme" />
                                             </fieldset>
+
+                                            <input id="file" name="file" type="file" onChange={this.handleFile} className="form-control" />
 
                                             <button className="btn btn-success" type="submit">Save</button>
                                         </Form>

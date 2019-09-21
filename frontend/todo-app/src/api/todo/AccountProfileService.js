@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_URL, JPA_API_URL } from '../../Constants'
 
-class AccountProfileService{
+class AccountProfileService {
 
     retrieveInfo(name) {
         console.log('executed service')
@@ -28,7 +28,7 @@ class AccountProfileService{
         return axios.put(`${JPA_API_URL}/users/${name}/profile/${id}`, profile);
     }
 
-    updateDetails(username,firstname,lastname,email,studentnumber,phonenumber,aboutme) {
+    updateDetails(username, firstname, lastname, email, studentnumber, phonenumber, aboutme) {
         return axios.post(`${API_URL}/updateProfile`, {
             username,
             firstname,
@@ -41,26 +41,26 @@ class AccountProfileService{
     }
 
     checkDuplicateUsername(username) {
-        if(username != null){
-        return axios.get(`${JPA_API_URL}/checkuser/username/${username}`);
+        if (username != null) {
+            return axios.get(`${JPA_API_URL}/checkuser/username/${username}`);
         }
     }
 
     checkDuplicateStudentnumber(studentnumber) {
-        if(studentnumber != null){
-        return axios.get(`${JPA_API_URL}/checkuser/studentnumber/${studentnumber}`);
+        if (studentnumber != null) {
+            return axios.get(`${JPA_API_URL}/checkuser/studentnumber/${studentnumber}`);
         }
     }
 
     checkDuplicateEmail(email) {
-        if(email != null){
-        return axios.get(`${JPA_API_URL}/checkuser/email/${email}`);
+        if (email != null) {
+            return axios.get(`${JPA_API_URL}/checkuser/email/${email}`);
         }
     }
 
     checkDuplicatePhonenumber(phonenumber) {
-        if(phonenumber != null){
-        return axios.get(`${JPA_API_URL}/checkuser/phonenumber/${phonenumber}`);
+        if (phonenumber != null) {
+            return axios.get(`${JPA_API_URL}/checkuser/phonenumber/${phonenumber}`);
         }
     }
 
@@ -70,19 +70,22 @@ class AccountProfileService{
         return axios.post(`${JPA_API_URL}/users/${name}/profile/`, profile);
     }
 
-    uploadAvatar(username,file){
-        return axios.post(`${API_URL}/uploadAvatar` , {
-            username,
-            file
-            }
-    )
+
+    uploadAvatar(file, username) {
+        const formData = new FormData();
+        formData.set("file", file);
+        return axios.post(`${JPA_API_URL}/uploadAvatar/${username}`,formData,
+        {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }});
     }
 
-    uploadBackground(username,file){
-        return axios.post(`${API_URL}/uploadBackground` , {
-                username,
-                file
-            }
+    uploadBackground(file, username) {
+        return axios.post(`${JPA_API_URL}/uploadBackground`, {
+            file,
+            username
+        }
         )
     }
 

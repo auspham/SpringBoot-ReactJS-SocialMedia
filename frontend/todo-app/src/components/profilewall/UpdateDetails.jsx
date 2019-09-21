@@ -21,6 +21,7 @@ class UpdateDetails extends React.Component {
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.handleFile = this.handleFile.bind(this)
     }
 
     componentDidMount() {
@@ -64,10 +65,10 @@ class UpdateDetails extends React.Component {
             this.state.email,
             this.state.studentnumber,
             this.state.phonenumber,
-            this.state.aboutme)
-
-        AccountProfileService.uploadAvatar(username, this.state.file);
-        window.location.reload();
+            this.state.aboutme);
+        
+            AccountProfileService.uploadAvatar(this.state.file,username);
+            window.location.reload();
     }
 
     checkDuplicateEmail(email) {
@@ -156,10 +157,9 @@ class UpdateDetails extends React.Component {
     }
 
     handleFile = (event) => {
-        console.log(event.target);
-        let file = event.target.files[0];
+        console.warn(event.target.files[0]);
         this.setState({
-            file: file
+            file: event.target.files[0]
         });
     }
     render() {
@@ -219,7 +219,8 @@ class UpdateDetails extends React.Component {
                                                 <Field className="form-control" type="text" name="aboutme" />
                                             </fieldset>
 
-                                            <input id="file" name="file" type="file" onChange={this.handleFile} className="form-control" />
+
+                                            <fieldset><input id="file" name="file" type="file" onChange={this.handleFile} className="form-control" /></fieldset>
 
                                             <button className="btn btn-success" type="submit">Save</button>
                                         </Form>

@@ -87,7 +87,7 @@ export default class TodoCard extends Component {
             </div>
             <div className="status-content">
                 {!this.state.show && this.props.todo.description}
-                {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description}></Editable>}
+                {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshTodos={this.props.refreshTodos} content={this.props.todo.description} stompClient={this.props.stompClient}></Editable>}
             </div>
             <div className="comments">
                 <div className="commentHolder" ref="comments">

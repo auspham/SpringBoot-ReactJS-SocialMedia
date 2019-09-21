@@ -51,7 +51,10 @@ class ListTodosComponent extends Component {
                 }
             )
         
-        this.refers.forEach(refer => refer.refreshComments());
+        this.refers.forEach(refer => {
+            if(refer)
+                refer.refreshComments()
+        });
     }
 
     deleteTodoClicked(id) {
@@ -61,7 +64,8 @@ class ListTodosComponent extends Component {
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
-                    this.refreshTodos()
+                    this.refreshTodos();
+                    this.props.stompClient.send("/app/postStatus", {}, true);
                 }
             )
 

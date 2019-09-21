@@ -23,7 +23,7 @@ export default class Editable extends Component {
         }
 
         TodoDataService.updateTodo(this.props.username, this.props.todo.id, todo)
-                .then(() => {this.props.refreshTodos()})
+                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
 
         this.props.toggleShow();
     }

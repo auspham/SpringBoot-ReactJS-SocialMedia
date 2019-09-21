@@ -40,7 +40,10 @@ class WelcomeComponent extends Component {
                 }).reverse()
             })
         });
-        this.refers.forEach(refer => refer.refreshComments());
+        this.refers.forEach(refer => {
+            if(refer)
+                refer.refreshComments()
+        });
     }
 
     deleteTodoClicked = (id) => {
@@ -49,7 +52,8 @@ class WelcomeComponent extends Component {
         //console.log(id + " " + username);
         TodoDataService.deleteTodo(username, id)
             .then(response => {
-                    that.retrieveAllTodos()
+                    that.retrieveAllTodos();
+                    stompClient.send("/app/postStatus", {}, true);
                 }
             );
     }   

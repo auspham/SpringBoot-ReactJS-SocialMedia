@@ -21,6 +21,7 @@ class WelcomeComponent extends Component {
         this.retrieveAllTodos();
         stompClient = Socket.connect();
         stompClient.connect({}, this.onConnected, this.onError);
+        window.scrollTo(0, 0);
     }
 
     onConnected = () => {

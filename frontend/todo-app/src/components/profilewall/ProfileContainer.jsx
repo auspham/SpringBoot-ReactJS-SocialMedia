@@ -6,7 +6,7 @@ import notificationbtn from "../../img/notification.svg"
 import "./profile.scss";
 import AccountProfileService from "../../api/todo/AccountProfileService";
 import { API_URL } from '../../Constants'
-import Guest from "./assets/doctor-placeholder-1.jpg"
+import Guest from "./assets/guest.jpeg"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AuthenticationService from "../todo/AuthenticationService";

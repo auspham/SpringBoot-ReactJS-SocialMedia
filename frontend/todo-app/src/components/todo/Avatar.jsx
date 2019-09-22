@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Guest from "../profilewall/assets/doctor-placeholder-1.jpg"
+import Guest from "../profilewall/assets/guest.jpeg"
 import {API_URL} from '../../Constants'
 export default class Avatar extends Component {
 

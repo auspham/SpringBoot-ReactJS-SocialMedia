@@ -23,8 +23,6 @@ class UpdateDetails extends React.Component {
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-        this.handleAvatarFile = this.handleAvatarFile.bind(this)
-        this.handleBackgroundFile = this.handleBackgroundFile.bind(this)
         this.save = React.createRef();
     }
 

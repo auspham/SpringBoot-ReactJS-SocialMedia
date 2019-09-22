@@ -18,7 +18,6 @@ class NewsFeedComponent extends React.Component{
     refreshTodos = () => {
         if(this.child)
             this.child.refreshTodos();
-       console.log("child", this.child);
     }
 
     onConnected = () => {

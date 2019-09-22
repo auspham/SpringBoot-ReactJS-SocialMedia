@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import "./profile.scss";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AuthenticationService from "../todo/AuthenticationService";
@@ -17,6 +18,8 @@ class UpdateDetails extends React.Component {
             aboutme: this.props.aboutme,
             isEmailDuplicate: false,
             isPhonenumberDuplicate: false,
+            avatarloaded:100,
+            backgroundloaded:100
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -48,6 +51,8 @@ class UpdateDetails extends React.Component {
 
     onSubmit(values) {
         let username = AuthenticationService.getLoggedInUserName()
+        let avatarloaded = 100
+        let backgroundloaded = 100
 
         this.setState({
             firstname: values.firstname,
@@ -67,9 +72,27 @@ class UpdateDetails extends React.Component {
             this.state.phonenumber,
             this.state.aboutme);
         
-            AccountProfileService.uploadAvatar(this.state.avatarfile,username);
-            AccountProfileService.uploadBackground(this.state.backgroundfile,username);
-            window.location.reload();
+            
+             if(this.state.avatarloaded == 0){
+                avatarloaded = AccountProfileService.uploadAvatar(this.state.avatarfile,username);
+            }
+
+            if(this.state.backgroundloaded == 0){
+                backgroundloaded = AccountProfileService.uploadBackground(this.state.backgroundfile,username);
+            }
+
+            this.setState({
+                avatarloaded: avatarloaded,
+                backgroundloaded: backgroundloaded
+            })
+           
+            if(this.state.avatarloaded == 100 && this.state.backgroundloaded == 100){
+                window.location.reload();
+            }
+            else{
+                alert("The file is being uploaded");
+            }
+            
     }
 
     checkDuplicateEmail(email) {
@@ -115,10 +138,12 @@ class UpdateDetails extends React.Component {
     }
 
     validate(values) {
+        
         let errors = {}
         const nameCheck = /^[a-zA-Z\s]*$/
         const phoneCheck = /^\(?(?:\+?61|0)(?:(?:2\)?[ -]?(?:3[ -]?[38]|[46-9][ -]?[0-9]|5[ -]?[0-35-9])|3\)?(?:4[ -]?[0-57-9]|[57-9][ -]?[0-9]|6[ -]?[1-67])|7\)?[ -]?(?:[2-4][ -]?[0-9]|5[ -]?[2-7]|7[ -]?6)|8\)?[ -]?(?:5[ -]?[1-4]|6[ -]?[0-8]|[7-9][ -]?[0-9]))(?:[ -]?[0-9]){6}|4\)?[ -]?(?:(?:[01][ -]?[0-9]|2[ -]?[0-57-9]|3[ -]?[1-9]|4[ -]?[7-9]|5[ -]?[018])[ -]?[0-9]|3[ -]?0[ -]?[0-5])(?:[ -]?[0-9]){5})$/
         const emailCheck = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+        
 
         this.checkDuplicateEmail(values.email);
         this.checkDuplicatePhonenumber(values.phonenumber);
@@ -152,7 +177,7 @@ class UpdateDetails extends React.Component {
             errors.email = 'This email is already in use'
         }
 
-
+       
         return errors
 
     }
@@ -160,14 +185,19 @@ class UpdateDetails extends React.Component {
     handleAvatarFile = (event) => {
         console.warn(event.target.files[0]);
         this.setState({
-            avatarfile: event.target.files[0]
+            avatarfile: event.target.files[0],
+            avatarloaded: 0
         });
+        
+
+        
     }
 
     handleBackgroundFile = (event) => {
         console.warn(event.target.files[0]);
         this.setState({
-            backgroundfile: event.target.files[0]
+            backgroundfile: event.target.files[0],
+            backgroundloaded: 0
         });
     }
     render() {
@@ -228,11 +258,14 @@ class UpdateDetails extends React.Component {
                                             </fieldset>
 
                                             <label className="title">Change avatar</label>
-                                            <fieldset><input id="file" name="avatarfile" type="file" accept="image/png, image/jpeg" onChange={this.handleAvatarFile} className="form-control" /></fieldset>
+                                            <fieldset><Field id="avatarfile" name="avatarfile" type="file" accept="image/png, image/jpeg" onChange={this.handleAvatarFile} className="form-control" /></fieldset>
+                                            <ErrorMessage name="avatarfile" component="div"
+                                                className="alert alert-warning" />
 
                                             <label className="title">Change background</label>
-                                            <fieldset><input id="file" name="backgroundfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
-
+                                            <fieldset><Field id="backgroundfile" name="backgroundfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
+                                            <ErrorMessage name="backgroundfile" component="div"
+                                                className="alert alert-warning" />
                                             <button className="btn btn-success" type="submit">Save</button>
                                         </Form>
                                     )

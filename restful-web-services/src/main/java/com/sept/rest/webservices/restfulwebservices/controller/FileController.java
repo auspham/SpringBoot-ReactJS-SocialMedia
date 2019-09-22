@@ -41,8 +41,8 @@ public class FileController {
 
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(dbFile.getId())
+                .path("/avatar/")
+                .path(username)
                 .toUriString();
         System.out.println("This user: " + username);
         System.out.println("File Avatar URL: " + fileDownloadUri);
@@ -66,8 +66,8 @@ public class FileController {
 
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(dbFile.getId())
+                .path("/background/")
+                .path(username)
                 .toUriString();
         System.out.println("This user: " + username);
         System.out.println("File Background URL: " + fileDownloadUri);
@@ -96,7 +96,29 @@ public class FileController {
     }
 
      */
+    
+    @GetMapping("/avatar/{username}")
+    public ResponseEntity<Resource> downloadAvatarFile(@PathVariable String username) {
+        // Load file from database
+        DBFile dbFile = DBFileStorageService.getAvatarByProfile(username);
 
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(dbFile.getFileType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
+                .body(new ByteArrayResource(dbFile.getData()));
+    }
+    
+    @GetMapping("/background/{username}")
+    public ResponseEntity<Resource> downloadBackgroundFile(@PathVariable String username) {
+        // Load file from database
+        DBFile dbFile = DBFileStorageService.getBackgroundByProfile(username);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(dbFile.getFileType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
+                .body(new ByteArrayResource(dbFile.getData()));
+    }
+    
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
         // Load file from database

@@ -5,6 +5,9 @@ import com.sept.rest.webservices.restfulwebservices.Exception.MyFileNotFoundExce
 import com.sept.rest.webservices.restfulwebservices.dao.DBFileRepository;
 import com.sept.rest.webservices.restfulwebservices.dao.UserDao;
 import com.sept.rest.webservices.restfulwebservices.model.DBFile;
+import com.sept.rest.webservices.restfulwebservices.model.Profile;
+import com.sept.rest.webservices.restfulwebservices.model.ProfileRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,7 +22,7 @@ public class DBFileStorageService  {
     private DBFileRepository dbFileRepository;
 
     @Autowired
-    private UserDao userDao;
+    private ProfileRepository profileRepository;
 
     public DBFile storeFile(MultipartFile file) {
         // Normalize file name
@@ -42,6 +45,33 @@ public class DBFileStorageService  {
         }
     }
 
+    public DBFile getAvatarByProfile(String name) {
+    	Profile profile = profileRepository.findByUsername(name);
+    	try {
+    		
+    		return dbFileRepository.findByFileURL(profile.getAvatar());
+    	
+    	}
+    	catch(Exception e) {
+    		throw new MyFileNotFoundException("File not found with name " + name);
+    	}
+    	
+		
+    }
+    
+    public DBFile getBackgroundByProfile(String name) {
+    	Profile profile = profileRepository.findByUsername(name);
+    	try {
+    		
+    		return dbFileRepository.findByFileURL(profile.getBackground());
+    	
+    	}
+    	catch(Exception e) {
+    		throw new MyFileNotFoundException("File not found with name " + name);
+    	}
+    	
+    }
+    
     public DBFile getFile(String fileId) {
         return dbFileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId));

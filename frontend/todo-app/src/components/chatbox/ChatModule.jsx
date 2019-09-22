@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ReactComponent as YourSvg } from './assets/close.svg';
 import { ReactComponent as Send } from './assets/send.svg';
+import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar/dist/simplebar.css';
 
 import Avatar from '../todo/Avatar';
 export default class ChatModule extends Component {
@@ -64,9 +66,9 @@ export default class ChatModule extends Component {
             
             <ul className="chatView" ref="messageBox">
             {this.props.broadcastMessage.map((msg, i) => 
-                ( (msg.receiver == this.props.receiver && msg.sender == this.props.username) || 
-                (msg.receiver == this.props.username && msg.sender == this.props.receiver)) ?
-            <li key={i}> {(msg.sender == this.props.username) ? "You" : msg.sender} : {msg.message}</li> : null
+                ( (msg.receiver === this.props.receiver && msg.sender === this.props.username) || 
+                (msg.receiver === this.props.username && msg.sender === this.props.receiver)) ?
+            <li key={i}> {(msg.sender === this.props.username) ? "You" : msg.sender} : {msg.message}</li> : null
             )}
             </ul>
             <div className="chatControl" ref="chatControl">

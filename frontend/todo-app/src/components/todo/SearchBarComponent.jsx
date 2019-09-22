@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import "./search.scss"
 import AccountProfileService from "../../api/todo/AccountProfileService"
-
+import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar/dist/simplebar.css';
 class SearchBarComponent extends React.Component {
 
     constructor(props) {
@@ -59,7 +60,7 @@ class SearchBarComponent extends React.Component {
             <div className="search-group">
                 <input className="searchBar" onFocus={this.onFocus} onBlur={this.onBlur} value={this.state.search} type="input" placeholder="Search.." onChange={this.handleChange}/>
                 {this.state.display ? 
-                <div className="resultBox" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+                <div className="resultBox" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} data-simplebar>
                     {this.state.users.filter(user => this.state.search.length > 0 ? user.username.indexOf(this.state.search) > -1 : user).map(each => <a href={"/profile/" + each.username}><div className="userSearch">{each.username}</div></a>)}
                 </div> : null }
             </div>

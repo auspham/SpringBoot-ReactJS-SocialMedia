@@ -7,7 +7,8 @@ import Editable from './Editable'
 import moment from 'moment'
 import Socket from './StartSocket'
 import Avatar from './Avatar'
-
+import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar/dist/simplebar.css';
 let stompClient = null;
 export default class TodoCard extends Component {
     constructor(props) {

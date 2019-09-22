@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './chatbox.scss';
 import ChatModule from './ChatModule';
 import Socket from '../todo/StartSocket';
-export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+import Avatar from "../todo/Avatar"
 
+export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 var stompClient = null;
 var sessionId = null;
 
@@ -150,7 +151,8 @@ export default class ChatBoxSide extends Component {
             <div>
                 <div className="cbox-slide">
                     {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder" onClick={this.handleSelectUser}>
-                        {this.state.username == user ? user + " (You)" : user}
+                        <Avatar username={user} style={{float: 'left'}}/>
+                        <div style={{float: 'left'}}>{this.state.username == user ? user + " (You)" : user}</div>
                     </div>)}
                 </div>
                 <div className="chatArea">

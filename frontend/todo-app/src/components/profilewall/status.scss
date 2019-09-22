@@ -116,15 +116,6 @@
         overflow: hidden;
         width: 100%;
 
-        & .cmt-avatar {
-            background: lightgray;
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-            float: left;
-            margin-right: 1em;
-        }
-
         & .commenter a{
             color: darkcyan;
             font-weight: bold;
@@ -163,4 +154,21 @@
 
 .main-content {
     min-height: 100vh;
+}
+
+.cmt-avatar {
+    background: lightgray;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    float: left;
+    margin-right: 1em;
+    overflow: hidden;
+
+    & img{
+        height: 100%;
+        left: 50%;
+        position: relative;
+        transform: translateX(-50%);
+    }
 }

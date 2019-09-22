@@ -110,6 +110,12 @@
         font-weight: bold;
         position: relative;
         justify-content: center;
+        float: left;
+        overflow: hidden;
+        display: block;
+        width: 100%;
+        line-height: 35px;
+
         &:before {
             background: green;
             border-radius: 100%;
@@ -119,6 +125,8 @@
             content: '';
             position: absolute;
             right: 1em;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         &:hover {

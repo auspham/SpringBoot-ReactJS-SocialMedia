@@ -6,6 +6,7 @@ import TodoDataService from '../../api/todo/TodoDataService'
 import Editable from './Editable'
 import moment from 'moment'
 import Socket from './StartSocket'
+import Avatar from './Avatar'
 
 let stompClient = null;
 export default class TodoCard extends Component {
@@ -77,8 +78,11 @@ export default class TodoCard extends Component {
         <div className="ui-block ui-custom" key={this.props.todo.id}>
             <div className="status-head">
                 <div className="status-left">
-                    <a href={'/profile/' + this.props.username}>{this.props.username}</a>
-                    <div className="date">{moment(this.props.todo.targetDate).format('YYYY-MM-DD')}</div>
+                    <Avatar username={this.props.username}/>
+                    <div style={{float: 'left'}}>
+                        <a href={'/profile/' + this.props.username}>{this.props.username}</a>
+                        <div className="date">{moment(this.props.todo.targetDate).format('YYYY-MM-DD')}</div>
+                    </div>
                 </div>
                 {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">
                     <Edit onClick={this.toggleShow}/>
@@ -91,7 +95,7 @@ export default class TodoCard extends Component {
             </div>
             <div className="comments">
                 <div className="commentHolder" ref="comments">
-                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><div className="cmt-avatar"></div><div className="commenter"><a href={'/profile/' + comment.username}>{comment.username}</a></div> <div className="comment-desc">{comment.description}</div></div>)}
+                    {this.state.comments.map((comment, i) => <div className="comment" key={i}><Avatar username={comment.username}/><div className="commenter"><a href={'/profile/' + comment.username}>{comment.username}</a></div> <div className="comment-desc">{comment.description}</div></div>)}
                 </div>
 
                 <div className="comment-control form-row">

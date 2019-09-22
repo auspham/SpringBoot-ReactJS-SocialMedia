@@ -193,7 +193,9 @@ li {
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+}
 
+.uploadable {
   &:hover{
     cursor: pointer;
   }

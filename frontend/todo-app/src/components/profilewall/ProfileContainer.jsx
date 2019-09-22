@@ -25,7 +25,9 @@ class ProfileContainer extends React.Component {
       show: false,
       avatarloaded:false,
       backgroundloaded:false,
-      avatarURL: API_URL + "/avatar/" +this.props.username
+      avatarURL: API_URL + "/avatar/" +this.props.username,
+      backgroundUrl: API_URL + '/background/' + this.props.username,
+      showBG: false,
     }
 
   }
@@ -58,7 +60,9 @@ class ProfileContainer extends React.Component {
   }
 
   handleShow = () => {
-    this.setShow(true);
+    let username = AuthenticationService.getLoggedInUserName();
+    if(username === this.props.username)
+      this.setShow(true);
   }
   handleAvatarFile = (event) => {
     this.setState({
@@ -72,20 +76,58 @@ class ProfileContainer extends React.Component {
     });
   }
 
+  handleShowBG = () => {
+    let username = AuthenticationService.getLoggedInUserName();
+    if(username === this.props.username)
+      this.setShowBG(true);
+  }
+
+  handleCloseBG = () => {
+    this.setShowBG(false);
+  }
+
+  setShowBG = (value) => {
+    this.setState({showBG: value});
+  }
+
   onSaveAvatar = () => {
     let username = AuthenticationService.getLoggedInUserName();
     AccountProfileService.uploadAvatar(this.state.avatarfile, username).then(() => {
       this.refreshInfo();
       this.handleClose();
-      // this.setState(prevState => ({
-      //   avatarURL: prevState.avatarURL+" "
-      // }));
+      window.location.reload();
+    });
+  }
+
+  onSaveBackGround = () => {
+    let username = AuthenticationService.getLoggedInUserName();
+    AccountProfileService.uploadBackground(this.state.backgroundfile, username).then(() => {
+      this.refreshInfo();
+      this.handleCloseBG();
       window.location.reload();
     });
   }
   render() {
     return (
       <div className="container">
+         <Modal show={this.state.showBG} onHide={this.handleCloseBG}>
+          <Modal.Header closeButton>
+            <Modal.Title>Change Cover Background</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Click to upload your background file, picture has to be either <strong>png/jpeg</strong></p>
+            <fieldset><input id="avatarfile" name="avatarfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseBG}>
+              Close
+          </Button>
+          <Button variant="primary" onClick={this.onSaveBackGround}>
+            Save Changes
+          </Button>
+          </Modal.Footer>
+        </Modal>
+
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Change Avatar</Modal.Title>
@@ -107,7 +149,7 @@ class ProfileContainer extends React.Component {
           <div className="col">
             <div className="ui-block">
               <div className="top-header-thumb">
-                <div className="banner" style={{background: 'url(' + API_URL + '/background/' + this.state.username + ') no-repeat grey', backgroundSize: 'cover'}} alt="Profile"> </div>
+                <div className={"banner" + (AuthenticationService.getLoggedInUserName() === this.props.username ? " uploadable" : "")} style={{background: 'url(' + this.state.backgroundUrl + ') no-repeat grey', backgroundSize: 'cover'}} alt="Profile" onClick={this.handleShowBG}> </div>
               </div>
               <div className="profile-section">
                 <div className="row">
@@ -125,7 +167,7 @@ class ProfileContainer extends React.Component {
                     </ul>
                   </div>
                   <div className="avatar-container">
-                    <div className="image-cropper" onClick={this.handleShow}>
+                    <div className={"image-cropper" + (AuthenticationService.getLoggedInUserName() === this.props.username ? " uploadable" : "")} onClick={this.handleShow}>
                       <img
                         src={this.state.avatarURL}
                         className="profile-pic"

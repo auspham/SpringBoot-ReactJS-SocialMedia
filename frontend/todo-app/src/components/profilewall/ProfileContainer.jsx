@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import rmitlogo from "../../img/rmit-logo.png";
 import judo from "../../img/judo.jpg";
+import rmitavatar from "../../img/rmit-avatar.jpg";
+import rmitbackground from "../../img/rmit-background.png";
 import updateinfobtn from "../../img/setting.svg"
 import msgbtn from "../../img/message.svg"
 import notificationbtn from "../../img/notification.svg"

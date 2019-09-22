@@ -17,8 +17,6 @@ class UpdateDetails extends React.Component {
             aboutme: this.props.aboutme,
             isEmailDuplicate: false,
             isPhonenumberDuplicate: false,
-            avatarfile: "",
-            backgroundfile:"",
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)

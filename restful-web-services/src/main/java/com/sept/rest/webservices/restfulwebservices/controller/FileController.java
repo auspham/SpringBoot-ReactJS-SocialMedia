@@ -45,7 +45,7 @@ public class FileController {
                 .path(dbFile.getId())
                 .toUriString();
         System.out.println("This user: " + username);
-        System.out.println("File URL: " + fileDownloadUri);
+        System.out.println("File Avatar URL: " + fileDownloadUri);
 
         dbFile.setFileURL(fileDownloadUri);
         dbFileRepository.save(dbFile);
@@ -70,7 +70,7 @@ public class FileController {
                 .path(dbFile.getId())
                 .toUriString();
         System.out.println("This user: " + username);
-        System.out.println("File URL: " + fileDownloadUri);
+        System.out.println("File Background URL: " + fileDownloadUri);
 
         dbFile.setFileURL(fileDownloadUri);
         dbFileRepository.save(dbFile);

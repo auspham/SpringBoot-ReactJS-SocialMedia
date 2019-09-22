@@ -29,6 +29,7 @@ public class Profile {
     @Column
     private String background;
 
+   
     public String getBackground() {
         return background;
     }

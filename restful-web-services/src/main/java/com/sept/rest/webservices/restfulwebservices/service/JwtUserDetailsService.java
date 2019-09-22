@@ -74,6 +74,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     	if(exists == null) {
     		newProfile.setUsername(profile.getUsername());
+    		newProfile.setAvatar("https://i.imgur.com/mri28UW.jpg");
+    		newProfile.setBackground("https://i.imgur.com/0UCsTsa.png");
 
     	}
     	else {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import AuthenticationService from "../todo/AuthenticationService";
 import AccountProfileService from "../../api/todo/AccountProfileService";
-
+import {ReactComponent as Edit} from "./assets/wrench.svg"
 
 class SideContentComponent extends React.Component{
     constructor(props) {
@@ -26,7 +26,6 @@ class SideContentComponent extends React.Component{
         let username = AuthenticationService.getLoggedInUserName();
         AccountProfileService.retrieveDetails(username)
             .then(response => {
-                console.error("response cc", response.data);
                 this.setState({
                     firstname: response.data.firstname,
                     lastname: response.data.lastname,
@@ -44,10 +43,11 @@ class SideContentComponent extends React.Component{
            
             <div className="col3">
                 <div className="ui-block">
-                    <div className="ui-title" style={{ display: "flex", justifyContent: 'centre' }}>Contact Details<button onClick={this.props.edit} style={{ marginLeft : "auto" }}>Edit</button></div>
+        <div className="ui-title" style={{ display: "flex", minHeight: 61 + "px" }}><h5 style={{marginBottom: 0, textAlign: "center", position: "absolute", left: 50 + "%", transform: "translateX(" + -50 + "%)"}}>Contact Details</h5>{AuthenticationService.getLoggedInUserName() === this.props.username ? <Edit width={20} className="editUpdate" onClick={this.props.edit} style={{ marginLeft : "auto" }}/> : ""}</div>
                     <div className="ui-content">
                         <div className="personal-info">
-
+                            <li><span className="title">Name</span>
+                            <span className="text">{this.state.firstname} {this.state.lastname}</span></li>
                             <li><span className="title">About Me</span>
                             <span className="text">{this.state.aboutme}</span></li>
                             <li><span className="title">Student No.</span>

@@ -16,23 +16,20 @@ class ContentContainer extends React.Component {
             email: 'Email',
             phonenumber: 'Phone number',
             aboutme: 'About me',
-            isEmptyState: true
+            isEditing: false
         };
     }
 
     triggerEditState = () => {
-        this.setState({
-         
-          isEmptyState: false,
-          isEditState: true
-        })
-      }
+        this.setState(prevState => ({
+          isEditing: !prevState.isEditing
+        }))
+        this.refreshInfo();
+    }
     
     
     componentDidMount() {
-        console.warn("componentDidMount CC");
         this.refreshInfo();
-        console.log(this.state);
     }
 
     render() {
@@ -41,17 +38,16 @@ class ContentContainer extends React.Component {
                 <div className="row">
 
 
-                    {this.state.isEmptyState &&
+                    {!this.state.isEditing ?
                     <SideContentComponent
                     edit = {this.triggerEditState}
+                    username={this.props.username}
                     firstname={this.state.firstname}
                     lastname={this.state.lastname}
                     studentnumber={this.state.studentnumber}
                     email={this.state.email}
                     phonenumber={this.state.phonenumber}
-                    aboutme={this.state.aboutme}></SideContentComponent> }
-
-                    {this.state.isEditState &&
+                    aboutme={this.state.aboutme}></SideContentComponent> :
                     <UpdateDetails
                         firstname={this.state.firstname}
                         lastname={this.state.lastname}
@@ -59,6 +55,7 @@ class ContentContainer extends React.Component {
                         email={this.state.email}
                         phonenumber={this.state.phonenumber}
                         aboutme={this.state.aboutme}
+                        triggerEditState = {this.triggerEditState}
                     ></UpdateDetails> }
                     <NewsFeedComponent history={this.props.history} match={this.props.match} username={this.props.username}></NewsFeedComponent>
 

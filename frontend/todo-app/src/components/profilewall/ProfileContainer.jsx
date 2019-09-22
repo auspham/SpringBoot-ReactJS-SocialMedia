@@ -175,7 +175,7 @@ class ProfileContainer extends React.Component {
                         onError={this.handleError}
                       ></img>
                     </div>
-                    <div className="avatar-author-content">{this.state.firstname} {this.state.lastname}</div>
+                    <div className="avatar-author-content">{this.props.username}</div>
                   </div>
                   <div className="col2">
                     <ul className="profile-menu">
@@ -190,11 +190,6 @@ class ProfileContainer extends React.Component {
                       </li>
                     </ul>
                   </div>
-                </div>
-                <div className="control-block-button">
-                  <button className="control-button"><img src={updateinfobtn}></img></button>
-                  <button className="control-button"><img src={msgbtn}></img></button>
-                  <button className="control-button"><img src={notificationbtn}></img></button>
                 </div>
               </div>
             </div>

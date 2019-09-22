@@ -69,36 +69,16 @@ class UpdateDetails extends React.Component {
             this.state.email,
             this.state.studentnumber,
             this.state.phonenumber,
-            this.state.aboutme);
-        
-            
-        let avatarloaded = AccountProfileService.uploadAvatar(this.state.avatarfile,username);
-    
-        let backgroundloaded = AccountProfileService.uploadBackground(this.state.backgroundfile,username);
+            this.state.aboutme).then(() => {
+                this.refreshInfo();
+                // this.props.triggerEditState();
+                window.location.reload();
+            });
 
-        avatarloaded.then(() => {
-            this.setState({avatarloaded: true})
-        });
-        backgroundloaded.then(() => {
-            this.setState({backgroundloaded: true})
-        });
-        console.error(this.state.avatarloaded);
-        console.error(this.state.backgroundloaded);
-
-        if(this.state.avatarloaded && this.state.backgroundloaded){
-            console.error(this.state.avatarloaded);
-            console.error(this.state.backgroundloaded);
-            this.save.current.setAttribute("disabled", false);
-
-            // window.location.reload();
-        } else{
-            this.save.current.setAttribute("disabled", true);
-        }
-            
     }
 
     checkDuplicateEmail(email) {
-        if (email != null && email != this.state.email) {
+        if (email != null && email !== this.state.email) {
             AccountProfileService.checkDuplicateEmail(email)
                 .then(response => {
                     console.warn(response.data);
@@ -189,9 +169,6 @@ class UpdateDetails extends React.Component {
         this.setState({
             avatarfile: event.target.files[0],
         });
-        
-
-        
     }
 
     handleBackgroundFile = (event) => {
@@ -205,7 +182,9 @@ class UpdateDetails extends React.Component {
         return (
             <div className="col3">
                 <div className="ui-block">
-                    <div className="ui-title">Update Contact Details</div>
+                    <div className="ui-title">
+                    <h5 style={{marginBottom: 0}}>Update Contact Details</h5>
+                    </div>
                     <div className="ui-content">
                         <div className="personal-info">
                             <Formik
@@ -254,18 +233,9 @@ class UpdateDetails extends React.Component {
                                                 className="alert alert-warning" />
                                             <fieldset className="form-group">
                                                 <label className="title">About me</label>
-                                                <Field className="form-control" type="text" name="aboutme" />
+                                                <Field className="form-control" type="text" name="aboutme" component='textarea'/>
                                             </fieldset>
 
-                                            <label className="title">Change avatar</label>
-                                            <fieldset><Field id="avatarfile" name="avatarfile" type="file" accept="image/png, image/jpeg" onChange={this.handleAvatarFile} className="form-control" /></fieldset>
-                                            <ErrorMessage name="avatarfile" component="div"
-                                                className="alert alert-warning" />
-
-                                            <label className="title">Change background</label>
-                                            <fieldset><Field id="backgroundfile" name="backgroundfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
-                                            <ErrorMessage name="backgroundfile" component="div"
-                                                className="alert alert-warning" />
                                             <button className="btn btn-success" ref={this.save} type="submit">Save</button>
                                         </Form>
                                     )

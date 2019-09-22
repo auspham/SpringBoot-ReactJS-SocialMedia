@@ -38,7 +38,6 @@ class LoginComponent extends Component {
       'email@email.com'
     )
       .then(response => {
-        console.log('register response:', response);
         if (response.status === 200) {
           this.setState({ registerSuccessful: true})
           alert("Register Successful");

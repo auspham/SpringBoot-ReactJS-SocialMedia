@@ -26,7 +26,6 @@ export class Register extends React.Component {
     if (username != null) {
       AccountProfileService.checkDuplicateUsername(username)
         .then(response => {
-          console.warn(response.data);
 
           if (response.data == true) {
             this.setState({
@@ -48,7 +47,6 @@ export class Register extends React.Component {
     if (studentnumber != null) {
       AccountProfileService.checkDuplicateStudentnumber(studentnumber)
         .then(response => {
-          console.warn(response.data);
 
           if (response.data == true) {
             this.setState({
@@ -69,7 +67,6 @@ export class Register extends React.Component {
     if (email != null) {
       AccountProfileService.checkDuplicateEmail(email)
         .then(response => {
-          console.warn(response.data);
 
           if (response.data == true) {
             this.setState({
@@ -90,7 +87,6 @@ export class Register extends React.Component {
     if (phonenumber != null) {
       AccountProfileService.checkDuplicatePhonenumber(phonenumber)
         .then(response => {
-          console.warn(response.data);
 
           if (response.data == true) {
             this.setState({
@@ -127,7 +123,6 @@ export class Register extends React.Component {
 
     else if (this.state.usernamecheck == true) {
 
-      console.warn("test checkusername");
       errors.username = "This username already exists";
     }
 
@@ -156,8 +151,7 @@ export class Register extends React.Component {
       errors.phonenumber = 'Enter your phone number'
     } else if (!phoneCheck.test(values.phonenumber)) {
       errors.phonenumber = 'Please enter a valid phone number'
-    } else if (this.state.isPhonenumberDuplicate == true) {
-      console.warn("test checkphonenumber");
+    } else if (this.state.isPhonenumberDuplicate === true) {
       errors.phonenumber = 'This phone number is already in use'
     }
 
@@ -187,7 +181,7 @@ export class Register extends React.Component {
         <div className="header">Register</div>
         <div className="content">
           <div className="image">
-            <img src={loginImg} />
+            <img src={loginImg} alt="Logo"/>
           </div>
           <Formik className="form"
 

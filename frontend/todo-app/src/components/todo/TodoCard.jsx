@@ -60,7 +60,7 @@ export default class TodoCard extends Component {
 
         TodoDataService.postTodoComment(this.state.target, this.props.todo.id, comment).then((res,err) => {
             if(err) {
-                console.log("err comment", err);
+                console.error("err comment", err);
             }
             this.refreshComments();
             this.props.stompClient.send("/app/postStatus", {}, true);

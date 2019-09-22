@@ -49,7 +49,6 @@ class WelcomeComponent extends Component {
     deleteTodoClicked = (id) => {
         let username = AuthenticationService.getLoggedInUserName();
         let that = this;
-        //console.log(id + " " + username);
         TodoDataService.deleteTodo(username, id)
             .then(response => {
                     that.retrieveAllTodos();

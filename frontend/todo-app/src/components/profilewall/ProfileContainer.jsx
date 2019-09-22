@@ -70,7 +70,6 @@ class ProfileContainer extends React.Component {
     });
   }
   handleBackgroundFile = (event) => {
-    console.warn(event.target.files[0]);
     this.setState({
         backgroundfile: event.target.files[0],
     });

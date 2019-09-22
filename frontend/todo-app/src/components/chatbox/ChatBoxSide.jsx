@@ -40,16 +40,13 @@ export default class ChatBoxSide extends Component {
         url = url.replace("ws://localhost:8080/ws",  "");
         url = url.replace("/websocket", "");
         url = url.replace(/^[0-9]+\//, "");
-        console.log("Your current session is: " + url);
 
         sessionId = url;
 
-        console.log('stomp', stompClient);
         // Subscribing to the public topic
         stompClient.subscribe('/topic/public', this.onMessageReceived);
         stompClient.subscribe('/topic/getUser', this.onRefreshUserList);
         stompClient.subscribe('/queue/specific-user', (msg) => {
-            console.log('msg', msg);
         });
         // Registering user to server
         stompClient.send("/app/addUser",
@@ -96,17 +93,12 @@ export default class ChatBoxSide extends Component {
             }))
         }
         if (message.type === 'JOIN') {
-            // if(!this.state.userList.includes(message.sender)) {
-            //     this.setState(prevState => ({
-            //         userList: [...prevState.userList, message.sender]
-            //     }), );
-            // }
+         
         }
         else if (message.type === 'LEAVE') {     
             stompClient.send("/app/getUserlist", {}, this.state.username);
         }
         else if (message.type === 'TYPING') {
-            // TODO:
         }
         else if (message.type === 'CHAT') {
           this.state.broadcastMessage.push({

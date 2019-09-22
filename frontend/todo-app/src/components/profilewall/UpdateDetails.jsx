@@ -29,16 +29,13 @@ class UpdateDetails extends React.Component {
     }
 
     componentDidMount() {
-        console.warn("componentDidMount CC");
         this.refreshInfo();
-        console.log(this.state);
     }
 
     refreshInfo() {
         let username = AuthenticationService.getLoggedInUserName();
         AccountProfileService.retrieveDetails(username)
             .then(response => {
-                console.error("response cc", response.data);
                 this.setState({
                     firstname: response.data.firstname,
                     lastname: response.data.lastname,
@@ -81,7 +78,6 @@ class UpdateDetails extends React.Component {
         if (email != null && email !== this.state.email) {
             AccountProfileService.checkDuplicateEmail(email)
                 .then(response => {
-                    console.warn(response.data);
 
                     if (response.data == true) {
                         this.setState({
@@ -102,7 +98,6 @@ class UpdateDetails extends React.Component {
         if (phonenumber != null && phonenumber != this.state.phonenumber) {
             AccountProfileService.checkDuplicatePhonenumber(phonenumber)
                 .then(response => {
-                    console.warn(response.data);
 
                     if (response.data == true) {
                         this.setState({
@@ -147,7 +142,6 @@ class UpdateDetails extends React.Component {
         } else if (!phoneCheck.test(values.phonenumber)) {
             errors.phonenumber = 'Please enter a valid phone number'
         } else if (this.state.isPhonenumberDuplicate == true) {
-            console.warn("test checkphonenumber");
             errors.phonenumber = 'This phone number is already in use'
         }
 
@@ -164,19 +158,6 @@ class UpdateDetails extends React.Component {
 
     }
 
-    handleAvatarFile = (event) => {
-        console.warn(event.target.files[0]);
-        this.setState({
-            avatarfile: event.target.files[0],
-        });
-    }
-
-    handleBackgroundFile = (event) => {
-        console.warn(event.target.files[0]);
-        this.setState({
-            backgroundfile: event.target.files[0],
-        });
-    }
     render() {
 
         return (

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ReactComponent as YourSvg } from './assets/close.svg';
+import { ReactComponent as Send } from './assets/send.svg';
 
+import Avatar from '../todo/Avatar';
 export default class ChatModule extends Component {
     constructor(props) {
         super(props);
@@ -52,9 +54,9 @@ export default class ChatModule extends Component {
     }
     render() {
         return (
-        <div className="chatBox" style={this.state.hide ? {bottom: -330 + 'px'} : {}}>
+        <div className="chatBox" style={this.state.hide ? {bottom: -340 + 'px'} : {}}>
             <div className="chatTitle" onClick={this.handleToggle}>
-                {this.props.receiver}
+                <Avatar username={this.props.receiver}/> <a href={'/profile/' + this.props.receiver}> {this.props.receiver} </a>
                 <div className="chatBox-right"> <a onClick={this.handleClose} className="closeBtn">
                     <YourSvg/> </a>
                 </div>
@@ -73,7 +75,8 @@ export default class ChatModule extends Component {
                         this.handleSendMessage();
                     }
                 }}/>
-                <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
+                
+                <Send onClick={this.handleSendMessage}/>
             </div>
         </div>);
     }

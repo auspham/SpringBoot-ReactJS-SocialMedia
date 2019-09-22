@@ -50,6 +50,14 @@
             font-weight: bold;
             border-radius: 10px 10px 0 0;
 
+            & .cmt-avatar{
+                height: 30px;
+                width: 30px;
+            }
+
+            & a {
+                color: black;
+            }
             &:hover{
                 cursor: pointer;
             }
@@ -138,4 +146,25 @@ header {
     z-index: 9999;
     position: fixed;
     width: 100%;
+}
+
+.chatControl {
+    display: flex;
+    align-items: center;
+    background: white;
+    & input{
+        width: 100%;
+        background: #f1f0f0;
+        border-radius: 0 99px 99px 0;
+        border: 0;
+        color: #636363;
+        padding-left: 20px;
+        padding-right: 20px;
+        height: 36px;    
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0;
+        }
+    }
 }

@@ -150,9 +150,9 @@ export default class ChatBoxSide extends Component {
         return(
             <div>
                 <div className="cbox-slide">
-                    {Array.from(this.state.userList).map((user, i) => <div key={i} className="card user-holder" onClick={this.handleSelectUser}>
+                    {Array.from(this.state.userList).map((user, indexes) => <div key={indexes} className="card user-holder" onClick={this.handleSelectUser}>
                         <Avatar username={user} style={{float: 'left'}}/>
-                        <div style={{float: 'left'}}>{this.state.username == user ? user + " (You)" : user}</div>
+                        <div style={{float: 'left'}}>{this.state.username === user ? user + " (You)" : user}</div>
                     </div>)}
                 </div>
                 <div className="chatArea">

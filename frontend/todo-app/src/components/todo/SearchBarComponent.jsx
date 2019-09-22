@@ -10,13 +10,13 @@ class SearchBarComponent extends React.Component {
 
         this.state = {
             users: [],
-            search: "",
             display: false,
-            mouseEnter:  false
+            mouseEnter:  false,
+            filList: []
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.getAllUser();
     }
 
@@ -27,7 +27,8 @@ class SearchBarComponent extends React.Component {
     getAllUser = () => {
         AccountProfileService.getAllUser().then(response => {
             this.setState({
-                users: response.data
+                users: response.data,
+                filList: response.data
             });
         })
     }
@@ -43,8 +44,11 @@ class SearchBarComponent extends React.Component {
     }
 
     handleChange = (event) => {
-        let content = event.target.value;
-        this.setState({ search: content });
+        let filList = this.state.users;
+        filList = filList.filter((item) => {
+            return item.username.search(event.target.value) !== -1;
+        })
+        this.setState({ filList: filList });
     }
 
     onMouseEnter = () => {
@@ -56,15 +60,13 @@ class SearchBarComponent extends React.Component {
     }
 
     render() {
-        return (
-            <div className="search-group">
-                <input className="searchBar" onFocus={this.onFocus} onBlur={this.onBlur} value={this.state.search} type="input" placeholder="Search.." onChange={this.handleChange}/>
+        return <div className="search-group">
+                <input className="searchBar" onFocus={this.onFocus} onBlur={this.onBlur} type="input" placeholder="Search.." onChange={this.handleChange}/>
                 {this.state.display ? 
-                <div className="resultBox" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} data-simplebar>
-                    {this.state.users.filter(user => this.state.search.length > 0 ? user.username.indexOf(this.state.search) > -1 : user).map(each => <a href={"/profile/" + each.username}><div className="userSearch">{each.username}</div></a>)}
+                <div className="resultBox" onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+                    {this.state.filList.map((each, i) => <a href={"/profile/" + each.username} key={i}><div className="userSearch">{each.username}</div></a>)}
                 </div> : null }
             </div>
-        )
     }
 }
 

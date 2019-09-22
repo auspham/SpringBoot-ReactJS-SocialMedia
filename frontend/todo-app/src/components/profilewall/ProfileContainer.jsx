@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import rmitlogo from "../../img/rmit-logo.png";
-import judo from "../../img/judo.jpg";
-import rmitavatar from "../../img/rmit-avatar.jpg";
-import rmitbackground from "../../img/rmit-background.png";
+
 import updateinfobtn from "../../img/setting.svg"
 import msgbtn from "../../img/message.svg"
 import notificationbtn from "../../img/notification.svg"
 import "./profile.scss";
-import AuthenticationService from "../todo/AuthenticationService";
 import AccountProfileService from "../../api/todo/AccountProfileService";
-
+import { API_URL } from '../../Constants'
+import Guest from "./assets/doctor-placeholder-1.jpg"
 class ProfileContainer extends React.Component {
 
   constructor(props) {
@@ -25,39 +22,24 @@ class ProfileContainer extends React.Component {
 
   }
   componentDidMount() {
-    console.warn("componentDidMount CC");
     this.refreshInfo();
-    console.log(this.state);
   }
 
   refreshInfo() {
-    let username = AuthenticationService.getLoggedInUserName();
+    let username = this.state.username;
 
     AccountProfileService.retrieveDetails(username)
       .then(response => {
-
         this.setState({
           username: username,
           firstname: response.data.firstname,
           lastname: response.data.lastname,
-
-
         });
       })
-    AccountProfileService.getAvatarLink(username)
-      .then(response => {
-        this.setState({
-          avatarlink: response.data
-        })
-      })
+  }
 
-    AccountProfileService.getBackgroundLink(username)
-      .then(response => {
-        this.setState({
-          backgroundlink: response.data
-        })
-      })
-
+  handleError = (e) => {
+    e.target.src = Guest;
   }
   render() {
     return (
@@ -66,7 +48,7 @@ class ProfileContainer extends React.Component {
           <div className="col">
             <div className="ui-block">
               <div className="top-header-thumb">
-                <img className="banner" src={this.state.backgroundlink}></img>
+                <div className="banner" style={{background: 'url(' + API_URL + '/background/' + this.state.username + ') no-repeat grey', backgroundSize: 'cover'}} alt="Profile"> </div>
               </div>
               <div className="profile-section">
                 <div className="row">
@@ -86,9 +68,10 @@ class ProfileContainer extends React.Component {
                   <div className="avatar-container">
                     <div className="image-cropper">
                       <img
-                        src={this.state.avatarlink}
+                        src={API_URL + "/avatar/" +this.state.username}
                         className="profile-pic"
-                        alt="avatar"
+                        alt="avatar" 
+                        onError={this.handleError}
                       ></img>
                     </div>
                     <div className="avatar-author-content">{this.state.firstname} {this.state.lastname}</div>

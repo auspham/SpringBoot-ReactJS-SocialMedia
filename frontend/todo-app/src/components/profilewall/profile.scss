@@ -43,9 +43,9 @@ html {
 
 .banner {
   max-width:100%;
-  
-  height:auto;
+  height:360px;
   max-height: 360px;
+  margin-top: -1px;
 }
 
 .judo {
@@ -196,9 +196,11 @@ li {
 }
 
 .profile-pic {
-  display: inline;
-  width: 100%;
+  display: block;
   height: 100%;
+  transform: translateX(-50%);
+  left: 50%;
+  position: relative;
   margin: 0 auto;
   // margin-left: -25%; //centers the image
 }

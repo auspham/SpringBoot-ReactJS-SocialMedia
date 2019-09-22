@@ -6,7 +6,6 @@ import AuthenticationService from "../todo/AuthenticationService";
 import AccountProfileService from "../../api/todo/AccountProfileService";
 
 
-
 class ContentContainer extends React.Component {
     constructor(props) {
         super(props);

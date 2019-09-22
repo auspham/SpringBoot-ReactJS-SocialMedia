@@ -68,34 +68,24 @@ class AccountProfileService {
 
     uploadAvatar(file, username) {
         const formData = new FormData();
-        let uploaded = 1;
         formData.set("file", file);
         return axios.post(`${JPA_API_URL}/uploadAvatar/${username}`,formData,
         {
             headers: {
                 'content-type': 'multipart/form-data'
             },
-            onUploadProgress: ProgressEvent => {(
-                uploaded = (ProgressEvent.loaded / ProgressEvent.total * 100)
-            )}
-
         });
     }
 
     
     uploadBackground(file, username) {
         const formData = new FormData();
-        let uploaded = 1;
         formData.set("file", file);
         return axios.post(`${JPA_API_URL}/uploadBackground/${username}`,formData,
         {
             headers: {
                 'content-type': 'multipart/form-data'
             },
-            
-            onUploadProgress: ProgressEvent => {(
-                uploaded = (ProgressEvent.loaded / ProgressEvent.total * 100)
-            )}
         });
     }
 

@@ -47,7 +47,14 @@ public class FileController {
         System.out.println("This user: " + username);
         System.out.println("File Avatar URL: " + fileDownloadUri);
 
+        DBFile toDelete =  dbFileRepository.findByFileURL(fileDownloadUri);
+
+        if(toDelete != null){
+            dbFileRepository.deleteById(toDelete.getId());
+        }
+
         dbFile.setFileURL(fileDownloadUri);
+
         dbFileRepository.save(dbFile);
         System.out.println(dbFile);
 
@@ -69,12 +76,15 @@ public class FileController {
                 .path("/background/")
                 .path(username)
                 .toUriString();
-        System.out.println("This user: " + username);
-        System.out.println("File Background URL: " + fileDownloadUri);
+
+        DBFile toDelete =  dbFileRepository.findByFileURL(fileDownloadUri);
+
+        if(toDelete != null){
+            dbFileRepository.deleteById(toDelete.getId());
+        }
 
         dbFile.setFileURL(fileDownloadUri);
         dbFileRepository.save(dbFile);
-        System.out.println(dbFile);
 
 
         Profile updated = jwtInMemoryUserDetailsService.assignBackground(username, dbFile);

@@ -70,7 +70,7 @@ class AccountProfileService {
         const formData = new FormData();
         let uploaded = 1;
         formData.set("file", file);
-        axios.post(`${JPA_API_URL}/uploadAvatar/${username}`,formData,
+        return axios.post(`${JPA_API_URL}/uploadAvatar/${username}`,formData,
         {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -80,8 +80,6 @@ class AccountProfileService {
             )}
 
         });
-
-        return uploaded;
     }
 
     
@@ -89,7 +87,7 @@ class AccountProfileService {
         const formData = new FormData();
         let uploaded = 1;
         formData.set("file", file);
-        axios.post(`${JPA_API_URL}/uploadBackground/${username}`,formData,
+        return axios.post(`${JPA_API_URL}/uploadBackground/${username}`,formData,
         {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -99,8 +97,6 @@ class AccountProfileService {
                 uploaded = (ProgressEvent.loaded / ProgressEvent.total * 100)
             )}
         });
-
-        return uploaded;
     }
 
 

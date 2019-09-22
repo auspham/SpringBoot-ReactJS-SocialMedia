@@ -15,16 +15,17 @@ class UpdateDetails extends React.Component {
             studentnumber: this.props.studentnumber,
             email: this.props.email,
             phonenumber: this.props.phonenumber,
-            aboutme: this.props.aboutme,
+            aboutme: this.props.aboutme ? this.props.aboutme : "",
             isEmailDuplicate: false,
             isPhonenumberDuplicate: false,
-            avatarloaded:100,
-            backgroundloaded:100
+            avatarloaded:false,
+            backgroundloaded:false
         }
         this.validate = this.validate.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.handleAvatarFile = this.handleAvatarFile.bind(this)
         this.handleBackgroundFile = this.handleBackgroundFile.bind(this)
+        this.save = React.createRef();
     }
 
     componentDidMount() {
@@ -51,8 +52,6 @@ class UpdateDetails extends React.Component {
 
     onSubmit(values) {
         let username = AuthenticationService.getLoggedInUserName()
-        let avatarloaded = 100
-        let backgroundloaded = 100
 
         this.setState({
             firstname: values.firstname,
@@ -73,25 +72,28 @@ class UpdateDetails extends React.Component {
             this.state.aboutme);
         
             
-             if(this.state.avatarloaded == 0){
-                avatarloaded = AccountProfileService.uploadAvatar(this.state.avatarfile,username);
-            }
+        let avatarloaded = AccountProfileService.uploadAvatar(this.state.avatarfile,username);
+    
+        let backgroundloaded = AccountProfileService.uploadBackground(this.state.backgroundfile,username);
 
-            if(this.state.backgroundloaded == 0){
-                backgroundloaded = AccountProfileService.uploadBackground(this.state.backgroundfile,username);
-            }
+        avatarloaded.then(() => {
+            this.setState({avatarloaded: true})
+        });
+        backgroundloaded.then(() => {
+            this.setState({backgroundloaded: true})
+        });
+        console.error(this.state.avatarloaded);
+        console.error(this.state.backgroundloaded);
 
-            this.setState({
-                avatarloaded: avatarloaded,
-                backgroundloaded: backgroundloaded
-            })
-           
-            if(this.state.avatarloaded == 100 && this.state.backgroundloaded == 100){
-                window.location.reload();
-            }
-            else{
-                alert("The file is being uploaded");
-            }
+        if(this.state.avatarloaded && this.state.backgroundloaded){
+            console.error(this.state.avatarloaded);
+            console.error(this.state.backgroundloaded);
+            this.save.current.setAttribute("disabled", false);
+
+            // window.location.reload();
+        } else{
+            this.save.current.setAttribute("disabled", true);
+        }
             
     }
 
@@ -186,7 +188,6 @@ class UpdateDetails extends React.Component {
         console.warn(event.target.files[0]);
         this.setState({
             avatarfile: event.target.files[0],
-            avatarloaded: 0
         });
         
 
@@ -197,7 +198,6 @@ class UpdateDetails extends React.Component {
         console.warn(event.target.files[0]);
         this.setState({
             backgroundfile: event.target.files[0],
-            backgroundloaded: 0
         });
     }
     render() {
@@ -266,7 +266,7 @@ class UpdateDetails extends React.Component {
                                             <fieldset><Field id="backgroundfile" name="backgroundfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
                                             <ErrorMessage name="backgroundfile" component="div"
                                                 className="alert alert-warning" />
-                                            <button className="btn btn-success" type="submit">Save</button>
+                                            <button className="btn btn-success" ref={this.save} type="submit">Save</button>
                                         </Form>
                                     )
                                 }

@@ -61,7 +61,7 @@ public class UserJpaResource {
 	}
 
 	@GetMapping("/jpa/users/all/profile")
-	public List<DAOUser> getAll(){
+	public List<Profile> getAll(){
 		// System.out.println(UserRepository.findAll().get(0).getUsername());
 		// System.out.println(UserRepository.findAll().get(0).getPassword());
 		// System.out.println(UserRepository.findAll().get(1).getUsername());
@@ -73,7 +73,7 @@ public class UserJpaResource {
 		// hardcodeList.add(hardcodeUser);
 		// hardcodeUser.setEmail("email@hardcode.com");
 		// return hardcodeList;
-		return UserRepository.findAll();
+		return profileRepository.findAll();
 		//return todoService.findAll();
 	}
 

@@ -1,8 +1,11 @@
 package com.sept.rest.webservices.restfulwebservices.todo;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
+import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
+import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,14 @@ public class TodoJpaResource {
 
 	@Autowired
 	private TodoJpaRepository todoJpaRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@GetMapping("/jpa/users/")
+	public List<DAOUser> getAllUser() {
+		return userRepository.findAll();
+	}
 	@GetMapping("/jpa/users/todos")
 	public List<Todo> getAll() {
 		return todoJpaRepository.findAll();
@@ -55,7 +66,6 @@ public class TodoJpaResource {
 		System.out.println("Comment: " + comment);
 		Todo updatedTodo = todoJpaRepository.findById(id).get().addComment(comment);
 
-//		updatedTodo.printComments();
 		updatedTodo.setUsername(username);
 
 		System.out.println("updatedTodo ID: " + updatedTodo.getId());
@@ -75,7 +85,6 @@ public class TodoJpaResource {
 	
 
 	//Edit/Update a Todo
-	//PUT /users/{user_name}/todos/{todo_id}
 	@PutMapping("/jpa/users/{username}/todos/{id}")
 	public ResponseEntity<Todo> updateTodo(
 			@PathVariable String username,
@@ -93,12 +102,9 @@ public class TodoJpaResource {
 			@PathVariable String username, @RequestBody Todo todo){
 		
 		todo.setUsername(username);
-		
+
 		Todo createdTodo = todoJpaRepository.save(todo);
-		
-		//Location
-		//Get current resource url
-		///{id}
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
 		

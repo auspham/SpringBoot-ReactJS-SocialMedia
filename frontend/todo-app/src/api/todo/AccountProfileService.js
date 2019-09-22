@@ -4,7 +4,6 @@ import { API_URL, JPA_API_URL } from '../../Constants'
 class AccountProfileService {
 
     retrieveInfo(name) {
-        console.log('executed service')
         return axios.get(`${JPA_API_URL}/users/${name}/profile`);
     }
 
@@ -14,17 +13,14 @@ class AccountProfileService {
     }
 
     retrieveAllInfo() {
-        console.log('executed service')
         return axios.get(`${JPA_API_URL}/users/all/profile`);
     }
 
     deleteInfo(name, id) {
-        // console.log('executed service')
         return axios.delete(`${JPA_API_URL}/users/${name}/profile/${id}`);
     }
 
     updateInfo(name, id, profile) {
-        // console.log('executed service')
         return axios.put(`${JPA_API_URL}/users/${name}/profile/${id}`, profile);
     }
 
@@ -66,7 +62,6 @@ class AccountProfileService {
 
 
     createInfo(name, profile) {
-        //console.log('executed service')
         return axios.post(`${JPA_API_URL}/users/${name}/profile/`, profile);
     }
 
@@ -98,6 +93,10 @@ class AccountProfileService {
     getBackgroundLink(username){
         return axios.get(`${JPA_API_URL}/users/${username}/profile/background`);
     }
+    getAllUser() {
+        return axios.get(`${JPA_API_URL}/users/`);
+    }
+
 }
 
 export default new AccountProfileService()

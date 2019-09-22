@@ -23,8 +23,7 @@ class SideContentComponent extends React.Component{
     }
 
     refreshInfo() {
-        let username = AuthenticationService.getLoggedInUserName();
-        AccountProfileService.retrieveDetails(username)
+        AccountProfileService.retrieveDetails(this.props.username)
             .then(response => {
                 this.setState({
                     firstname: response.data.firstname,

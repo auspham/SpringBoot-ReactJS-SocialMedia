@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-describe('Register test', () => {
+describe('Login and Register test', () => {
     it('It should register a test account', () => {
         browser.url('http://localhost:4200');
         const username = $('input[name="username"]');
@@ -31,9 +31,27 @@ describe('Register test', () => {
         submitBtn.click();
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
+
         browser.waitUntil(() => {
             return browser.getAlertText() === "Register Successful"
         }, 3000);
         browser.acceptAlert();
+    })
+
+    it('It should login with registered user', () => {
+        const username = $('input[name="username"]');
+        username.setValue("tester01");
+
+        const password = $('input[name="password"]');
+        password.setValue("aA123456");
+
+        const loginBtn = $('button[type="button"]');
+        loginBtn.click();
+
+        browser.waitUntil(() => {
+            return browser.getUrl() === 'http://localhost:4200/welcome/tester01'
+        }, 3000);
+        // assert.strictEqual('http://localhost:4200/welcome/tester01', browser.getUrl(), "User should be able to login");
+
     })
 })

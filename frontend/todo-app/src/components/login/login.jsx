@@ -3,16 +3,13 @@ import loginImg from "../../login.svg";
 import { SocialLogin } from "./SocialLogin";
 
 export class Login extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
         <div className="header">Login</div>
         <div className="image">
-                <img src={loginImg} />
+            <img src={loginImg} alt="Logo" />
         </div>
         <div className="content">
         <SocialLogin></SocialLogin>
@@ -22,7 +19,6 @@ export class Login extends React.Component {
           </div>
           <div className="form">
             <div className="form-group">
-              {/* <GoogleButton onClick={() => console.log('Google button clicked')}/> */}
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <input

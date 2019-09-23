@@ -34,16 +34,14 @@ class TodoApp extends Component {
 
     handleChange = e => {
         this.setState({ value: e.target.value }, function () {
-            console.log(this.state.value);
         });
     };
 
     redirect() {
-        window.location.href = "http://localhost:4200/profile/" + this.state.value;
+        window.location.href = "./profile/" + this.state.value;
     }
 
     refreshInfo() {
-        console.log("refreshInfo");
         let username = this.state.value;
         AccountProfileService.retrieveInfo(username)
             .then(response => {

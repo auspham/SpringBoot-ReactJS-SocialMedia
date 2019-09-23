@@ -21,6 +21,7 @@ class WelcomeComponent extends Component {
         this.retrieveAllTodos();
         stompClient = Socket.connect();
         stompClient.connect({}, this.onConnected, this.onError);
+        window.scrollTo(0, 0);
     }
 
     onConnected = () => {
@@ -49,7 +50,6 @@ class WelcomeComponent extends Component {
     deleteTodoClicked = (id) => {
         let username = AuthenticationService.getLoggedInUserName();
         let that = this;
-        //console.log(id + " " + username);
         TodoDataService.deleteTodo(username, id)
             .then(response => {
                     that.retrieveAllTodos();

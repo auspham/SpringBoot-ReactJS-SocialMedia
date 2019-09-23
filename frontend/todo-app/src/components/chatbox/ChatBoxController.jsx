@@ -57,7 +57,6 @@ export default class ChatBoxController extends Component {
 
     onMessageReceived = (payload) => {
         let message = JSON.parse(payload.body);
-        console.log('message payload', message);
         if (message.type === 'JOIN') {
             // TODO:
             this.state.userList.push(message.sender)

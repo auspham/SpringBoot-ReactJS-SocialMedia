@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { ReactComponent as YourSvg } from './assets/close.svg';
+import { ReactComponent as Send } from './assets/send.svg';
+import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
+import 'simplebar/dist/simplebar.css';
 
+import Avatar from '../todo/Avatar';
 export default class ChatModule extends Component {
     constructor(props) {
         super(props);
@@ -52,9 +56,9 @@ export default class ChatModule extends Component {
     }
     render() {
         return (
-        <div className="chatBox" style={this.state.hide ? {bottom: -330 + 'px'} : {}}>
+        <div className="chatBox" style={this.state.hide ? {bottom: -340 + 'px'} : {}}>
             <div className="chatTitle" onClick={this.handleToggle}>
-                {this.props.receiver}
+                <Avatar username={this.props.receiver}/> <a href={'/profile/' + this.props.receiver}> {this.props.receiver} </a>
                 <div className="chatBox-right"> <a onClick={this.handleClose} className="closeBtn">
                     <YourSvg/> </a>
                 </div>
@@ -62,9 +66,9 @@ export default class ChatModule extends Component {
             
             <ul className="chatView" ref="messageBox">
             {this.props.broadcastMessage.map((msg, i) => 
-                ( (msg.receiver == this.props.receiver && msg.sender == this.props.username) || 
-                (msg.receiver == this.props.username && msg.sender == this.props.receiver)) ?
-            <li key={i}> {(msg.sender == this.props.username) ? "You" : msg.sender} : {msg.message}</li> : null
+                ( (msg.receiver === this.props.receiver && msg.sender === this.props.username) || 
+                (msg.receiver === this.props.username && msg.sender === this.props.receiver)) ?
+            <li key={i}> {(msg.sender === this.props.username) ? "You" : msg.sender} : {msg.message}</li> : null
             )}
             </ul>
             <div className="chatControl" ref="chatControl">
@@ -73,7 +77,8 @@ export default class ChatModule extends Component {
                         this.handleSendMessage();
                     }
                 }}/>
-                <input type="submit" value="Submit" onClick={this.handleSendMessage}/>
+                
+                <Send onClick={this.handleSendMessage}/>
             </div>
         </div>);
     }

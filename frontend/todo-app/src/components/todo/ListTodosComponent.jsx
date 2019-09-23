@@ -5,7 +5,6 @@ import moment from 'moment'
 import TodoCard from "./TodoCard"
 class ListTodosComponent extends Component {
     constructor(props) {
-        console.log('constructor')
         super(props)
         this.state = {
             todos: [],
@@ -20,7 +19,6 @@ class ListTodosComponent extends Component {
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount')
         if(this.props.onRef) {
             this.props.onRef(undefined)   
         }
@@ -35,10 +33,8 @@ class ListTodosComponent extends Component {
             this.props.onRef(this)
         }
 
-        console.log('componentDidMount')
         this.refreshTodos();
 
-        console.log(this.state)
     }
 
     refreshTodos() {
@@ -46,7 +42,6 @@ class ListTodosComponent extends Component {
         TodoDataService.retrieveAllTodos(this.props.username)
             .then(
                 response => {
-                    console.log('response', response);
                     this.setState({ todos: response.data.reverse() })
                 }
             )
@@ -59,7 +54,6 @@ class ListTodosComponent extends Component {
 
     deleteTodoClicked(id) {
         let username = AuthenticationService.getLoggedInUserName()
-        //console.log(id + " " + username);
         TodoDataService.deleteTodo(username, id)
             .then(
                 response => {
@@ -76,7 +70,6 @@ class ListTodosComponent extends Component {
     }
 
     updateTodoClicked(id) {
-        console.log('update ' + id)
         this.props.history.push(`/todos/${id}`)
     }
 

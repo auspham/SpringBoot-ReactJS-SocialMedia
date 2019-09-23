@@ -76,10 +76,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Comment out the following because of deployment to GCP
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 	<build>
@@ -87,6 +88,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>1.3.1</version>
 			</plugin>
 		</plugins>
 	</build>

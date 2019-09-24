@@ -4,6 +4,8 @@ const path = require('path');
 describe('Login and Register test', () => {
     it('It should register a test account', () => {
         browser.url('http://localhost:4200');
+        browser.fullscreenWindow();
+        
         const username = $('input[name="username"]');
         username.setValue("tester01");
 
@@ -80,7 +82,7 @@ describe('Post status and comment', () => {
 });
 
 describe('Change avatar and background', () => {
-    it('It should change avatar and background', () => {
+    it('It should change avatar', () => {
         const profileLink = $('a[href="/profile/tester01"]');
         profileLink.click();
 
@@ -98,6 +100,22 @@ describe('Change avatar and background', () => {
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
 
-        browser.debug();
     })
+
+    it('It should change banner', () => {
+        browser.waitUntil(() => {
+            return !browser.isLoading();
+        },3000);
+
+        const bannerBtn = $('.banner');
+        bannerBtn.click();
+
+        const uploadBannerBtn = $('input[name="backgroundfile"]')
+        const filePath = path.join(__dirname, '/assets/test1-banner.jpg');
+
+        uploadBannerBtn.setValue(filePath);
+        const saveBtn = $('.btn-primary=Save Changes');
+        saveBtn.click();
+        browser.debug();
+    });
 })

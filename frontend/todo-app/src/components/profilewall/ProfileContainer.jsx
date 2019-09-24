@@ -115,7 +115,7 @@ class ProfileContainer extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <p>Click to upload your background file, picture has to be either <strong>png/jpeg</strong></p>
-            <fieldset><input id="avatarfile" name="avatarfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
+            <fieldset><input id="backgroundfile" name="backgroundfile" type="file" accept="image/png, image/jpeg" onChange={this.handleBackgroundFile} className="form-control" /></fieldset>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleCloseBG}>

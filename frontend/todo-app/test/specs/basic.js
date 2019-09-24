@@ -51,7 +51,29 @@ describe('Login and Register test', () => {
         browser.waitUntil(() => {
             return browser.getUrl() === 'http://localhost:4200/welcome/tester01'
         }, 3000);
-        // assert.strictEqual('http://localhost:4200/welcome/tester01', browser.getUrl(), "User should be able to login");
-
     })
 })
+
+describe('Post status and comment', () => {
+    it('It should post status with logged in user', () => {
+        let i = 0;
+        const statusInput = $('input[name="description"]');
+        const submitBtn = $('button[type="submit"]');
+
+        for (let i = 0; i <= 5; i++) {
+            statusInput.setValue("This is the test status number " + i);
+            submitBtn.click();
+        }
+    });
+
+    it('It should comment on posted status', () => {
+        const comments = $$('input[placeholder="Write a comment.."');
+        for (const key in comments) {
+            if (comments.hasOwnProperty(key)) {
+                const comment = comments[key];
+                comment.setValue("random comment");
+                browser.keys("Enter");
+            }
+        }
+    });
+});

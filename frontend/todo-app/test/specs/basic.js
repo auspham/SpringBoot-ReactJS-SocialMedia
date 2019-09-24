@@ -1,4 +1,5 @@
 const assert = require('assert');
+const path = require('path');
 
 describe('Login and Register test', () => {
     it('It should register a test account', () => {
@@ -71,9 +72,32 @@ describe('Post status and comment', () => {
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
                 const comment = comments[key];
-                comment.setValue("random comment");
+                comment.setValue("random comment " + key);
                 browser.keys("Enter");
             }
         }
     });
 });
+
+describe('Change avatar and background', () => {
+    it('It should change avatar and background', () => {
+        const profileLink = $('a[href="/profile/tester01"]');
+        profileLink.click();
+
+        browser.waitUntil(() => {
+            return !browser.isLoading();
+        },3000);
+
+        const avatarBtn = $('.image-cropper');
+        avatarBtn.click();
+
+        const uploadAvatarBtn = $('input[name="avatarfile"]')
+        const filePath = path.join(__dirname, '/assets/test1-ava.jpg');
+        uploadAvatarBtn.setValue(filePath);
+
+        const saveBtn = $('.btn-primary=Save Changes');
+        saveBtn.click();
+
+        browser.debug();
+    })
+})

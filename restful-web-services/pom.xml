@@ -75,6 +75,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+    		<groupId>io.rest-assured</groupId>
+   			<artifactId>rest-assured</artifactId>
+    		<version>3.2.0</version>
+    		<scope>test</scope>
+		</dependency>
 
 		<!-- Comment out the following because of deployment to GCP
 		<dependency>

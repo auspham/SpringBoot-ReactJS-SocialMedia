@@ -16,6 +16,13 @@ public class DAOUser {
     @Column
     @JsonIgnore
     private String password;
+    @Column
+    @JsonIgnore
+    private String email;
+
+    //OneToOne with Profile
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
 
     public String getUsername() {
         return username;
@@ -33,4 +40,11 @@ public class DAOUser {
         this.password = password;
     }
 
+    public String getEmail() {
+        return password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

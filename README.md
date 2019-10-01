@@ -13,7 +13,7 @@
 - Backend: **Spring Boot**, **Maven**
 - Frontend: **ReactJS**
 - Middleware: **JWT**, **Websocket**, **JPA**
-- Database: **Cloud Datastore**, **H2 Database Engine**
+- Database: **MySQL**, **H2 Database Engine**
 - CI & CD: **TravisCI**, **Google Cloud App Engine**
 - Testing: **JUnit**, **WebdriverIO**
 

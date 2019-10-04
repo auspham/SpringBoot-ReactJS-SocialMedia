@@ -5,6 +5,9 @@ import { ReactComponent as Empty } from './assets/empty.svg';
 import TodoCard from './TodoCard'
 import TodoComponent from './TodoComponent';
 import Socket from '../todo/StartSocket';
+import moment from 'moment';
+
+
 let stompClient = null;
 
 class WelcomeComponent extends Component {
@@ -37,7 +40,7 @@ class WelcomeComponent extends Component {
         TodoDataService.retrieveAll().then(response => {
             this.setState({
                 todos: response.data.sort(function(a,b) {
-                    return new Date(b.targetDate) - new Date(a.targetDate);
+                    return moment.utc(a.targetDate).diff(moment.utc(b.targetDate));
                 }).reverse()
             })
         });

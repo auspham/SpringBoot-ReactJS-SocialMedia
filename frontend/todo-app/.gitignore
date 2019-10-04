@@ -1,5 +1,7 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
+build/*
+allure-results/*
 # Created by https://www.gitignore.io/api/java,macos,maven,node,visualstudiocode,intellij
 # Edit at https://www.gitignore.io/?templates=java,macos,maven,node,visualstudiocode,intellij
 

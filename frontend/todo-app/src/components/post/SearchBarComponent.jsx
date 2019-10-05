@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "./search.scss"
-import AccountProfileService from "../../api/todo/AccountProfileService"
+import AccountProfileService from "../../api/main/AccountProfileService"
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import 'simplebar/dist/simplebar.css';
 class SearchBarComponent extends React.Component {

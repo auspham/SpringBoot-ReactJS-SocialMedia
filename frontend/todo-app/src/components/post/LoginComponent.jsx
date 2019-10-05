@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AuthenticationService from "./AuthenticationService";
 import { Login } from "../login/login";
 import { Register } from "../login/register";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AccountProfileService from "../../api/main/AccountProfileService";
 
 class LoginComponent extends Component {
   constructor(props) {

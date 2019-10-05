@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import TodoDataService from '../../api/todo/TodoDataService'
+import PostDataService from '../../api/main/PostDataService'
 import AuthenticationService from './AuthenticationService'
 import { ReactComponent as Empty } from './assets/empty.svg';
-import TodoCard from './TodoCard'
-import TodoComponent from './TodoComponent';
-import Socket from '../todo/StartSocket';
+import PostCard from './PostCard'
+import PostComponent from './PostComponent';
+import Socket from './/StartSocket';
 import moment from 'moment';
 
 
@@ -37,7 +37,7 @@ class WelcomeComponent extends Component {
 
     retrieveAllTodos = (payload) => {
         // this.child.current.refreshComments();
-        TodoDataService.retrieveAll().then(response => {
+        PostDataService.retrieveAll().then(response => {
             this.setState({
                 todos: response.data.sort(function(a,b) {
                     return moment.utc(a.targetDate).diff(moment.utc(b.targetDate));
@@ -53,7 +53,7 @@ class WelcomeComponent extends Component {
     deleteTodoClicked = (id) => {
         let username = AuthenticationService.getLoggedInUserName();
         let that = this;
-        TodoDataService.deleteTodo(username, id)
+        PostDataService.deleteTodo(username, id)
             .then(response => {
                     that.retrieveAllTodos();
                     stompClient.send("/app/postStatus", {}, true);
@@ -65,11 +65,11 @@ class WelcomeComponent extends Component {
     render() {
         return (
             <div className="generalTodo">
-                <TodoComponent refreshTodos={this.retrieveAllTodos} username={AuthenticationService.getLoggedInUserName()} stompClient={stompClient}/>
+                <PostComponent refreshTodos={this.retrieveAllTodos} username={AuthenticationService.getLoggedInUserName()} stompClient={stompClient}/>
                 {this.state.todos.length > 0 ? <>
                 {this.state.todos.map(
                     (todo,i) =>
-                        <TodoCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.retrieveAllTodos} deleteTodoClicked={this.deleteTodoClicked} username={todo.username} stompClient={stompClient}/>
+                        <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.retrieveAllTodos} deleteTodoClicked={this.deleteTodoClicked} username={todo.username} stompClient={stompClient}/>
                 )}
                 </> : <Empty width={500}/>}
             </div>

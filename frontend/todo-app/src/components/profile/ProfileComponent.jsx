@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticationService from "../todo/AuthenticationService";
+import AuthenticationService from "../post/AuthenticationService";
 import { UpdateDetails } from "./updateDetails";
 
 

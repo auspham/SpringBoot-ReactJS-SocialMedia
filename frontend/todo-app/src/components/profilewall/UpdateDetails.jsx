@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import "./profile.scss";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import AuthenticationService from "../todo/AuthenticationService";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AuthenticationService from "../post/AuthenticationService";
+import AccountProfileService from "../../api/main/AccountProfileService";
 
 class UpdateDetails extends React.Component {
 

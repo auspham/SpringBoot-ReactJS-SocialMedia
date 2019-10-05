@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import SideContentComponent from '../profilewall/SideContentComponent';
 import NewsFeedComponent from '../profilewall/NewsFeedComponent';
 import UpdateDetails from '../profilewall/UpdateDetails'
-import AuthenticationService from "../todo/AuthenticationService";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AuthenticationService from "../post/AuthenticationService";
+import AccountProfileService from "../../api/main/AccountProfileService";
 
 
 class ContentContainer extends React.Component {
@@ -36,8 +36,6 @@ class ContentContainer extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-
-
                     {!this.state.isEditing ?
                     <SideContentComponent
                     edit = {this.triggerEditState}
@@ -58,7 +56,6 @@ class ContentContainer extends React.Component {
                         triggerEditState = {this.triggerEditState}
                     ></UpdateDetails> }
                     <NewsFeedComponent history={this.props.history} match={this.props.match} username={this.props.username}></NewsFeedComponent>
-
                 </div>
             </div>
 
@@ -75,7 +72,6 @@ class ContentContainer extends React.Component {
                 this.setState({
                     firstname: response.data.firstname,
                     lastname: response.data.lastname,
-                    studentnumber: response.data.studentnumber,
                     email:response.data.email,
                     studentnumber: response.data.studentnumber,
                     phonenumber: response.data.phonenumber,

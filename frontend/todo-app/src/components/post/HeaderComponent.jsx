@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
 import SearchBarComponent from './SearchBarComponent.jsx'
-import AccountProfileService from '../../api/todo/AccountProfileService'
+import AccountProfileService from '../../api/main/AccountProfileService'
 import Logo from './assets/logo.png';
 
 

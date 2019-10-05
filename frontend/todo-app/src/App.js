@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TodoApp from "./components/todo/TodoApp";
+import MainApp from "./components/post/MainApp";
 import './App.css';
 import './bootstrap.css';
 
@@ -56,7 +56,7 @@ class App extends Component {
     return (
       <div className="App">
         {/*<Counter/>*/}
-        <TodoApp />
+        <MainApp />
       </div>
     );
   }

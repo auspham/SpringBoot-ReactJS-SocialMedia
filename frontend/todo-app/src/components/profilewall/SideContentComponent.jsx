@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import AuthenticationService from "../todo/AuthenticationService";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AuthenticationService from "../post/AuthenticationService";
+import AccountProfileService from "../../api/main/AccountProfileService";
 import {ReactComponent as Edit} from "./assets/wrench.svg"
 
 class SideContentComponent extends React.Component{

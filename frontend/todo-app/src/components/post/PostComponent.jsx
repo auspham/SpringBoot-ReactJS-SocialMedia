@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import TodoDataService from '../../api/todo/TodoDataService.js'
+import PostDataService from '../../api/main/PostDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 import "../profilewall/status.scss"
 
-class TodoComponent extends Component {
+class PostComponent extends Component {
     constructor(props) {
         super(props)
 
@@ -27,7 +27,7 @@ class TodoComponent extends Component {
 
         let username = AuthenticationService.getLoggedInUserName()
 
-        TodoDataService.retrieveTodo(username, this.state.id)
+        PostDataService.retrieveTodo(username, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
                 targetDate: moment(response.data.targetDate).format()
@@ -59,16 +59,14 @@ class TodoComponent extends Component {
         }
 
         if (this.state.id === -1) {
-            TodoDataService.createTodo(username, todo)
+            PostDataService.createTodo(username, todo)
                 .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
         } else {
-            TodoDataService.updateTodo(username, this.state.id, todo)
+            PostDataService.updateTodo(username, this.state.id, todo)
                 .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
         }
 
         this.setState({description: ''})
-        console.log(values);
-
     }
 
     handleChange = (event) => {
@@ -80,7 +78,6 @@ class TodoComponent extends Component {
     render() {
 
         let { description, targetDate } = this.state
-        //let targetDate = this.state.targetDate
 
         return (
             <div>
@@ -121,4 +118,4 @@ class TodoComponent extends Component {
     }
 }
 
-export default TodoComponent
+export default PostComponent

@@ -4,7 +4,7 @@ import { ReactComponent as Send } from './assets/send.svg';
 import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
 import 'simplebar/dist/simplebar.css';
 
-import Avatar from '../todo/Avatar';
+import Avatar from '../post/Avatar';
 export default class ChatModule extends Component {
     constructor(props) {
         super(props);

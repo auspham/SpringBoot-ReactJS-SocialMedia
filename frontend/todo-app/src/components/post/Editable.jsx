@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import TodoDataService from '../../api/todo/TodoDataService.js'
+import PostDataService from '../../api/main/PostDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 export default class Editable extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ export default class Editable extends Component {
             targetDate: this.props.todo.targetDate
         }
 
-        TodoDataService.updateTodo(this.props.username, this.props.todo.id, todo)
+        PostDataService.updateTodo(this.props.username, this.props.todo.id, todo)
                 .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
 
         this.props.toggleShow();

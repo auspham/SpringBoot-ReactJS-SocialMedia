@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./profile.scss";
 import ProfileContainer from "../profilewall/ProfileContainer";
 import ContentContainer from "../profilewall/ContentContainer";
-import AccountProfileService from "../../api/todo/AccountProfileService"
+import AccountProfileService from "../../api/main/AccountProfileService"
 
 
 class AccountProfile extends React.Component {

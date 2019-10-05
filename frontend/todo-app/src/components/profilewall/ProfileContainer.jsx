@@ -4,12 +4,12 @@ import updateinfobtn from "../../img/setting.svg"
 import msgbtn from "../../img/message.svg"
 import notificationbtn from "../../img/notification.svg"
 import "./profile.scss";
-import AccountProfileService from "../../api/todo/AccountProfileService";
+import AccountProfileService from "../../api/main/AccountProfileService";
 import { API_URL } from '../../Constants'
 import Guest from "./assets/guest.jpeg"
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import AuthenticationService from "../todo/AuthenticationService";
+import AuthenticationService from "../post/AuthenticationService";
 
 
 class ProfileContainer extends React.Component {

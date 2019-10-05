@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './chatbox.scss';
 import ChatModule from './ChatModule';
-import Socket from '../todo/StartSocket';
-import Avatar from "../todo/Avatar"
+import Socket from '../post/StartSocket';
+import Avatar from "../post/Avatar"
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 var stompClient = null;

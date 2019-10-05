@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import TodoDataService from '../../api/todo/TodoDataService.js'
+import PostDataService from '../../api/main/PostDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 import moment from 'moment'
-import TodoCard from "./TodoCard"
+import PostCard from "./PostCard"
 class ListTodosComponent extends Component {
     constructor(props) {
         super(props)
@@ -39,7 +39,7 @@ class ListTodosComponent extends Component {
 
     refreshTodos() {
 
-        TodoDataService.retrieveAllTodos(this.props.username)
+        PostDataService.retrieveAllTodos(this.props.username)
             .then(
                 response => {
                     this.setState({ todos: response.data.reverse() })
@@ -54,7 +54,7 @@ class ListTodosComponent extends Component {
 
     deleteTodoClicked(id) {
         let username = AuthenticationService.getLoggedInUserName()
-        TodoDataService.deleteTodo(username, id)
+        PostDataService.deleteTodo(username, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -85,7 +85,7 @@ class ListTodosComponent extends Component {
                             {
                                 this.state.todos.map(
                                     (todo,i) =>
-                                       <TodoCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username} stompClient={this.props.stompClient}/>
+                                       <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username} stompClient={this.props.stompClient}/>
                                 )
                             }
                         </div>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_URL, JPA_API_URL } from '../../Constants'
 
-class TodoDataService {
+class PostDataService {
 
     retrieveAllTodos(name) {
         return axios.get(`${JPA_API_URL}/users/${name}/todos`);
@@ -37,4 +37,4 @@ class TodoDataService {
 
 }
 
-export default new TodoDataService()
+export default new PostDataService()

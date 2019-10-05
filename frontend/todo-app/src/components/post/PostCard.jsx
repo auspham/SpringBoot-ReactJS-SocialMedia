@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { ReactComponent as Close } from './assets/times.svg';
 import { ReactComponent as Edit } from './assets/edit.svg';
 import AuthenticationService from './AuthenticationService'
-import TodoDataService from '../../api/todo/TodoDataService'
+import PostDataService from '../../api/main/PostDataService'
 import Editable from './Editable'
 import moment from 'moment'
-import Socket from './StartSocket'
 import Avatar from './Avatar'
-import 'simplebar'; // or "import SimpleBar from 'simplebar';" if you want to use it manually.
-import 'simplebar/dist/simplebar.css';
 let stompClient = null;
-export default class TodoCard extends Component {
+export default class PostCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -37,7 +34,7 @@ export default class TodoCard extends Component {
     }
 
     refreshComments = () => {
-        TodoDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
+        PostDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
             this.setState({comments: res.data});
             this.scrollToBottom();
         });
@@ -58,7 +55,7 @@ export default class TodoCard extends Component {
             targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
 
-        TodoDataService.postTodoComment(this.state.target, this.props.todo.id, comment).then((res,err) => {
+        PostDataService.postTodoComment(this.state.target, this.props.todo.id, comment).then((res,err) => {
             if(err) {
                 console.error("err comment", err);
             }

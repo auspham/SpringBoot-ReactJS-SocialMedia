@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ListTodoComponents from '../post/ListTodosComponent.jsx'
+import ListTodoComponents from '../post/ListPostsComponent.jsx'
 import PostComponent from '../post/PostComponent.jsx';
 import AuthenticationService from '../post/AuthenticationService'
 import Socket from '../post/StartSocket';

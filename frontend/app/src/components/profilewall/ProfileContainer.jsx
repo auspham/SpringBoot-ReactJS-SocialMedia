@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-import updateinfobtn from "../../img/setting.svg"
-import msgbtn from "../../img/message.svg"
-import notificationbtn from "../../img/notification.svg"
 import "./profile.scss";
 import AccountProfileService from "../../api/main/AccountProfileService";
 import { API_URL } from '../../Constants'

@@ -3,7 +3,7 @@ import PostDataService from '../../api/main/PostDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 import moment from 'moment'
 import PostCard from "./PostCard"
-class ListTodosComponent extends Component {
+class ListPostsComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -96,4 +96,4 @@ class ListTodosComponent extends Component {
     }
 }
 
-export default ListTodosComponent
+export default ListPostsComponent

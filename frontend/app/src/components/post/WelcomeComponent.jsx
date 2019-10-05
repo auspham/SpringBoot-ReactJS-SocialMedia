@@ -69,7 +69,7 @@ class WelcomeComponent extends Component {
                 {this.state.todos.length > 0 ? <>
                 {this.state.todos.map(
                     (todo,i) =>
-                        <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.retrieveAllTodos} deleteTodoClicked={this.deleteTodoClicked} username={todo.username} stompClient={stompClient}/>
+                        <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshFeed={this.retrieveAllTodos} deleteTodoClicked={this.deleteTodoClicked} username={todo.username} stompClient={stompClient}/>
                 )}
                 </> : <Empty width={500}/>}
             </div>

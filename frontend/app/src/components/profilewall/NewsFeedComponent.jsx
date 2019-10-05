@@ -14,9 +14,9 @@ class NewsFeedComponent extends React.Component{
         stompClient.connect({}, this.onConnected, this.onError);
     }
 
-    refreshTodos = () => {
+    refreshFeed = () => {
         if(this.child)
-            this.child.refreshTodos();
+            this.child.refreshFeed();
     }
 
     onConnected = () => {
@@ -32,7 +32,7 @@ class NewsFeedComponent extends React.Component{
             <div className="col4">
                 {AuthenticationService.getLoggedInUserName() === this.props.username ?
                     <div className="container">
-                        <PostComponent match={this.props.match} stompClient={stompClient} refreshTodos={this.refreshTodos} username={this.props.username} history={this.props.history}/>
+                        <PostComponent match={this.props.match} stompClient={stompClient} refreshFeed={this.refreshFeed} username={this.props.username} history={this.props.history}/>
                     </div> : ""}
                 <ListTodoComponents history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username} stompClient={stompClient}/>
             </div>

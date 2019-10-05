@@ -10,12 +10,12 @@ class ContentContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstname: 'First name',
-            lastname: 'Last name',
-            studentnumber: 'Student number',
-            email: 'Email',
-            phonenumber: 'Phone number',
-            aboutme: 'About me',
+            firstname: '',
+            lastname: '',
+            studentnumber: '',
+            email: '',
+            phonenumber: '',
+            aboutme: '',
             isEditing: false
         };
     }
@@ -68,7 +68,6 @@ class ContentContainer extends React.Component {
         let username = AuthenticationService.getLoggedInUserName();
         AccountProfileService.retrieveDetails(username)
             .then(response => {
-                console.error("response cc", response.data);
                 this.setState({
                     firstname: response.data.firstname,
                     lastname: response.data.lastname,

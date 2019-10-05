@@ -60,10 +60,10 @@ class PostComponent extends Component {
 
         if (this.state.id === -1) {
             PostDataService.createTodo(username, todo)
-                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
+                .then(() => {this.props.refreshFeed(); this.props.stompClient.send("/app/postStatus", {}, true)})
         } else {
             PostDataService.updateTodo(username, this.state.id, todo)
-                .then(() => {this.props.refreshTodos(); this.props.stompClient.send("/app/postStatus", {}, true)})
+                .then(() => {this.props.refreshFeed(); this.props.stompClient.send("/app/postStatus", {}, true)})
         }
 
         this.setState({description: ''})

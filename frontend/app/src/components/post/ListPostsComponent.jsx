@@ -13,7 +13,7 @@ class ListPostsComponent extends Component {
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
         this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.addTodoClicked = this.addTodoClicked.bind(this)
-        this.refreshTodos = this.refreshTodos.bind(this)
+        this.refreshFeed = this.refreshFeed.bind(this)
         this.show = false;
         this.refers = [];
     }
@@ -33,11 +33,11 @@ class ListPostsComponent extends Component {
             this.props.onRef(this)
         }
 
-        this.refreshTodos();
+        this.refreshFeed();
 
     }
 
-    refreshTodos() {
+    refreshFeed() {
 
         PostDataService.retrieveAllTodos(this.props.username)
             .then(
@@ -58,7 +58,7 @@ class ListPostsComponent extends Component {
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
-                    this.refreshTodos();
+                    this.refreshFeed();
                     this.props.stompClient.send("/app/postStatus", {}, true);
                 }
             )
@@ -85,7 +85,7 @@ class ListPostsComponent extends Component {
                             {
                                 this.state.todos.map(
                                     (todo,i) =>
-                                       <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshTodos={this.refreshTodos} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username} stompClient={this.props.stompClient}/>
+                                       <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshFeed={this.refreshFeed} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username} stompClient={this.props.stompClient}/>
                                 )
                             }
                         </div>

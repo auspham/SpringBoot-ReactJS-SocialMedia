@@ -62,24 +62,7 @@ public class UserJpaResource {
 
 	@GetMapping("/jpa/users/all/profile")
 	public List<Profile> getAll(){
-		// System.out.println(UserRepository.findAll().get(0).getUsername());
-		// System.out.println(UserRepository.findAll().get(0).getPassword());
-		// System.out.println(UserRepository.findAll().get(1).getUsername());
-		// System.out.println(UserRepository.findAll().get(1).getPassword());
-		// System.out.println(UserRepository.findAll().get(2).getUsername());
-		// System.out.println(UserRepository.findAll().get(2).getPassword());
-		// List<DAOUser> hardcodeList = new ArrayList<DAOUser>();
-		// DAOUser hardcodeUser = new DAOUser();
-		// hardcodeList.add(hardcodeUser);
-		// hardcodeUser.setEmail("email@hardcode.com");
-		// return hardcodeList;
 		return profileRepository.findAll();
-		//return todoService.findAll();
 	}
 
-	// @GetMapping("/jpa/users/{username}/todos/{id}")
-	// public Todo getTodo(@PathVariable String username, @PathVariable long id){
-	// 	return UserRepository.findById(id).get();
-	// 	//return todoService.findById(id);
-	// }
 }

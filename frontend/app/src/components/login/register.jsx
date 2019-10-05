@@ -19,7 +19,6 @@ export class Register extends React.Component {
       isPhonenumberDuplicate: false
     }
     this.validate = this.validate.bind(this)
-
   }
 
   checkDuplicateUser(username) {
@@ -67,7 +66,6 @@ export class Register extends React.Component {
     if (email != null) {
       AccountProfileService.checkDuplicateEmail(email)
         .then(response => {
-
           if (response.data == true) {
             this.setState({
               isEmailDuplicate: true
@@ -78,7 +76,6 @@ export class Register extends React.Component {
               isEmailDuplicate: false
             });
           }
-
         })
     }
   }

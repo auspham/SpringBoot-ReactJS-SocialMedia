@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ListTodoComponents from '../post/ListPostsComponent.jsx'
+import ListPostsComponent from '../post/ListPostsComponent.jsx'
 import PostComponent from '../post/PostComponent.jsx';
 import AuthenticationService from '../post/AuthenticationService'
 import Socket from '../post/StartSocket';
@@ -34,7 +34,7 @@ class NewsFeedComponent extends React.Component{
                     <div className="container">
                         <PostComponent match={this.props.match} stompClient={stompClient} refreshFeed={this.refreshFeed} username={this.props.username} history={this.props.history}/>
                     </div> : ""}
-                <ListTodoComponents history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username} stompClient={stompClient}/>
+                <ListPostsComponent history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username} stompClient={stompClient}/>
             </div>
         )
     }

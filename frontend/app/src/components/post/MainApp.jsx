@@ -53,7 +53,7 @@ class MainApp extends Component {
 
     render() {
         return (
-            <div className="TodoApp">
+            <div className="MainApp">
                 <Router>
                     <>
                         <HeaderComponent refreshInfo={this.refreshInfo} handleClick={this.handleClick} handleChange={this.handleChange} />

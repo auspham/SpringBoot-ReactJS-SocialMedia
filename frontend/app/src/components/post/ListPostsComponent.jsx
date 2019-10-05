@@ -10,9 +10,7 @@ class ListPostsComponent extends Component {
             posts: [],
             message: null
         }
-        this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
-        this.updateTodoClicked = this.updateTodoClicked.bind(this)
-        this.addTodoClicked = this.addTodoClicked.bind(this)
+        this.deletePostClicked = this.deletePostClicked.bind(this)
         this.refreshFeed = this.refreshFeed.bind(this)
         this.show = false;
         this.refers = [];
@@ -57,20 +55,12 @@ class ListPostsComponent extends Component {
         PostDataService.deleteTodo(username, id)
             .then(
                 response => {
-                    this.setState({ message: `Delete of todo ${id} Successful` })
+                    this.setState({ message: `Delete of post ${id} Successful` })
                     this.refreshFeed();
                     this.props.stompClient.send("/app/postStatus", {}, true);
                 }
             )
 
-    }
-
-    addTodoClicked() {
-        this.props.history.push(`/todos/-1`)
-    }
-
-    updateTodoClicked(id) {
-        this.props.history.push(`/todos/${id}`)
     }
 
     handleClose = () => this.setShow(false);

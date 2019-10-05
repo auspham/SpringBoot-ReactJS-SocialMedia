@@ -15,7 +15,7 @@ class WelcomeComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            todos: []
+            posts: []
         }
         this.refers = [];
     }
@@ -36,10 +36,9 @@ class WelcomeComponent extends Component {
     }
 
     retrieveAllTodos = (payload) => {
-        // this.child.current.refreshComments();
         PostDataService.retrieveAll().then(response => {
             this.setState({
-                todos: response.data.sort(function(a,b) {
+                posts: response.data.sort(function(a,b) {
                     return moment.utc(a.targetDate).diff(moment.utc(b.targetDate));
                 }).reverse()
             })
@@ -50,7 +49,7 @@ class WelcomeComponent extends Component {
         });
     }
 
-    deleteTodoClicked = (id) => {
+    deletePostClicked = (id) => {
         let username = AuthenticationService.getLoggedInUserName();
         let that = this;
         PostDataService.deleteTodo(username, id)
@@ -65,11 +64,11 @@ class WelcomeComponent extends Component {
     render() {
         return (
             <div className="generalTodo">
-                <PostComponent refreshTodos={this.retrieveAllTodos} username={AuthenticationService.getLoggedInUserName()} stompClient={stompClient}/>
-                {this.state.todos.length > 0 ? <>
-                {this.state.todos.map(
-                    (todo,i) =>
-                        <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshFeed={this.retrieveAllTodos} deleteTodoClicked={this.deleteTodoClicked} username={todo.username} stompClient={stompClient}/>
+                <PostComponent refreshFeed={this.retrieveAllTodos} username={AuthenticationService.getLoggedInUserName()} stompClient={stompClient}/>
+                {this.state.posts.length > 0 ? <>
+                {this.state.posts.map(
+                    (post,i) =>
+                        <PostCard key={post.id} post={post} ref={ref => this.refers[post.id] = ref} refreshFeed={this.retrieveAllTodos} deletePostClicked={this.deletePostClicked} username={post.username} stompClient={stompClient}/>
                 )}
                 </> : <Empty width={500}/>}
             </div>

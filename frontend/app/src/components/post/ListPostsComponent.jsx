@@ -7,7 +7,7 @@ class ListPostsComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            todos: [],
+            posts: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -42,7 +42,7 @@ class ListPostsComponent extends Component {
         PostDataService.retrieveAllTodos(this.props.username)
             .then(
                 response => {
-                    this.setState({ todos: response.data.reverse() })
+                    this.setState({ posts: response.data.reverse() })
                 }
             )
         
@@ -52,7 +52,7 @@ class ListPostsComponent extends Component {
         });
     }
 
-    deleteTodoClicked(id) {
+    deletePostClicked(id) {
         let username = AuthenticationService.getLoggedInUserName()
         PostDataService.deleteTodo(username, id)
             .then(
@@ -83,9 +83,9 @@ class ListPostsComponent extends Component {
                     <div className="table">
                         <div>
                             {
-                                this.state.todos.map(
-                                    (todo,i) =>
-                                       <PostCard key={todo.id} todo={todo} ref={ref => this.refers[todo.id] = ref} refreshFeed={this.refreshFeed} deleteTodoClicked={this.deleteTodoClicked} username={this.props.username} stompClient={this.props.stompClient}/>
+                                this.state.posts.map(
+                                    (post,i) =>
+                                       <PostCard key={post.id} post={post} ref={ref => this.refers[post.id] = ref} refreshFeed={this.refreshFeed} deletePostClicked={this.deletePostClicked} username={this.props.username} stompClient={this.props.stompClient}/>
                                 )
                             }
                         </div>

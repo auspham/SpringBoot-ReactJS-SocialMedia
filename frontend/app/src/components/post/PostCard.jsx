@@ -29,12 +29,12 @@ export default class PostCard extends Component {
     }
 
     componentDidMount() {
-        this.setState({comments: this.props.todo.comments}, this.scrollToBottom());
+        this.setState({comments: this.props.post.comments}, this.scrollToBottom());
         this.refreshComments();
     }
 
     refreshComments = () => {
-        PostDataService.retrieveTodoComments(this.state.target, this.props.todo.id).then(res => {
+        PostDataService.retrieveTodoComments(this.state.target, this.props.post.id).then(res => {
             this.setState({comments: res.data});
             this.scrollToBottom();
         });
@@ -52,10 +52,10 @@ export default class PostCard extends Component {
         let comment = {
             username: username,
             description: this.state.content,
-            targetDate: moment(new Date()).format('YYYY-MM-DD')
+            targetDate: moment(new Date()).format()
         }
 
-        PostDataService.postTodoComment(this.state.target, this.props.todo.id, comment).then((res,err) => {
+        PostDataService.postTodoComment(this.state.target, this.props.post.id, comment).then((res,err) => {
             if(err) {
                 console.error("err comment", err);
             }
@@ -73,23 +73,23 @@ export default class PostCard extends Component {
 
     render() {
         return (   
-        <div className="ui-block ui-custom" key={this.props.todo.id}>
+        <div className="ui-block ui-custom" key={this.props.post.id}>
             <div className="status-head">
                 <div className="status-left">
                     <Avatar username={this.props.username}/>
                     <div style={{float: 'left'}}>
                         <a href={'/profile/' + this.props.username}>{this.props.username}</a>
-                        <div className="date">{moment(this.props.todo.targetDate).format('YYYY-MM-DD')}</div>
+                        <div className="date">{moment(this.props.post.targetDate).format('YYYY-MM-DD')}</div>
                     </div>
                 </div>
                 {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">
                     <Edit onClick={this.toggleShow}/>
-                    <Close onClick={() => this.props.deleteTodoClicked(this.props.todo.id)}/>
+                    <Close onClick={() => this.props.deletePostClicked(this.props.post.id)}/>
                 </div> : ""}
             </div>
             <div className="status-content">
-                {!this.state.show && this.props.todo.description}
-                {this.state.show && <Editable todo={this.props.todo} toggleShow={this.toggleShow} username={this.props.username} refreshFeed={this.props.refreshFeed} content={this.props.todo.description} stompClient={this.props.stompClient}></Editable>}
+                {!this.state.show && this.props.post.description}
+                {this.state.show && <Editable post={this.props.post} toggleShow={this.toggleShow} username={this.props.username} refreshFeed={this.props.refreshFeed} content={this.props.post.description} stompClient={this.props.stompClient}></Editable>}
             </div>
             <div className="comments">
                 <div className="commentHolder" ref="comments">

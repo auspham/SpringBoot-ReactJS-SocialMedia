@@ -35,7 +35,6 @@ class LoginComponent extends Component {
     AuthenticationService.registerNewAccount(
       values.username,
       values.password,
-      'email@email.com'
     )
       .then(response => {
         if (response.status === 200) {

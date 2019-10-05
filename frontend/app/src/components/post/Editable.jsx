@@ -16,13 +16,13 @@ export default class Editable extends Component {
     }
 
     handleUpdate = (event) => {
-        let todo = {
-            id: this.props.todo.id,
+        let post = {
+            id: this.props.post.id,
             description: this.state.content,
-            targetDate: this.props.todo.targetDate
+            targetDate: this.props.post.targetDate
         }
 
-        PostDataService.updateTodo(this.props.username, this.props.todo.id, todo)
+        PostDataService.updateTodo(this.props.username, this.props.post.id, post)
                 .then(() => {this.props.refreshFeed(); this.props.stompClient.send("/app/postStatus", {}, true)})
 
         this.props.toggleShow();

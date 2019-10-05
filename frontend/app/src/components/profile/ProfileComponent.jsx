@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import AuthenticationService from "../post/AuthenticationService";
-import { UpdateDetails } from "./updateDetails";
-
 
 class ProfileComponent extends Component {
   constructor(props) {

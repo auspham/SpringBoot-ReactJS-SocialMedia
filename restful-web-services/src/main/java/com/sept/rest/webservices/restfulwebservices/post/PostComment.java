@@ -1,24 +1,22 @@
-package com.sept.rest.webservices.restfulwebservices.todo;
+package com.sept.rest.webservices.restfulwebservices.post;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Date;
 
 @Embeddable
-public class TodoComment {
+public class PostComment {
     @GeneratedValue
     private long id;
     private String username;
     private String description;
     private Date targetDate;
 
-    public TodoComment() {
+    public PostComment() {
         // Default consturctor
     }
 
-    public TodoComment(String username, String description, Date targetDate) {
+    public PostComment(String username, String description, Date targetDate) {
         this.username = username;
         this.description = description;
         this.targetDate = targetDate;

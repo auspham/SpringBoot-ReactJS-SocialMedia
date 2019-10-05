@@ -1,4 +1,4 @@
-package com.sept.rest.webservices.restfulwebservices.todo;
+package com.sept.rest.webservices.restfulwebservices.post;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Todo")
-public class Todo {
+public class Post {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -18,32 +18,32 @@ public class Todo {
 	private boolean isDone;
 
 	@ElementCollection(fetch = FetchType.LAZY)
-	private List<TodoComment> comments = new ArrayList<>();
+	private List<PostComment> comments = new ArrayList<>();
 
-	public Todo() {
+	public Post() {
 
 	}
 
 
-	public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
+	public Post(long id, String username, String description, Date targetDate, boolean isDone) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.description = description;
 		this.targetDate = targetDate;
 		this.isDone = isDone;
-		this.comments = new ArrayList<TodoComment>();
+		this.comments = new ArrayList<PostComment>();
 	}
-	public Todo addComment(TodoComment comment) {
+	public Post addComment(PostComment comment) {
 		this.comments.add(comment);
 		return this;
 	}
 
-	public List<TodoComment> getComments() {
+	public List<PostComment> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(List<TodoComment> list) {
+	public void setComments(List<PostComment> list) {
 		this.comments = list;
 	}
 	public Long getId() {
@@ -109,7 +109,7 @@ public class Todo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Todo other = (Todo) obj;
+		Post other = (Post) obj;
 		if (id != other.id)
 			return false;
 		return true;

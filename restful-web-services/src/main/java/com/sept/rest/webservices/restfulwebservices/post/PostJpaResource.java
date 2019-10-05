@@ -1,7 +1,6 @@
-package com.sept.rest.webservices.restfulwebservices.todo;
+package com.sept.rest.webservices.restfulwebservices.post;
 
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
 
 import com.sept.rest.webservices.restfulwebservices.model.DAOUser;
@@ -19,17 +18,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.sept.rest.webservices.restfulwebservices.todo.Todo;
-
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-public class TodoJpaResource {
+public class PostJpaResource {
 	
 	// @Autowired
 	// private TodoHardcodedService todoService;
 
 	@Autowired
-	private TodoJpaRepository todoJpaRepository;
+	private PostJpaRepository postJpaRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -39,39 +36,39 @@ public class TodoJpaResource {
 		return userRepository.findAll();
 	}
 	@GetMapping("/jpa/users/todos")
-	public List<Todo> getAll() {
-		return todoJpaRepository.findAll();
+	public List<Post> getAll() {
+		return postJpaRepository.findAll();
 	}
 
 	@GetMapping("/jpa/users/{username}/todos")
-	public List<Todo> getAllTodos(@PathVariable String username){
-		return todoJpaRepository.findByUsername(username);
+	public List<Post> getAllTodos(@PathVariable String username){
+		return postJpaRepository.findByUsername(username);
 		//return todoService.findAll();
 	}
 
 	@GetMapping("/jpa/users/{username}/todos/{id}")
-	public Todo getTodo(@PathVariable String username, @PathVariable long id){
-		return todoJpaRepository.findById(id).get();
+	public Post getTodo(@PathVariable String username, @PathVariable long id){
+		return postJpaRepository.findById(id).get();
 		//return todoService.findById(id);
 	}
 
 	@GetMapping("/jpa/users/{username}/todos/{id}/comments")
-	public List<TodoComment> getComments(@PathVariable String username, @PathVariable long id){
-		return todoJpaRepository.findById(id).get().getComments();
+	public List<PostComment> getComments(@PathVariable String username, @PathVariable long id){
+		return postJpaRepository.findById(id).get().getComments();
 	}
 
 	@PostMapping("/jpa/users/{username}/todos/{id}/comments")
-	public ResponseEntity<Void> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody TodoComment comment){
+	public ResponseEntity<Void> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody PostComment comment){
 		System.out.println("id " + id);
 		System.out.println("Comment: " + comment);
-		Todo updatedTodo = todoJpaRepository.findById(id).get().addComment(comment);
+		Post updatedPost = postJpaRepository.findById(id).get().addComment(comment);
 
-		updatedTodo.setUsername(username);
+		updatedPost.setUsername(username);
 
-		System.out.println("updatedTodo ID: " + updatedTodo.getId());
-		System.out.println("updatedTodo Username: " + updatedTodo.getUsername());
+		System.out.println("updatedTodo ID: " + updatedPost.getId());
+		System.out.println("updatedTodo Username: " + updatedPost.getUsername());
 
-		todoJpaRepository.save(updatedTodo); // here lies the problem
+		postJpaRepository.save(updatedPost); // here lies the problem
 
 		return ResponseEntity.noContent().build();
 	}
@@ -79,34 +76,34 @@ public class TodoJpaResource {
 	// DELETE /users/{username}/todos/{id}
 	@DeleteMapping("/jpa/users/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
-		todoJpaRepository.deleteById(id);
+		postJpaRepository.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 
 	//Edit/Update a Todo
 	@PutMapping("/jpa/users/{username}/todos/{id}")
-	public ResponseEntity<Todo> updateTodo(
+	public ResponseEntity<Post> updateTodo(
 			@PathVariable String username,
-			@PathVariable long id, @RequestBody Todo todo){
+			@PathVariable long id, @RequestBody Post post){
 		
-		todo.setUsername(username);
-		todo.setComments(todoJpaRepository.findById(id).get().getComments());
-		Todo todoUpdated = todoJpaRepository.save(todo);
+		post.setUsername(username);
+		post.setComments(postJpaRepository.findById(id).get().getComments());
+		Post postUpdated = postJpaRepository.save(post);
 		
-		return new ResponseEntity<Todo>(todo, HttpStatus.OK);
+		return new ResponseEntity<Post>(post, HttpStatus.OK);
 	}
 	
 	@PostMapping("/jpa/users/{username}/todos")
 	public ResponseEntity<Void> createTodo(
-			@PathVariable String username, @RequestBody Todo todo){
+			@PathVariable String username, @RequestBody Post post){
 		
-		todo.setUsername(username);
+		post.setUsername(username);
 
-		Todo createdTodo = todoJpaRepository.save(todo);
+		Post createdPost = postJpaRepository.save(post);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
+				.path("/{id}").buildAndExpand(createdPost.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
 	}

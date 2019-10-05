@@ -3,7 +3,7 @@ import { API_URL, JPA_API_URL } from '../../Constants'
 
 class PostDataService {
 
-    retrieveAllTodos(name) {
+    retrieveAllPosts(name) {
         return axios.get(`${JPA_API_URL}/users/${name}/todos`);
     }
 
@@ -11,27 +11,27 @@ class PostDataService {
         return axios.get(`${JPA_API_URL}/users/todos`);
     }
 
-    retrieveTodo(name, id) {
+    retrievePost(name, id) {
         return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}`);
     }
 
-    deleteTodo(name, id) {
+    deletePost(name, id) {
         return axios.delete(`${JPA_API_URL}/users/${name}/todos/${id}`);
     }
 
-    updateTodo(name, id, todo) {
+    updatePost(name, id, todo) {
         return axios.put(`${JPA_API_URL}/users/${name}/todos/${id}`, todo);
     }
 
-    createTodo(name, todo) {
+    createPost(name, todo) {
         return axios.post(`${JPA_API_URL}/users/${name}/todos/`, todo);
     }
 
-    retrieveTodoComments(name, id) {
+    retrievePostComments(name, id) {
         return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}/comments`);
     }
 
-    postTodoComment(name, id, comment) {
+    postComment(name, id, comment) {
         return axios.post(`${JPA_API_URL}/users/${name}/todos/${id}/comments`, comment);
     }
 

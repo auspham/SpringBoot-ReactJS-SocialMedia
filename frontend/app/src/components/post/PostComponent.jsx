@@ -27,7 +27,7 @@ class PostComponent extends Component {
 
         let username = AuthenticationService.getLoggedInUserName()
 
-        PostDataService.retrieveTodo(username, this.state.id)
+        PostDataService.retrievePost(username, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
                 targetDate: moment(response.data.targetDate).format()
@@ -59,10 +59,10 @@ class PostComponent extends Component {
         }
 
         if (this.state.id === -1) {
-            PostDataService.createTodo(username, todo)
+            PostDataService.createPost(username, todo)
                 .then(() => {this.props.refreshFeed(); this.props.stompClient.send("/app/postStatus", {}, true)})
         } else {
-            PostDataService.updateTodo(username, this.state.id, todo)
+            PostDataService.updatePost(username, this.state.id, todo)
                 .then(() => {this.props.refreshFeed(); this.props.stompClient.send("/app/postStatus", {}, true)})
         }
 

@@ -37,7 +37,7 @@ class ListPostsComponent extends Component {
 
     refreshFeed() {
 
-        PostDataService.retrieveAllTodos(this.props.username)
+        PostDataService.retrieveAllPosts(this.props.username)
             .then(
                 response => {
                     this.setState({ posts: response.data.reverse() })
@@ -52,7 +52,7 @@ class ListPostsComponent extends Component {
 
     deletePostClicked(id) {
         let username = AuthenticationService.getLoggedInUserName()
-        PostDataService.deleteTodo(username, id)
+        PostDataService.deletePost(username, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of post ${id} Successful` })

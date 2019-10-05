@@ -22,7 +22,7 @@ export default class Editable extends Component {
             targetDate: this.props.post.targetDate
         }
 
-        PostDataService.updateTodo(this.props.username, this.props.post.id, post)
+        PostDataService.updatePost(this.props.username, this.props.post.id, post)
                 .then(() => {this.props.refreshFeed(); this.props.stompClient.send("/app/postStatus", {}, true)})
 
         this.props.toggleShow();

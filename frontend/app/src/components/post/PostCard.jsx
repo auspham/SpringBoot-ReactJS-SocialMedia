@@ -34,7 +34,7 @@ export default class PostCard extends Component {
     }
 
     refreshComments = () => {
-        PostDataService.retrieveTodoComments(this.state.target, this.props.post.id).then(res => {
+        PostDataService.retrievePostComments(this.state.target, this.props.post.id).then(res => {
             this.setState({comments: res.data});
             this.scrollToBottom();
         });
@@ -55,7 +55,7 @@ export default class PostCard extends Component {
             targetDate: moment(new Date()).format()
         }
 
-        PostDataService.postTodoComment(this.state.target, this.props.post.id, comment).then((res,err) => {
+        PostDataService.postComment(this.state.target, this.props.post.id, comment).then((res, err) => {
             if(err) {
                 console.error("err comment", err);
             }

@@ -52,7 +52,7 @@ class WelcomeComponent extends Component {
     deletePostClicked = (id) => {
         let username = AuthenticationService.getLoggedInUserName();
         let that = this;
-        PostDataService.deleteTodo(username, id)
+        PostDataService.deletePost(username, id)
             .then(response => {
                     that.retrieveAllTodos();
                     stompClient.send("/app/postStatus", {}, true);

@@ -21,9 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
 public class PostJpaResource {
-	
-	// @Autowired
-	// private TodoHardcodedService todoService;
 
 	@Autowired
 	private PostJpaRepository postJpaRepository;
@@ -35,54 +32,44 @@ public class PostJpaResource {
 	public List<DAOUser> getAllUser() {
 		return userRepository.findAll();
 	}
-	@GetMapping("/jpa/users/todos")
+	@GetMapping("/jpa/users/posts")
 	public List<Post> getAll() {
 		return postJpaRepository.findAll();
 	}
 
-	@GetMapping("/jpa/users/{username}/todos")
+	@GetMapping("/jpa/users/{username}/posts")
 	public List<Post> getAllTodos(@PathVariable String username){
 		return postJpaRepository.findByUsername(username);
-		//return todoService.findAll();
 	}
 
-	@GetMapping("/jpa/users/{username}/todos/{id}")
+	@GetMapping("/jpa/users/{username}/posts/{id}")
 	public Post getTodo(@PathVariable String username, @PathVariable long id){
 		return postJpaRepository.findById(id).get();
-		//return todoService.findById(id);
 	}
 
-	@GetMapping("/jpa/users/{username}/todos/{id}/comments")
+	@GetMapping("/jpa/users/{username}/posts/{id}/comments")
 	public List<PostComment> getComments(@PathVariable String username, @PathVariable long id){
 		return postJpaRepository.findById(id).get().getComments();
 	}
 
-	@PostMapping("/jpa/users/{username}/todos/{id}/comments")
+	@PostMapping("/jpa/users/{username}/posts/{id}/comments")
 	public ResponseEntity<Void> PostMapping(@PathVariable String username, @PathVariable long id, @RequestBody PostComment comment){
-		System.out.println("id " + id);
-		System.out.println("Comment: " + comment);
-		Post updatedPost = postJpaRepository.findById(id).get().addComment(comment);
 
+		Post updatedPost = postJpaRepository.findById(id).get().addComment(comment);
 		updatedPost.setUsername(username);
 
-		System.out.println("updatedTodo ID: " + updatedPost.getId());
-		System.out.println("updatedTodo Username: " + updatedPost.getUsername());
-
 		postJpaRepository.save(updatedPost); // here lies the problem
-
 		return ResponseEntity.noContent().build();
 	}
 
-	// DELETE /users/{username}/todos/{id}
-	@DeleteMapping("/jpa/users/{username}/todos/{id}")
+	@DeleteMapping("/jpa/users/{username}/posts/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
 		postJpaRepository.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 
-	//Edit/Update a Todo
-	@PutMapping("/jpa/users/{username}/todos/{id}")
+	@PutMapping("/jpa/users/{username}/posts/{id}")
 	public ResponseEntity<Post> updateTodo(
 			@PathVariable String username,
 			@PathVariable long id, @RequestBody Post post){
@@ -94,7 +81,7 @@ public class PostJpaResource {
 		return new ResponseEntity<Post>(post, HttpStatus.OK);
 	}
 	
-	@PostMapping("/jpa/users/{username}/todos")
+	@PostMapping("/jpa/users/{username}/posts")
 	public ResponseEntity<Void> createTodo(
 			@PathVariable String username, @RequestBody Post post){
 		

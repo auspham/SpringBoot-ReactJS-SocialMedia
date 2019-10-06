@@ -1,3 +1,5 @@
+@import '~include-media/dist/include-media';
+
 .ui-custom{
     text-align: initial;
     padding: 1.5em;
@@ -54,6 +56,7 @@
         }
 
         .btn-status {
+            //font-size: 1em;
             font-weight: bold;
         }
 
@@ -105,7 +108,24 @@
         margin-top: .5em;
     }
     & .comment-control {
-  
+        button {
+            font-size: 1em;
+            @include media("<=tablet") {
+                font-size: .7em;
+            }
+        }
+
+        @include media("<=tablet", "<=576px") {
+            & input {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1em;
+            }
+            & button {
+                height: 32px;
+                font-size: 1em;
+            }
+        }
     }
 
     & .comment {
@@ -135,9 +155,11 @@
         padding-right: 20px!important;
         flex: 1;
         max-width: initial;
+        height: 32px;
+
         &:focus{
             outline: 0;
-            box-shadow: 0;
+            box-shadow: none;
         }
     }
 

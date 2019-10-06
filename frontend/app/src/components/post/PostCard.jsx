@@ -97,12 +97,12 @@ export default class PostCard extends Component {
                 </div>
 
                 <div className="comment-control form-row">
-                    <input type="text" className="col-md-9" onChange={this.handleChange} value={this.state.content} placeholder="Write a comment.." onKeyPress={event => {
+                    <input type="text" className="col-md-9 col-sm-9 col-xs-9" onChange={this.handleChange} value={this.state.content} placeholder="Write a comment.." onKeyPress={event => {
                     if (event.key === 'Enter') {
                         this.handleComment();
                     }
                 }}></input>
-                    <button className="btn btn-primary btn-status col-md-2" onClick={this.handleComment}>Comment</button>
+                    <button className="btn btn-primary btn-status col-md-2 col-sm-2 col-xs-2" onClick={this.handleComment}>Comment</button>
                 </div>
             </div>
         </div>);

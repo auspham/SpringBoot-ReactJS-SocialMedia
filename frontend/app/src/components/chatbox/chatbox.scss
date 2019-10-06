@@ -1,11 +1,21 @@
+@import '~include-media/dist/include-media';
 
 .content-wrapper {
+    position: relative;
+    top: 11px;
     .chatArea {
         position: fixed;
         bottom: 0;
         right: 273px;
         display: flex;
         justify-content: space-around;
+
+        @include media("<=tablet") {
+            right: 200px;
+        }
+        @include media("<=tablet", "<520px") {
+            right: 74px;
+        }
     }
 
     .chatBox {
@@ -105,12 +115,41 @@
         right: 0;
 
         width: 273px;
-        top: 55px;
+        top: 66px;
         text-align: initial;
+
+        @include media("<=tablet") {
+            width: 200px;
+        }
+
+        @include media("<=tablet", "<520px") {
+            width: 74px;
+            & .chat-username{
+                display: none;
+            }
+            .card {
+                &:before {
+                    display: none;
+                }
+                .cmt-avatar {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        @include media("<=tablet", "<=372px") {
+            display: none;
+        }
     }
 
-    .main-content{
-        width: calc(100% - 200px);
+    .main-content {
+        width: calc(100% - 273px);
+        @include media("<=tablet") {
+            width: calc(100% - 200px);
+        }
+        @include media("<=tablet", "<520px") {
+            width: calc(100% - 74px);
+        }
     }
 
     .user-holder{

@@ -4,7 +4,7 @@ import AuthenticationService from './AuthenticationService.js'
 import SearchBarComponent from './SearchBarComponent.jsx'
 import AccountProfileService from '../../api/main/AccountProfileService'
 import Logo from './assets/logo.png';
-
+import Navbar from 'react-bootstrap/Navbar'
 
 class HeaderComponent extends Component {
     constructor(props) {
@@ -25,18 +25,21 @@ class HeaderComponent extends Component {
         return (
             <>
             {isUserLoggedIn && <header>
-                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <img src={Logo} alt="Logo" className="rmitLogo"/>
-                    <ul className="navbar-nav">
-                        <li><Link className="nav-link" to="/welcome/">Home</Link></li>
-                        <li><a className="nav-link" href={'/profile/' + username}>Profile</a></li>
-                        <SearchBarComponent refreshInfo={this.props.refreshInfo}></SearchBarComponent>
-                    </ul>
-                    <ul className="navbar-nav navbar-collapse justify-content-end">
-                        <li><Link className="nav-link" to="/login">Login</Link></li>
-                        <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>
-                    </ul>
-                </nav>
+                <Navbar expand={"md"} className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <Link className="nav-link" to="/welcome/"><img src={Logo} alt="Logo" className="rmitLogo"/></Link>
+                    <SearchBarComponent refreshInfo={this.props.refreshInfo}></SearchBarComponent>
+
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <ul className="navbar-nav navbar-collapse justify-content-end">
+                            <li><a className="nav-link" href={'/profile/' + username}>Profile</a></li>
+                            <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>
+                        </ul>
+
+                    </Navbar.Collapse>
+
+                </Navbar>
             </header>}
             </>
         )

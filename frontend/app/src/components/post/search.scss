@@ -1,7 +1,9 @@
+@import '~include-media/dist/include-media';
+
 .search-group {
     align-self: center;
-    margin-left: 1em;
     position: relative;
+
     .searchBar {
         background: #131413;
         border: 0;
@@ -53,9 +55,29 @@
             border-radius: 0px 0px 10px 10px;
         }
     }
+
+    @include media("<=tablet") {
+        width: 70vw;
+        align-self: center;
+        .searchBar {
+            width: 100%;
+        }
+    }
+
+    @include media("<=tablet", "<520px") {
+        width: calc(53vw + 20px);
+        right: 10px;
+        justify-self: start;
+        .searchBar {
+            width: 100%;
+        }
+    }
+
+    @include media("<=tablet", "<=372px") {
+        display: none;
+    }
 }
 
 .rmitLogo {
     width: 35px;
-    margin-right: 1em;
 }

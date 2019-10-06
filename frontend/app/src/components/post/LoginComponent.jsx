@@ -26,11 +26,11 @@ class LoginComponent extends Component {
     this.changeState = this.changeState.bind(this);
   }
 
-  componentDidMount() {
-    if(AuthenticationService.isUserLoggedIn()) {
-      window.location.href = "/welcome/" + sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
-    }
-  }
+  // componentDidMount() {
+  //   if(AuthenticationService.isUserLoggedIn()) {
+  //     window.location.href = "/welcome/" + sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+  //   }
+  // }
 
   handleChange(event) {
     this.setState({

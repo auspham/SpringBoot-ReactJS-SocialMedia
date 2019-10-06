@@ -36,12 +36,13 @@ export class Login extends React.Component {
           <button
               type="button"
               className="btn btn-success"
+              name={"login"}
               onClick={this.props.handleSubmit}
             >
               Login
             </button>
             <button
-                type="button"
+                type="button" name={"register"}
                 className="btn btn-info"
                 onClick={this.props.changeState}
             >

@@ -256,7 +256,7 @@ export class Register extends React.Component {
                   </fieldset>
 
                   <div className={"footerBtn"}>
-                    <button type="submit" className="btn text-center btn-info center">
+                    <button type="submit" className="btn text-center btn-info center" name={"register"}>
                     Register
                     </button>
                   </div>

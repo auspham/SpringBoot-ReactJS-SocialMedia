@@ -188,7 +188,7 @@ $background-base: rgba($base-color, 0.88);
     .base-container {
       .content {
         .footerBtn {
-          justify-content: space-between;
+          justify-content: space-evenly;
           .btn {
             padding: .6em 2.5em;
           }

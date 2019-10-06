@@ -1,6 +1,7 @@
 //Custom Fonts
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,400,500&display=swap');
+@import '~include-media/dist/include-media';
 
 $base-color: #212529;
 $background-base: rgba($base-color, 0.88);
@@ -13,10 +14,9 @@ $background-base: rgba($base-color, 0.88);
   font-family: "Open Sans", sans-serif;
 
   .LoginComponent {
-    background: url("./assets/background.png") no-repeat;
+    background: url("./assets/background.png") no-repeat center center;
     width: 100vw;
     height: 100vh;
-    background-size: 100vw 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 5vw;
@@ -53,7 +53,26 @@ $background-base: rgba($base-color, 0.88);
         font-size: 1.5em;
       }
     }
-  }
+
+    @include media("<desktop") {
+      grid-gap: 0;
+      .Description {
+        h1 { font-size: 2.5em; }
+        p { font-size: 1.2em; }
+        width: 300px;
+        justify-self: center;
+      }
+    }
+
+    @include media("<=tablet") {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      justify-items: center;
+      .Description {
+        width: 100%;
+        padding: 5em;
+      }
+    }
 }
 
 .App-logo {
@@ -103,12 +122,13 @@ $background-base: rgba($base-color, 0.88);
 /*Login Main Container*/
 .login {
   width: 27em;
-  //min-height: 44em;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   z-index: 99;
+
+
   .container {
     display: flex;
     justify-content: center;
@@ -162,26 +182,32 @@ $background-base: rgba($base-color, 0.88);
       margin-left: 3em;
     }
   }
+
+  @include media("<desktop") {
+    width: 23em;
+    .base-container {
+      .content {
+        .footerBtn {
+          justify-content: space-between;
+          .btn {
+            padding: .6em 2.5em;
+          }
+        }
+      }
+    }
+  }
+
+  @include media("<=tablet") {
+    width: 100%;
+    height: 100%;
+    .container {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      max-width: 100%;
+    }
+  }
 }
-
-/**Button**/
-
-// .btn {
-//   font-size: 21px;
-//   padding: 5px 20px;
-//   border: 0;
-//   background-color: #882222;
-//   color: #fff;
-//   border-radius: 3px;
-//   transition: all 250ms ease-in-out;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #992c2c;
-//   }
-//   &:focus {
-//     outline: none;
-//   }
-// }
 
 /** Or **/
 .or-separator {
@@ -211,6 +237,7 @@ $background-base: rgba($base-color, 0.88);
   margin-left: auto;
   margin-right: auto;
   padding: 5px;
+
   .social-login {
     width: 100%;
     height: auto;
@@ -218,6 +245,7 @@ $background-base: rgba($base-color, 0.88);
     margin-right: auto;
     display: grid;
     grid-gap: 1em;
+
     .btn {
       display: flex;
       font-weight: 400;
@@ -251,10 +279,12 @@ $background-base: rgba($base-color, 0.88);
         height: 50px;
         width: 50px;
       }
-      .btn-social-text{
+
+      .btn-social-text {
         display: inline-block;
-        margin-left:1em;
+        margin-left: 1em;
       }
+
       .btn-block {
         display: block;
         width: 100%;
@@ -304,14 +334,17 @@ $background-base: rgba($base-color, 0.88);
       background-color: rgba(158, 158, 158, 0.2);
     }
   }
+
   .image {
     width: 300px;
     margin-bottom: 2em;
+
     img {
       width: 100%;
       height: 100%;
     }
   }
+
   .header {
     font-size: 24px;
     font-family: "Open Sans", san-serif;
@@ -330,7 +363,7 @@ $background-base: rgba($base-color, 0.88);
         padding: .6em 3em;
 
         &:focus {
-          box-shadow: none!important;
+          box-shadow: none !important;
         }
       }
     }
@@ -338,14 +371,17 @@ $background-base: rgba($base-color, 0.88);
     width: 100%;
     padding: 0 2em;
     text-align: initial;
+
     .row {
       width: 109%;
     }
+
     .form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     .checkError {
       display: flex;
       flex-direction: column;
@@ -354,32 +390,35 @@ $background-base: rgba($base-color, 0.88);
       font-size: 10px;
       color: red;
     }
+
     .field {
       margin-top: 6px;
-        height: 37px;
-        padding: 0px 5px;
-        font-size: 16px;
-        font-family: "Open Sans", sans-serif;
-        background-color: #f3f3f3;
-        border: 0;
-        border-radius: 4px;
-        margin-bottom: 15px;
-        transition: all 250ms ease-in-out;
-        &:focus {
-          outline: none;
-          box-shadow: 0px 0px 12px 0.8px #0e81ce96;
-        }
+      height: 37px;
+      padding: 0px 5px;
+      font-size: 16px;
+      font-family: "Open Sans", sans-serif;
+      background-color: #f3f3f3;
+      border: 0;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      transition: all 250ms ease-in-out;
 
-        &:hover {
-          background-color: #ffffff;
-          box-shadow: 0px 0px 14px 0.3px #0e81ce96;
-        }
+      &:focus {
+        outline: none;
+        box-shadow: 0px 0px 12px 0.8px #0e81ce96;
+      }
+
+      &:hover {
+        background-color: #ffffff;
+        box-shadow: 0px 0px 14px 0.3px #0e81ce96;
+      }
     }
 
     .loginLink {
       display: flex;
       justify-content: center;
       margin: .8em 0;
+
       a {
         font-size: .8em;
         font-style: italic;
@@ -392,34 +431,38 @@ $background-base: rgba($base-color, 0.88);
       align-items: flex-start;
       width: 100%;
       font-family: poppins;
+
       label {
         font-size: 15px;
         padding: 0px 0px 0px 5px;
 
       }
+
       Field {
-        
-      margin-top: 6px;
-      min-width: 18em;
-      height: 37px;
-      padding: 0px 10px;
-      font-size: 16px;
-      font-family: "Open Sans", sans-serif;
-      background-color: #f3f3f3;
-      border: 0;
-      border-radius: 4px;
-      margin-bottom: 31px;
-      transition: all 250ms ease-in-out;
-      &:focus {
-        outline: none;
-        box-shadow: 0px 0px 12px 0.8px #0e81ce96;
+
+        margin-top: 6px;
+        min-width: 18em;
+        height: 37px;
+        padding: 0px 10px;
+        font-size: 16px;
+        font-family: "Open Sans", sans-serif;
+        background-color: #f3f3f3;
+        border: 0;
+        border-radius: 4px;
+        margin-bottom: 31px;
+        transition: all 250ms ease-in-out;
+
+        &:focus {
+          outline: none;
+          box-shadow: 0px 0px 12px 0.8px #0e81ce96;
+        }
+
+        &:hover {
+          background-color: #ffffff;
+          box-shadow: 0px 0px 14px 0.3px #0e81ce96;
+        }
       }
 
-      &:hover {
-        background-color: #ffffff;
-        box-shadow: 0px 0px 14px 0.3px #0e81ce96;
-      }
-      }
       input {
         margin-top: 6px;
         width: 100%;
@@ -432,9 +475,10 @@ $background-base: rgba($base-color, 0.88);
 
         margin-bottom: 0px;
         transition: all 250ms ease-in-out;
+
         &:focus {
           outline: none;
-          box-shadow:none;
+          box-shadow: none;
         }
 
         &:hover {
@@ -444,4 +488,4 @@ $background-base: rgba($base-color, 0.88);
       }
     }
   }
-}
+}}

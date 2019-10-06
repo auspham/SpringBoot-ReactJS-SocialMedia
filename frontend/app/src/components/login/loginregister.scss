@@ -84,11 +84,18 @@ $background-base: rgba($base-color, 0.88);
 
 .fix-alert {
   position: fixed !important;
-  bottom: 0;
-  left: 1em;
+  top: 1em;
+  right: 1em;
+  margin-left: 1em;
   z-index: 999;
-  animation-name: disappear;
-  animation-duration: 1s;
+  text-align: initial;
+  max-width: 500px;
+  opacity: 1;
+
+  & button:focus{
+    outline: 0;
+    box-shadow: none;
+  }
 }
 
 
@@ -111,12 +118,12 @@ $background-base: rgba($base-color, 0.88);
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes disappear {
   from {
-    transform: rotate(0deg);
+    opacity: 1;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 0;
   }
 }
 

@@ -3,6 +3,9 @@ import AuthenticationService, {USER_NAME_SESSION_ATTRIBUTE_NAME} from "./Authent
 import { Login } from "../login/login";
 import { Register } from "../login/register";
 import AccountProfileService from "../../api/main/AccountProfileService";
+import { Alert } from "react-bootstrap";
+
+// import { AlertHeading } from "react-bootstrap/Alert";
 
 class LoginComponent extends Component {
   constructor(props) {
@@ -18,7 +21,10 @@ class LoginComponent extends Component {
       aboutme: 'About me',
       hasLoginFailed: false,
       showSuccessMessage: false,
-      registerSuccessful: false
+      registerSuccessful: false,
+      registerFailShow: false,
+      registerSuccessShow: false,
+      show: false
     };
     this.handleRegister = this.handleRegister.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,8 +51,8 @@ class LoginComponent extends Component {
     )
       .then(response => {
         if (response.status === 200) {
-          this.setState({ registerSuccessful: true})
-          alert("Register Successful");
+          this.setState({ registerSuccessful: true })
+          this.setRegisterSuccessShow(true);
 
           AccountProfileService.updateDetails(values.username,
             values.firstname,
@@ -63,8 +69,7 @@ class LoginComponent extends Component {
       .catch(() => {
         this.setState({ showSuccessMessage: false });
         this.setState({ hasLoginFailed: true });
-        alert("User already exists or something is wrong")
-
+        this.setRegisterFailShow(true);
       });
   }
 
@@ -83,7 +88,8 @@ class LoginComponent extends Component {
       .catch(() => {
         this.setState({ showSuccessMessage: false });
         this.setState({ hasLoginFailed: true });
-        alert("Invalid Credentials or something is wrong");
+        this.setShow(true);
+        // alert("Invalid Credentials or something is wrong");
       });
   }
 
@@ -91,6 +97,33 @@ class LoginComponent extends Component {
     const { isLogginActive } = this.state;
 
     this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
+  }
+
+  setShow = (value) => {
+    this.setState({
+      show: value
+    });
+    setTimeout(() => {
+      this.setState({show: false})
+    },2000);
+  }
+
+  setRegisterFailShow = (value) => {
+    this.setState({
+      registerShow: value
+    });
+    setTimeout(() => {
+      this.setState({registerShow: false})
+    },2000);
+  }
+
+  setRegisterSuccessShow = (value) => {
+    this.setState({
+      registerSuccessShow: value
+    });
+    setTimeout(() => {
+      this.setState({registerSuccessShow: false})
+    },2000);
   }
 
   render() {
@@ -113,18 +146,40 @@ class LoginComponent extends Component {
 
             </p>
           </div>
-          {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
-              <div className="alert alert-warning fix-alert">
-                Invalid Credentials or something is wrong
-              </div>
-            )}
-          {this.state.showSuccessMessage && !this.state.hasLoginFailed && !this.state.registerSuccessful
-            && <div className="alert alert-success fix-alert">
-                Login successful
-              </div>}
-          {this.state.registerSuccessful && !this.state.showSuccessMessage && !this.state.hasLoginFailed && <div className="alert alert-success fix-alert">
-                Register successful
-              </div>} */}
+
+          <Alert className={"fix-alert"} show={this.state.show} variant={"danger"} onClose={() => this.setShow(false)} dismissible>
+            <Alert.Heading>Oh snap! You got an error</Alert.Heading>
+            <p>
+              The credentials you put in just now is <code>Invalid</code>. Please try again.
+            </p>
+          </Alert>
+
+          <Alert className={"fix-alert"} show={this.state.registerFailShow} variant={"danger"} onClose={() => this.setRegisterFailShow(false)} dismissible>
+            <Alert.Heading>Hmmm! We got a problem</Alert.Heading>
+            <p>
+              It could be invalid credential. Or we ran out of money to host the backend :(.
+            </p>
+          </Alert>
+
+          <Alert className={"fix-alert"} show={this.state.registerSuccessShow} variant={"success"} onClose={() => this.setRegisterSuccessShow(false)} dismissible>
+            <Alert.Heading>Look who just got an account!</Alert.Heading>
+            <p>
+              Just type in your username and password now to join the community!
+            </p>
+          </Alert>
+        {/*  {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (*/}
+        {/*    <div className="alert alert-warning fix-alert">*/}
+        {/*      Invalid Credentials or something is wrong*/}
+        {/*    </div>*/}
+        {/*)}*/}
+        {/*  {this.state.showSuccessMessage && !this.state.hasLoginFailed && !this.state.registerSuccessful*/}
+        {/*  && <div className="alert alert-success fix-alert">*/}
+        {/*    Login successful*/}
+        {/*  </div>}*/}
+        {/*  {this.state.registerSuccessful && !this.state.showSuccessMessage && !this.state.hasLoginFailed && <div className="alert alert-success fix-alert">*/}
+        {/*    Register successful*/}
+        {/*  </div>}*/}
+
           <div className="login">
 
             <div

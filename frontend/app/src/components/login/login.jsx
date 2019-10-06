@@ -1,4 +1,5 @@
 import React from "react";
+import {Form} from "formik";
 
 export class Login extends React.Component {
 
@@ -31,13 +32,20 @@ export class Login extends React.Component {
               </div>
             </div>
           </div>
-          <div className="foot">
-            <button
+          <div className={"footerBtn"}>
+          <button
               type="button"
               className="btn btn-success"
               onClick={this.props.handleSubmit}
             >
               Login
+            </button>
+            <button
+                type="button"
+                className="btn btn-info"
+                onClick={this.props.changeState}
+            >
+              register
             </button>
           </div>
         </div>

@@ -176,8 +176,7 @@ export class Register extends React.Component {
     return (
       <div className="base-container">
         <div className="content">
-
-          <Formik className="form"
+          <Formik className="form form-row"
 
             onSubmit={this.props.handleRegister}
             validateOnChange={this.validate}
@@ -189,6 +188,44 @@ export class Register extends React.Component {
             {
               (props) => (
                 <Form>
+                  <div className="row">
+                      <div className="col">
+                        <fieldset className="form-group">
+                          <label htmlFor="firstname">First Name</label>
+                          <Field className="field" type="text" name="firstname" />
+                          <ErrorMessage name="firstname" component="div"
+                                        className="checkError" />
+                        </fieldset>
+                      </div>
+                      <div className="col">
+                        <fieldset className="form-group">
+                          <label htmlFor="lastname">Last Name</label>
+                          <Field className="field" type="text" name="lastname" />
+                          <ErrorMessage name="lastname" component="div"
+                                        className="checkError" />
+                        </fieldset>
+                      </div>
+                  </div>
+                  <fieldset className="form-group">
+                    <label htmlFor="studentnumber">Student Number</label>
+                    <Field className="field" type="text" name="studentnumber" />
+                    <ErrorMessage name="studentnumber" component="div"
+                                  className="checkError" />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <Field className="field" type="text" name="email" />
+                    <ErrorMessage name="email" component="div"
+                                  className="checkError" />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <label htmlFor="phonenumber">Phone number</label>
+                    <Field className="field" type="text" name="phonenumber" />
+                    <ErrorMessage name="phonenumber" component="div"
+                                  className="checkError" />
+                  </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="username">Username</label>
@@ -211,50 +248,19 @@ export class Register extends React.Component {
                       className="checkError" />
                   </fieldset>
 
-                  <fieldset className="form-group">
-                    <label htmlFor="firstname">First Name</label>
-                    <Field className="field" type="text" name="firstname" />
-                    <ErrorMessage name="firstname" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="lastname">Last Name</label>
-                    <Field className="field" type="text" name="lastname" />
-                    <ErrorMessage name="lastname" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="studentnumber">Student Number</label>
-                    <Field className="field" type="text" name="studentnumber" />
-                    <ErrorMessage name="studentnumber" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <Field className="field" type="text" name="email" />
-                    <ErrorMessage name="email" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="phonenumber">Phone number</label>
-                    <Field className="field" type="text" name="phonenumber" />
-                    <ErrorMessage name="phonenumber" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <button type="submit" className="btn text-center btn-primary center"
-                  >
+                  <div className={"footerBtn"}>
+                    <button type="submit" className="btn text-center btn-info center">
                     Register
-              </button>
+                    </button>
+                  </div>
+
+                  <p className={"loginLink"}>
+                    <a href="#" onClick={this.props.changeState}>Wait, I already have an account ;)</a>
+                  </p>
                 </Form>
               )
             }
           </Formik>
-
         </div>
       </div>
 

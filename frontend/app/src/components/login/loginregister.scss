@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,400,500&display=swap');
 
+$base-color: #212529;
+$background-base: rgba($base-color, 0.88);
 
 .App {
   text-align: center;
@@ -14,20 +16,32 @@
     background: url("./assets/background.png") no-repeat;
     width: 100vw;
     height: 100vh;
-    margin-top: 56px;
     background-size: 100vw 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 5vw;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 
+    &::after{
+      background: $background-base;
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
     .Description {
       text-align: initial;
       color: white;
       font-family: poppins;
       width: 500px;
       justify-self: right;
+      z-index: 1;
 
       h1 {
         font-size: 4em;
@@ -198,6 +212,7 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  padding: 5px;
   .social-login {
     width: 100%;
     height: auto;
@@ -307,10 +322,28 @@
   }
 
   .content {
+    .footerBtn {
+      display: flex;
+      justify-content: space-around;
+      justify-items: center;
+
+      .btn {
+        color: white;
+        padding: .6em 3em;
+
+        &:focus {
+          box-shadow: none!important;
+        }
+      }
+    }
+
     width: 100%;
     padding: 0 2em;
+    text-align: initial;
+    .row {
+      width: 109%;
+    }
     .form {
-      margin-top: 2em;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -325,7 +358,6 @@
     }
     .field {
       margin-top: 6px;
-        min-width: 18em;
         height: 37px;
         padding: 0px 5px;
         font-size: 16px;
@@ -344,6 +376,16 @@
           background-color: #ffffff;
           box-shadow: 0px 0px 14px 0.3px #0e81ce96;
         }
+    }
+
+    .loginLink {
+      display: flex;
+      justify-content: center;
+      margin: .8em 0;
+      a {
+        font-size: .8em;
+        font-style: italic;
+      }
     }
 
     .form-group {
@@ -394,7 +436,7 @@
         transition: all 250ms ease-in-out;
         &:focus {
           outline: none;
-          box-shadow: 0px 0px 12px 0.8px #0e81ce96;
+          box-shadow:none;
         }
 
         &:hover {

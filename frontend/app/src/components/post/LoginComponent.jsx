@@ -23,6 +23,7 @@ class LoginComponent extends Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
   handleChange(event) {
@@ -82,13 +83,13 @@ class LoginComponent extends Component {
 
   changeState() {
     const { isLogginActive } = this.state;
-    if (isLogginActive) {
-      this.side.classList.remove("right");
-      this.side.classList.add("left");
-    } else {
-      this.side.classList.remove("left");
-      this.side.classList.add("right");
-    }
+    // if (isLogginActive) {
+    //   this.side.classList.remove("right");
+    //   this.side.classList.add("left");
+    // } else {
+    //   this.side.classList.remove("left");
+    //   this.side.classList.add("right");
+    // }
     this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
   }
 
@@ -117,12 +118,6 @@ class LoginComponent extends Component {
               </div>} */}
           <div className="login">
 
-            <RightSide
-                current={current}
-                currentActive={currentActive}
-                containerRef={ref => (this.side = ref)}
-                onClick={this.changeState.bind(this)}
-            />
             <div
                 className="container"
                 ref={ref => {
@@ -130,14 +125,15 @@ class LoginComponent extends Component {
                 }}
             >
 
-              {isLogginActive && (
+              {!isLogginActive && (
                   <Login
                       handleChange={this.handleChange}
                       handleSubmit={this.handleSubmit}
                       containerRef={ref => (this.current = ref)}
+                      changeState={this.changeState}
                   />
               )}
-              {!isLogginActive && (
+              {isLogginActive && (
                   <Register
                       firstname={this.state.firstname}
                       lastname={this.state.lastname}
@@ -147,6 +143,7 @@ class LoginComponent extends Component {
                       aboutme={this.state.aboutme}
                       containerRef={ref => (this.current = ref)} handleChange={this.handleChange}
                       handleRegister={this.handleRegister}
+                      changeState={this.changeState}
                   />
               )}
 

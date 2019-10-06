@@ -32,11 +32,12 @@ class LoginComponent extends Component {
     this.changeState = this.changeState.bind(this);
   }
 
-  // componentDidMount() {
-  //   if(AuthenticationService.isUserLoggedIn()) {
-  //     window.location.href = "/welcome/" + sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
-  //   }
-  // }
+  // TODO: Write test to adapt this.
+  componentDidMount() {
+    if(AuthenticationService.isUserLoggedIn()) {
+      window.location.href = "/welcome/" + sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+    }
+  }
 
   handleChange(event) {
     this.setState({
@@ -167,18 +168,6 @@ class LoginComponent extends Component {
               Just type in your username and password now to join the community!
             </p>
           </Alert>
-        {/*  {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (*/}
-        {/*    <div className="alert alert-warning fix-alert">*/}
-        {/*      Invalid Credentials or something is wrong*/}
-        {/*    </div>*/}
-        {/*)}*/}
-        {/*  {this.state.showSuccessMessage && !this.state.hasLoginFailed && !this.state.registerSuccessful*/}
-        {/*  && <div className="alert alert-success fix-alert">*/}
-        {/*    Login successful*/}
-        {/*  </div>}*/}
-        {/*  {this.state.registerSuccessful && !this.state.showSuccessMessage && !this.state.hasLoginFailed && <div className="alert alert-success fix-alert">*/}
-        {/*    Register successful*/}
-        {/*  </div>}*/}
 
           <div className="login">
 

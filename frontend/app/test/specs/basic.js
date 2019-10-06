@@ -40,10 +40,7 @@ describe('Login and Register test', () => {
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
-        browser.waitUntil(() => {
-            return browser.getAlertText() === "Register Successful"
-        }, 3000);
-        browser.acceptAlert();
+        browser.pause(1000);
     })
 
     it('It should login with registered user', () => {
@@ -164,10 +161,8 @@ describe('Create an account for second test user', () => {
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
-        browser.waitUntil(() => {
-            return browser.getAlertText() === "Register Successful"
-        }, 3000);
-        browser.acceptAlert();
+        browser.pause(1000);
+
     })
 
     it('It should login with the second registered user', () => {
@@ -180,9 +175,6 @@ describe('Create an account for second test user', () => {
         const loginBtn = $('button[name="login"]');
         loginBtn.click();
 
-        browser.waitUntil(() => {
-            return browser.getUrl() === 'http://localhost:4200/welcome/tester02'
-        }, 3000);
     })
 });
 

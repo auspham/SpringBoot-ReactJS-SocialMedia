@@ -4,7 +4,8 @@ import AuthenticationService from './AuthenticationService.js'
 import SearchBarComponent from './SearchBarComponent.jsx'
 import AccountProfileService from '../../api/main/AccountProfileService'
 import Logo from './assets/logo.png';
-import Navbar from 'react-bootstrap/Navbar'
+import Navbar from 'react-bootstrap/Navbar';
+import Avatar from './Avatar';
 
 class HeaderComponent extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class HeaderComponent extends Component {
 
                     <Navbar.Collapse id="basic-navbar-nav">
                         <ul className="navbar-nav navbar-collapse justify-content-end">
-                            <li><a className="nav-link" href={'/profile/' + username}>Profile</a></li>
+                            <li className={"toProfile"}><Avatar username={username}/><a className="nav-link" href={'/profile/' + username}>{username}</a></li>
                             <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>
                         </ul>
 

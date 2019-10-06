@@ -1,5 +1,10 @@
 @import '~include-media/dist/include-media';
-
+.toProfile {
+  display: inline-flex;
+  & .cmt-avatar {
+    margin-right: 0;
+  }
+}
 .profilePage {
   margin-top: 56px;
   font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
@@ -278,6 +283,7 @@ li {
   position: relative;
   margin: 0 auto;
   object-fit: cover;
+  width: 100%;
 }
 
 .control-block-button {

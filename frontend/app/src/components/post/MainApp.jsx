@@ -58,9 +58,8 @@ class MainApp extends Component {
                     <>
                         <HeaderComponent refreshInfo={this.refreshInfo} handleClick={this.handleClick} handleChange={this.handleChange} />
                         <Switch>
-                            <Route path="/" exact component={LoginComponent} />
+                            <Route path="/" exact component={WelcomeComponent} />
                             <Route path="/login" component={LoginComponent} />
-                            <AuthenticatedRoute path="/" component={WelcomeComponent} />
                             <AuthenticatedRoute path="/welcome/" component={WelcomeComponent} />
                             <AuthenticatedRoute path="/profile/:username" component={AccountProfile} />
                             <AuthenticatedRoute path="/logout" component={LogoutComponent} />

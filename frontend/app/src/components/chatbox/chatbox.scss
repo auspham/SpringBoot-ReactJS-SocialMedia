@@ -150,6 +150,9 @@
         @include media("<=tablet", "<520px") {
             width: calc(100% - 74px);
         }
+        @include media("<=tablet", "<=372px") {
+            width: 100%;
+        }
     }
 
     .user-holder{

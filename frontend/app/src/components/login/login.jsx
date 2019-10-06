@@ -1,22 +1,12 @@
 import React from "react";
-import loginImg from "../../login.svg";
-import { SocialLogin } from "./SocialLogin";
 
 export class Login extends React.Component {
 
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Login</div>
-        <div className="image">
-            <img src={loginImg} alt="Logo" />
-        </div>
-        <div className="content">
-        <SocialLogin></SocialLogin>
 
-          <div className="or-separator">
-            <span className="or-text">OR</span>
-          </div>
+        <div className="content">
           <div className="form">
             <div className="form-group">
               <div className="form-group">

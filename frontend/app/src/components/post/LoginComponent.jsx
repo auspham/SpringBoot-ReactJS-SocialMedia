@@ -98,7 +98,12 @@ class LoginComponent extends Component {
     const currentActive = isLogginActive ? "login" : "register";
     return (
       <div className="App">
-        {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
+        <div className="LoginComponent">
+          <div className="Description">
+            <h1>RMIT<br/>StalkerSpace</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+          </div>
+          {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
               <div className="alert alert-warning fix-alert">
                 Invalid Credentials or something is wrong
               </div>
@@ -110,41 +115,42 @@ class LoginComponent extends Component {
           {this.state.registerSuccessful && !this.state.showSuccessMessage && !this.state.hasLoginFailed && <div className="alert alert-success fix-alert">
                 Register successful
               </div>} */}
-        <div className="login">
+          <div className="login">
 
-          <RightSide
-            current={current}
-            currentActive={currentActive}
-            containerRef={ref => (this.side = ref)}
-            onClick={this.changeState.bind(this)}
-          />
-          <div
-            className="container"
-            ref={ref => {
-              this.container = ref;
-            }}
-          >
+            <RightSide
+                current={current}
+                currentActive={currentActive}
+                containerRef={ref => (this.side = ref)}
+                onClick={this.changeState.bind(this)}
+            />
+            <div
+                className="container"
+                ref={ref => {
+                  this.container = ref;
+                }}
+            >
 
-            {isLogginActive && (
-              <Login
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                containerRef={ref => (this.current = ref)}
-              />
-            )}
-            {!isLogginActive && (
-              <Register
-                firstname={this.state.firstname}
-                lastname={this.state.lastname}
-                studentnumber={this.state.studentnumber}
-                email={this.state.email}
-                phonenumber={this.state.phonenumber}
-                aboutme={this.state.aboutme}
-                containerRef={ref => (this.current = ref)} handleChange={this.handleChange}
-                handleRegister={this.handleRegister}
-              />
-            )}
+              {isLogginActive && (
+                  <Login
+                      handleChange={this.handleChange}
+                      handleSubmit={this.handleSubmit}
+                      containerRef={ref => (this.current = ref)}
+                  />
+              )}
+              {!isLogginActive && (
+                  <Register
+                      firstname={this.state.firstname}
+                      lastname={this.state.lastname}
+                      studentnumber={this.state.studentnumber}
+                      email={this.state.email}
+                      phonenumber={this.state.phonenumber}
+                      aboutme={this.state.aboutme}
+                      containerRef={ref => (this.current = ref)} handleChange={this.handleChange}
+                      handleRegister={this.handleRegister}
+                  />
+              )}
 
+            </div>
           </div>
         </div>
       </div>

@@ -120,6 +120,12 @@
 
         @include media("<=tablet") {
             width: 200px;
+            & .chat-username{
+                white-space: nowrap;
+                overflow: hidden !important;
+                max-width: 41%;
+                text-overflow: ellipsis;
+            }
         }
 
         @include media("<=tablet", "<520px") {

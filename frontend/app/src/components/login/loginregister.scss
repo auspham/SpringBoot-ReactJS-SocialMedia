@@ -103,12 +103,10 @@ $background-base: rgba($base-color, 0.88);
 /*Login Main Container*/
 .login {
   width: 27em;
-  height: 60em;
   //min-height: 44em;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2em;
   position: relative;
   z-index: 99;
   .container {

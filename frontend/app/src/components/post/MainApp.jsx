@@ -60,6 +60,7 @@ class MainApp extends Component {
                         <Switch>
                             <Route path="/" exact component={LoginComponent} />
                             <Route path="/login" component={LoginComponent} />
+                            <AuthenticatedRoute path="/" component={WelcomeComponent} />
                             <AuthenticatedRoute path="/welcome/" component={WelcomeComponent} />
                             <AuthenticatedRoute path="/profile/:username" component={AccountProfile} />
                             <AuthenticatedRoute path="/logout" component={LogoutComponent} />

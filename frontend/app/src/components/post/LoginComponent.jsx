@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticationService from "./AuthenticationService";
+import AuthenticationService, {USER_NAME_SESSION_ATTRIBUTE_NAME} from "./AuthenticationService";
 import { Login } from "../login/login";
 import { Register } from "../login/register";
 import AccountProfileService from "../../api/main/AccountProfileService";
@@ -24,6 +24,12 @@ class LoginComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changeState = this.changeState.bind(this);
+  }
+
+  componentDidMount() {
+    if(AuthenticationService.isUserLoggedIn()) {
+      window.location.href = "/welcome/" + sessionStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+    }
   }
 
   handleChange(event) {
@@ -97,6 +103,7 @@ class LoginComponent extends Component {
     const { isLogginActive } = this.state;
     const current = isLogginActive ? "Register" : "Login";
     const currentActive = isLogginActive ? "login" : "register";
+
     return (
       <div className="App">
         <div className="LoginComponent">

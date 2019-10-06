@@ -1,8 +1,15 @@
 @import '~include-media/dist/include-media';
 .toProfile {
   display: inline-flex;
+  align-items: center;
+  justify-content: space-evenly;
   & .cmt-avatar {
-    margin-right: 0;
+    margin-right: .5em;
+    width: 30px;
+    height: 30px;
+  }
+  & .nav-link{
+    padding-left: 0!important;
   }
 }
 .profilePage {

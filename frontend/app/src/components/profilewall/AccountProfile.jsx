@@ -18,7 +18,7 @@ class AccountProfile extends React.Component {
 
   render() {
     return (
-      <div className="body">
+      <div className="profilePage">
         <ProfileContainer username={this.state.username}></ProfileContainer>
         <ContentContainer history={this.props.history} match={this.props.match} username={this.state.username}></ContentContainer>
       </div>

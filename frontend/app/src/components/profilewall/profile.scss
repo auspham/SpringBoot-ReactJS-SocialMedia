@@ -3,7 +3,7 @@
 .profilePage {
   margin-top: 56px;
   font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
-    "Helvetica Neue", Arial, sans-serif;
+  "Helvetica Neue", Arial, sans-serif;
   font-size: 0.812rem;
   font-weight: 400;
   line-height: 1.5;
@@ -14,6 +14,37 @@
   @include media("<=1428px") {
     & .container {
       width: 1000px;
+    }
+  }
+
+  @include media("<=1234px") {
+    & .container {
+      width: 800px;
+
+      .ui-block {
+        .ui-title h5 {
+          font-size: .9rem;
+          align-self: center;
+        }
+      }
+    }
+  }
+
+  @include media("<=desktop") {
+    & .container {
+      width: 100%;
+      padding: 0;
+
+      .ui-block{
+        border-radius: 0;
+      }
+      .row {
+        margin: 0;
+        padding: 0;
+      }
+      .col, .row-md, .col-lg-4{
+        padding: 0;
+      }
     }
   }
 }

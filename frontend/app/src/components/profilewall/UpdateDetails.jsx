@@ -159,7 +159,7 @@ class UpdateDetails extends React.Component {
     render() {
 
         return (
-            <div className="col3">
+            <div className="col-lg-4 row-md">
                 <div className="ui-block">
                     <div className="ui-title">
                     <h5 style={{marginBottom: 0}}>Update Contact Details</h5>

@@ -1,4 +1,7 @@
 @import '~include-media/dist/include-media';
+.tooltip {
+  z-index: 9999999!important;
+}
 .toProfile {
   display: inline-flex;
   align-items: center;

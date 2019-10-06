@@ -58,6 +58,7 @@
 
     @include media("<=tablet") {
         width: 70vw;
+        right: 10px;
         align-self: center;
         .searchBar {
             width: 100%;

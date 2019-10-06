@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import AuthenticationService from "../post/AuthenticationService";
 import AccountProfileService from "../../api/main/AccountProfileService";
 import {ReactComponent as Edit} from "./assets/wrench.svg"
-
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 class SideContentComponent extends React.Component{
     constructor(props) {
         super(props);
@@ -42,7 +43,9 @@ class SideContentComponent extends React.Component{
             <div className="col-lg-4 row-md">
                 <div className="ui-block">
                     <div className="ui-title" style={{ display: "flex", minHeight: 61 + "px" }}>
-                        <h5 style={{marginBottom: 0, textAlign: "center", position: "absolute", left: 50 + "%", transform: "translateX(" + -50 + "%)"}}>Contact Details</h5>{AuthenticationService.getLoggedInUserName() === this.props.username ? <Edit width={20} className="editUpdate" onClick={this.props.edit} style={{ marginLeft : "auto" }}/> : ""}
+                        <h5 style={{marginBottom: 0, textAlign: "center", position: "absolute", left: 50 + "%", transform: "translateX(" + -50 + "%)"}}>Contact Details</h5>{AuthenticationService.getLoggedInUserName() === this.props.username ?
+                        <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Edit your information</Tooltip>}>
+                            <Edit width={20} className="editUpdate" onClick={this.props.edit} style={{ marginLeft : "auto" }}/></OverlayTrigger> : ""}
                     </div>
                     <div className="ui-content">
                         <div className="personal-info">

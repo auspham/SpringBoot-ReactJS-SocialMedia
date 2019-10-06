@@ -89,13 +89,7 @@ class LoginComponent extends Component {
 
   changeState() {
     const { isLogginActive } = this.state;
-    // if (isLogginActive) {
-    //   this.side.classList.remove("right");
-    //   this.side.classList.add("left");
-    // } else {
-    //   this.side.classList.remove("left");
-    //   this.side.classList.add("right");
-    // }
+
     this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
   }
 
@@ -109,7 +103,15 @@ class LoginComponent extends Component {
         <div className="LoginComponent">
           <div className="Description">
             <h1>RMIT<br/>StalkerSpace</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            <p>
+              A fully-responsive, mobile friendly social media built with <b>ReactJS</b>,
+              <b> Springboot</b>, <b>Maven</b>, <b>MySQL</b>. Fully integrated with <b>Google Cloud, </b>
+              <b>Travis CI & CD</b><br/><br/>
+              <span>Check the project out on our&nbsp;
+              <a href={"https://github.com/RMIT-SEPT/Tom-Yum"} target={"_blank"}
+                 style={{color: "white", fontWeight: "bold"}}>Github</a>.</span>
+
+            </p>
           </div>
           {/* {this.state.hasLoginFailed && !this.state.showSuccessMessage && !this.state.registerSuccessful && (
               <div className="alert alert-warning fix-alert">

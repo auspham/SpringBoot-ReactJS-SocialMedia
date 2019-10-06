@@ -2,7 +2,8 @@ import React from "react";
 import loginImg from "../../login.svg";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AccountProfileService from "../../api/main/AccountProfileService";
-
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 export class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -208,7 +209,9 @@ export class Register extends React.Component {
                   </div>
                   <fieldset className="form-group">
                     <label htmlFor="studentnumber">Student Number</label>
-                    <Field className="field" type="text" name="studentnumber" />
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Please include 's'</Tooltip>}>
+                      <Field className="field" type="text" name="studentnumber" />
+                    </OverlayTrigger>
                     <ErrorMessage name="studentnumber" component="div"
                                   className="checkError" />
                   </fieldset>
@@ -222,7 +225,9 @@ export class Register extends React.Component {
 
                   <fieldset className="form-group">
                     <label htmlFor="phonenumber">Phone number</label>
-                    <Field className="field" type="text" name="phonenumber" />
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Start with 0 or '+'</Tooltip>}>
+                      <Field className="field" type="text" name="phonenumber" />
+                    </OverlayTrigger>
                     <ErrorMessage name="phonenumber" component="div"
                                   className="checkError" />
                   </fieldset>
@@ -236,14 +241,16 @@ export class Register extends React.Component {
 
                   <fieldset className="form-group">
                     <label htmlFor="password">Password</label>
-                    <Field className="field" type="password" name="password" />
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>More than 8 chars, 1 lower and upper case, 1 number</Tooltip>}>
+                      <Field className="field" type="password" name="password" />
+                    </OverlayTrigger>
                     <ErrorMessage name="password" component="div"
                       className="checkError" />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="retypepassword">Retype Password</label>
-                    <Field className="field" type="password" name="retypepassword" />
+                      <Field className="field" type="password" name="retypepassword" />
                     <ErrorMessage name="retypepassword" component="div"
                       className="checkError" />
                   </fieldset>

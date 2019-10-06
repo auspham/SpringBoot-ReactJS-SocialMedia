@@ -39,7 +39,7 @@ class SideContentComponent extends React.Component{
     render(){
         return(
            
-            <div className="col3">
+            <div className="col-4">
                 <div className="ui-block">
                     <div className="ui-title" style={{ display: "flex", minHeight: 61 + "px" }}>
                         <h5 style={{marginBottom: 0, textAlign: "center", position: "absolute", left: 50 + "%", transform: "translateX(" + -50 + "%)"}}>Contact Details</h5>{AuthenticationService.getLoggedInUserName() === this.props.username ? <Edit width={20} className="editUpdate" onClick={this.props.edit} style={{ marginLeft : "auto" }}/> : ""}

@@ -1,3 +1,5 @@
+@import '~include-media/dist/include-media';
+
 .profilePage {
   margin-top: 56px;
   font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
@@ -8,6 +10,12 @@
   color: #888da8;
   background-color: #edf2f6;
   height: 100vh;
+
+  @include media("<=1428px") {
+    & .container {
+      width: 1000px;
+    }
+  }
 }
 
 html {
@@ -19,10 +27,10 @@ html {
   width: 100%;
 }
 
-.col {
-  flex: 0 0 100%;
-  max-width: 100%;
-}
+//.col {
+//  flex: 0 0 100%;
+//  max-width: 100%;
+//}
 
 .ui-block {
   background-color: #fff;
@@ -53,7 +61,7 @@ html {
 }
 
 .row {
-  width: 1140px;
+  width: 100%;
   display: block;
   font-size: 12px;
 }
@@ -95,8 +103,7 @@ html {
 .col3 {
   display: block;
   position: relative;
-  max-width: 40%;
-  width: 500px;
+  min-width: 350px;
   padding-right: 20px;
   padding-left: 15px;
 }

@@ -29,9 +29,9 @@ class NewsFeedComponent extends React.Component{
 
     render(){
         return(
-            <div className="col4">
+            <div className="col">
                 {AuthenticationService.getLoggedInUserName() === this.props.username ?
-                    <div className="container">
+                    <div className="wrap">
                         <PostComponent match={this.props.match} stompClient={stompClient} refreshFeed={this.refreshFeed} username={this.props.username} history={this.props.history}/>
                     </div> : ""}
                 <ListPostsComponent history={this.props.history} onRef={ref => (this.child = ref)} username={this.props.username} stompClient={stompClient}/>

@@ -98,7 +98,7 @@ describe('Login and Register test', () => {
         // const logoutBtn = $('button[name="logout"]');
         // logoutBtn.click();
     })
-})
+});
 
 describe('Post status and comment', () => {
     it('It should post status with logged in user', () => {
@@ -110,10 +110,10 @@ describe('Post status and comment', () => {
             statusInput.setValue("This is the test status number " + i);
             submitBtn.click();
         }
-    });
+    })
 
     it('It should comment on posted status', () => {
-        const comments = $('input[placeholder="Write a comment.."]');
+        const comments = $$('input[placeholder="Write a comment.."]');
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
                 const comment = comments[key];
@@ -121,7 +121,7 @@ describe('Post status and comment', () => {
                 browser.keys("Enter");
             }
         }
-    });
+    })
 });
 
 describe('Change avatar and background', () => {
@@ -161,9 +161,9 @@ describe('Change avatar and background', () => {
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
         browser.pause(3000);
-    });
+    })
 
-})
+});
 
 // -----------------------------------------------------------------------------
 

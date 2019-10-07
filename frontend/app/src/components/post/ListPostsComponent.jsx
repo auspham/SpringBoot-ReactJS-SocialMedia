@@ -69,7 +69,7 @@ class ListPostsComponent extends Component {
         return (
             <div>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
-                <div className="container">
+                <div className="wrap">
                     <div className="table">
                         <div>
                             {

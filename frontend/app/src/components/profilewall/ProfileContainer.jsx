@@ -149,43 +149,43 @@ class ProfileContainer extends React.Component {
               </div>
               <div className="profile-section">
                 <div className="row">
-                  <div className="col1">
-                    <ul className="profile-menu">
-                      <li className="list-item">
-                        <a>Timeline</a>
-                      </li>
-                      <li className="list-item">
-                        <a>About</a>
-                      </li>
-                      <li className="list-item">
-                        <a>Friends</a>
-                      </li>
-                    </ul>
-                  </div>
+                  {/*<div className="col1">*/}
+                  {/*  <ul className="profile-menu">*/}
+                  {/*    <li className="list-item">*/}
+                  {/*      <a>Timeline</a>*/}
+                  {/*    </li>*/}
+                  {/*    <li className="list-item">*/}
+                  {/*      <a>About</a>*/}
+                  {/*    </li>*/}
+                  {/*    <li className="list-item">*/}
+                  {/*      <a>Friends</a>*/}
+                  {/*    </li>*/}
+                  {/*  </ul>*/}
+                  {/*</div>*/}
                   <div className="avatar-container">
                     <div className={"image-cropper" + (AuthenticationService.getLoggedInUserName() === this.props.username ? " uploadable" : "")} onClick={this.handleShow}>
                       <img
                         src={this.state.avatarURL}
                         className="profile-pic"
-                        alt="avatar" 
+                        alt="avatar"
                         onError={this.handleError}
                       ></img>
                     </div>
                     <div className="avatar-author-content">{this.props.username}</div>
                   </div>
-                  <div className="col2">
-                    <ul className="profile-menu">
-                      <li className="list-item">
-                        <a>Photos</a>
-                      </li>
-                      <li className="list-item">
-                        <a>Videos</a>
-                      </li>
-                      <li className="list-item">
-                        <div className="more">...</div>
-                      </li>
-                    </ul>
-                  </div>
+                  {/*<div className="col2">*/}
+                  {/*  <ul className="profile-menu">*/}
+                  {/*    <li className="list-item">*/}
+                  {/*      <a>Photos</a>*/}
+                  {/*    </li>*/}
+                  {/*    <li className="list-item">*/}
+                  {/*      <a>Videos</a>*/}
+                  {/*    </li>*/}
+                  {/*    <li className="list-item">*/}
+                  {/*      <div className="more">...</div>*/}
+                  {/*    </li>*/}
+                  {/*  </ul>*/}
+                  {/*</div>*/}
                 </div>
               </div>
             </div>

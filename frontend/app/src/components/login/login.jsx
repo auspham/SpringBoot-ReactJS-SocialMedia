@@ -1,22 +1,13 @@
 import React from "react";
-import loginImg from "../../login.svg";
-import { SocialLogin } from "./SocialLogin";
+import {Form} from "formik";
 
 export class Login extends React.Component {
 
   render() {
     return (
       <div className="base-container" ref={this.props.containerRef}>
-        <div className="header">Login</div>
-        <div className="image">
-            <img src={loginImg} alt="Logo" />
-        </div>
-        <div className="content">
-        <SocialLogin></SocialLogin>
 
-          <div className="or-separator">
-            <span className="or-text">OR</span>
-          </div>
+        <div className="content">
           <div className="form">
             <div className="form-group">
               <div className="form-group">
@@ -41,13 +32,21 @@ export class Login extends React.Component {
               </div>
             </div>
           </div>
-          <div className="foot">
-            <button
+          <div className={"footerBtn"}>
+          <button
               type="button"
               className="btn btn-success"
+              name={"login"}
               onClick={this.props.handleSubmit}
             >
               Login
+            </button>
+            <button
+                type="button" name={"register"}
+                className="btn btn-info"
+                onClick={this.props.changeState}
+            >
+              register
             </button>
           </div>
         </div>

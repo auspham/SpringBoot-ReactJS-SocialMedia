@@ -7,6 +7,10 @@ describe('Login and Register test', () => {
         browser.url('http://localhost:4200');
         // browser.fullscreenWindow();
         window1 = browser.getWindowHandle();
+
+        const registerBtn = $('button[name="register"]');
+        registerBtn.click();
+
         const username = $('input[name="username"]');
         username.setValue("tester01");
 
@@ -31,15 +35,12 @@ describe('Login and Register test', () => {
         const phoneNo = $('input[name="phonenumber"]');
         phoneNo.setValue("0410999999");
 
-        const submitBtn = $('button[type="submit"]');
+        const submitBtn = $('button[name="register"]');
         submitBtn.click();
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
-        browser.waitUntil(() => {
-            return browser.getAlertText() === "Register Successful"
-        }, 3000);
-        browser.acceptAlert();
+        browser.pause(1000);
     })
 
     it('It should login with registered user', () => {
@@ -49,7 +50,7 @@ describe('Login and Register test', () => {
         const password = $('input[name="password"]');
         password.setValue("aA123456");
 
-        const loginBtn = $('button[type="button"]');
+        const loginBtn = $('button[name="login"]');
         loginBtn.click();
 
         browser.waitUntil(() => {
@@ -128,6 +129,9 @@ describe('Create an account for second test user', () => {
         browser.newWindow('http://localhost:4200');
         window2 = browser.getWindowHandle();
 
+        const registerBtn = $('button[name="register"]');
+        registerBtn.click();
+
         const username = $('input[name="username"]');
         username.setValue("tester02");
 
@@ -152,15 +156,13 @@ describe('Create an account for second test user', () => {
         const phoneNo = $('input[name="phonenumber"]');
         phoneNo.setValue("0410999333");
 
-        const submitBtn = $('button[type="submit"]');
+        const submitBtn = $('button[name="register"]');
         submitBtn.click();
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
-        browser.waitUntil(() => {
-            return browser.getAlertText() === "Register Successful"
-        }, 3000);
-        browser.acceptAlert();
+        browser.pause(1000);
+
     })
 
     it('It should login with the second registered user', () => {
@@ -170,12 +172,9 @@ describe('Create an account for second test user', () => {
         const password = $('input[name="password"]');
         password.setValue("aA123456");
 
-        const loginBtn = $('button[type="button"]');
+        const loginBtn = $('button[name="login"]');
         loginBtn.click();
 
-        browser.waitUntil(() => {
-            return browser.getUrl() === 'http://localhost:4200/welcome/tester02'
-        }, 3000);
     })
 });
 

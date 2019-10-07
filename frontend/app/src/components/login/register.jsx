@@ -2,7 +2,8 @@ import React from "react";
 import loginImg from "../../login.svg";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import AccountProfileService from "../../api/main/AccountProfileService";
-
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 export class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -175,12 +176,8 @@ export class Register extends React.Component {
   render() {
     return (
       <div className="base-container">
-        <div className="header">Register</div>
         <div className="content">
-          <div className="image">
-            <img src={loginImg} alt="Logo"/>
-          </div>
-          <Formik className="form"
+          <Formik className="form form-row"
 
             onSubmit={this.props.handleRegister}
             validateOnChange={this.validate}
@@ -192,6 +189,48 @@ export class Register extends React.Component {
             {
               (props) => (
                 <Form>
+                  <div className="row">
+                      <div className="col">
+                        <fieldset className="form-group">
+                          <label htmlFor="firstname">First Name</label>
+                          <Field className="field" type="text" name="firstname" />
+                          <ErrorMessage name="firstname" component="div"
+                                        className="checkError" />
+                        </fieldset>
+                      </div>
+                      <div className="col">
+                        <fieldset className="form-group">
+                          <label htmlFor="lastname">Last Name</label>
+                          <Field className="field" type="text" name="lastname" />
+                          <ErrorMessage name="lastname" component="div"
+                                        className="checkError" />
+                        </fieldset>
+                      </div>
+                  </div>
+                  <fieldset className="form-group">
+                    <label htmlFor="studentnumber">Student Number</label>
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Please include 's'</Tooltip>}>
+                      <Field className="field" type="text" name="studentnumber" />
+                    </OverlayTrigger>
+                    <ErrorMessage name="studentnumber" component="div"
+                                  className="checkError" />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <Field className="field" type="text" name="email" />
+                    <ErrorMessage name="email" component="div"
+                                  className="checkError" />
+                  </fieldset>
+
+                  <fieldset className="form-group">
+                    <label htmlFor="phonenumber">Phone number</label>
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Start with 0 or '+'</Tooltip>}>
+                      <Field className="field" type="text" name="phonenumber" />
+                    </OverlayTrigger>
+                    <ErrorMessage name="phonenumber" component="div"
+                                  className="checkError" />
+                  </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="username">Username</label>
@@ -202,62 +241,33 @@ export class Register extends React.Component {
 
                   <fieldset className="form-group">
                     <label htmlFor="password">Password</label>
-                    <Field className="field" type="password" name="password" />
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>More than 8 chars, 1 lower and upper case, 1 number</Tooltip>}>
+                      <Field className="field" type="password" name="password" />
+                    </OverlayTrigger>
                     <ErrorMessage name="password" component="div"
                       className="checkError" />
                   </fieldset>
 
                   <fieldset className="form-group">
                     <label htmlFor="retypepassword">Retype Password</label>
-                    <Field className="field" type="password" name="retypepassword" />
+                      <Field className="field" type="password" name="retypepassword" />
                     <ErrorMessage name="retypepassword" component="div"
                       className="checkError" />
                   </fieldset>
 
-                  <fieldset className="form-group">
-                    <label htmlFor="firstname">First Name</label>
-                    <Field className="field" type="text" name="firstname" />
-                    <ErrorMessage name="firstname" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="lastname">Last Name</label>
-                    <Field className="field" type="text" name="lastname" />
-                    <ErrorMessage name="lastname" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="studentnumber">Student Number</label>
-                    <Field className="field" type="text" name="studentnumber" />
-                    <ErrorMessage name="studentnumber" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <Field className="field" type="text" name="email" />
-                    <ErrorMessage name="email" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <label htmlFor="phonenumber">Phone number</label>
-                    <Field className="field" type="text" name="phonenumber" />
-                    <ErrorMessage name="phonenumber" component="div"
-                      className="checkError" />
-                  </fieldset>
-
-                  <button type="submit" className="btn text-center btn-primary center"
-                  >
+                  <div className={"footerBtn"}>
+                    <button type="submit" className="btn text-center btn-info center" name={"register"}>
                     Register
-              </button>
+                    </button>
+                  </div>
+
+                  <p className={"loginLink"}>
+                    <a href="#" onClick={this.props.changeState}>Wait, I already have an account ;)</a>
+                  </p>
                 </Form>
               )
             }
           </Formik>
-
         </div>
       </div>
 

@@ -4,8 +4,10 @@ import AuthenticationService from './AuthenticationService.js'
 import SearchBarComponent from './SearchBarComponent.jsx'
 import AccountProfileService from '../../api/main/AccountProfileService'
 import Logo from './assets/logo.png';
-
-
+import Navbar from 'react-bootstrap/Navbar';
+import Avatar from './Avatar';
+import { Tooltip } from "react-bootstrap";
+import { OverlayTrigger } from "react-bootstrap";
 class HeaderComponent extends Component {
     constructor(props) {
         super(props)
@@ -23,20 +25,31 @@ class HeaderComponent extends Component {
         };
 
         return (
-            <header>
-                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <img src={Logo} alt="Logo" className="rmitLogo"/>
-                    <ul className="navbar-nav">
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/">Home</Link></li>}
-                        {isUserLoggedIn && <li><a className="nav-link" href={'/profile/' + username}>Profile</a></li>}
-                        {isUserLoggedIn && <SearchBarComponent refreshInfo={this.props.refreshInfo}></SearchBarComponent>}
-                    </ul>
-                    <ul className="navbar-nav navbar-collapse justify-content-end">
-                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>}
-                    </ul>
-                </nav>
-            </header>
+            <>
+            {isUserLoggedIn && <header>
+                <Navbar expand={"md"} className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Back to home</Tooltip>}><Link className="nav-link" to="/welcome/"><img src={Logo} alt="Logo" className="rmitLogo"/></Link>
+                    </OverlayTrigger>
+
+                    <SearchBarComponent refreshInfo={this.props.refreshInfo}></SearchBarComponent>
+
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <ul className="navbar-nav navbar-collapse justify-content-end">
+                            <OverlayTrigger key={"bottom"} placement={"bottom"} overlay={<Tooltip id={'tooltip-bottom'}> Visit your profile </Tooltip>}>
+                                <li className={"toProfile"}><Avatar username={username}/><a className="nav-link" href={'/profile/' + username}>{username}</a></li>
+                            </OverlayTrigger>
+                            <Link className="nav-link" to="/welcome/">Home</Link>
+
+                            <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>
+                        </ul>
+
+                    </Navbar.Collapse>
+
+                </Navbar>
+            </header>}
+            </>
         )
     }
 

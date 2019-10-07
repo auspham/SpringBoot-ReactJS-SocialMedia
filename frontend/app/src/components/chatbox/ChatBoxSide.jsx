@@ -118,11 +118,10 @@ export default class ChatBoxSide extends Component {
 
 
 
-    handleSelectUser = (event) => {
-        let select = event.target.innerText;
-        if(!select.includes(this.state.username) && !this.state.receiver.includes(select)) {
+    handleSelectUser = (user) => {
+        if(!user.includes(this.state.username) && !this.state.receiver.includes(user)) {
             this.setState(prevState => ({
-                receiver: [...prevState.receiver, select]
+                receiver: [...prevState.receiver, user]
             }))
         }
     }
@@ -142,7 +141,7 @@ export default class ChatBoxSide extends Component {
         return(
             <div>
                 <div className="cbox-slide">
-                    {Array.from(this.state.userList).map((user, indexes) => <div key={indexes} className="card user-holder" onClick={this.handleSelectUser}>
+                    {Array.from(this.state.userList).map((user, indexes) => <div key={indexes} className="card user-holder" onClick={() => this.handleSelectUser(user)}>
                         <Avatar username={user} style={{float: 'left'}}/>
                         <div style={{float: 'left'}} className="chat-username">{this.state.username === user ? user + " (You)" : user}</div>
                     </div>)}

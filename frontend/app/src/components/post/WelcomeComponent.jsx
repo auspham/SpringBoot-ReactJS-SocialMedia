@@ -70,7 +70,7 @@ class WelcomeComponent extends Component {
                     (post,i) =>
                         <PostCard key={post.id} post={post} ref={ref => this.refers[post.id] = ref} refreshFeed={this.retrieveAllTodos} deletePostClicked={this.deletePostClicked} username={post.username} stompClient={stompClient}/>
                 )}
-                </> : <Empty width={500}/>}
+                </> : <Empty width={50 + "vw"} style={{maxWidth: 500}}/>}
             </div>
         )
     }

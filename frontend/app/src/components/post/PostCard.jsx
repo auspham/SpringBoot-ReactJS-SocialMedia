@@ -81,7 +81,7 @@ export default class PostCard extends Component {
                     <Avatar username={this.props.username}/>
                     <div style={{float: 'left'}}>
                         <a href={'/profile/' + this.props.username}>{this.props.username}</a>
-                        <div className="date">{moment(this.props.post.targetDate).format('YYYY-MM-DD')}</div>
+                        <div className="date">{moment(this.props.post.targetDate).fromNow()}</div>
                     </div>
                 </div>
                 {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">

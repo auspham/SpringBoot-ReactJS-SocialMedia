@@ -45,7 +45,7 @@ class HeaderComponent extends Component {
                             </OverlayTrigger>
                             <Link className="nav-link d-md-none" to="/welcome/">Home</Link>
 
-                            <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>
+                            <li><Link className="nav-link" name="logout" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>
                         </ul>
 
                     </Navbar.Collapse>

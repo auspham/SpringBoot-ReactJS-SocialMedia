@@ -86,7 +86,7 @@ export default class PostCard extends Component {
                 </div>
                 {this.props.username == AuthenticationService.getLoggedInUserName() ? <div className="status-right">
                     <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Edit this post</Tooltip>}><Edit onClick={this.toggleShow}/></OverlayTrigger>
-                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Delete this post</Tooltip>}><Close onClick={() => this.props.deletePostClicked(this.props.post.id)}/></OverlayTrigger>
+                    <OverlayTrigger placement={"bottom"} overlay={<Tooltip id={"tooltip-bottom"}>Delete this post</Tooltip>}><Close name="delete" onClick={() => this.props.deletePostClicked(this.props.post.id)}/></OverlayTrigger>
                 </div> : ""}
             </div>
             <div className="status-content">

@@ -1,0 +1,84 @@
+@import '~include-media/dist/include-media';
+
+.search-group {
+    align-self: center;
+    position: relative;
+
+    .searchBar {
+        background: #131413;
+        border: 0;
+        padding: 0.5em 1em;
+        width: 300px;
+        color: lightslategray;
+        font-size: .8em;
+        border-radius: 5px;
+
+        &:focus{ 
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    .resultBox {
+        width: 100%;
+        position: absolute;
+        background: #131413;
+        color: lightslategray;
+        margin-top: -2px;
+        border-radius: 0px 0px 10px 10px;
+        font-size: .8em;
+        overflow-x: hidden;
+        max-height: 184px;
+
+        & a {
+            color: lightslategray;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .userSearch {
+            padding: 1em;
+            text-align: initial;
+            border-bottom: 1px solid #ffffff0d;
+            border-radius: 0px 0px 0px 0px;
+
+            &:hover{
+                background: #434a51;
+                color: #e1dede;
+            }
+
+        }
+
+        & > .userSearch:last-child {
+            border-radius: 0px 0px 10px 10px;
+        }
+    }
+
+    @include media("<=tablet") {
+        width: 70vw;
+        right: 10px;
+        align-self: center;
+        .searchBar {
+            width: 100%;
+        }
+    }
+
+    @include media("<=tablet", "<520px") {
+        width: calc(53vw + 20px);
+        right: 10px;
+        justify-self: start;
+        .searchBar {
+            width: 100%;
+        }
+    }
+
+    @include media("<=tablet", "<=372px") {
+        display: none;
+    }
+}
+
+.rmitLogo {
+    width: 35px;
+}

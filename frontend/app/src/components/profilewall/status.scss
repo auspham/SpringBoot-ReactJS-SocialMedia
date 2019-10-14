@@ -1,0 +1,195 @@
+@import '~include-media/dist/include-media';
+
+.ui-custom{
+    text-align: initial;
+    padding: 1.5em;
+    font-size: 12px;
+
+    .btn-status {
+        border-radius: 9999px;   
+    }
+
+    .status-head{
+        overflow: hidden;
+        .status-left {
+            float: left;
+            font-weight: bold;
+            color: black;
+            font-size: 1.5em;
+            .date {
+                font-weight: light;
+                color: lightgray;
+                font-size: .5em;
+            }
+        }
+
+        .status-right {
+            float: right;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                margin-left: 1em;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .status-content{
+        margin-top: .5em;
+        color: #1c1e21;
+        font-size: 1.2em;
+    }
+
+    .create-tool {
+        margin-top: 20px;
+        display: flex;
+        float:right;
+        position: relative;
+
+        &::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .btn-status {
+            //font-size: 1em;
+            font-weight: bold;
+        }
+
+    }
+
+    .create-content{
+        .post-status {
+            border: 0;
+
+            &:focus{
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        .form-control.post-status:focus{
+            box-shadow: none;
+        }
+    }
+
+}
+
+.status-content{
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+.editableContent {
+    textarea {
+        width: 100%;
+        border: 0;
+        border-bottom: 4px solid #e490bf;
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0;
+        }
+    }
+
+}
+#blockColorblindContent {
+    background: #edf2f6;
+}
+
+.comments{
+    border-top: 1px solid #d3d3d338;
+    & .commentHolder{
+        overflow: auto;
+        max-height: 200px;
+        margin-top: .5em;
+    }
+    & .comment-control {
+        button {
+            font-size: 1em;
+            @include media("<=tablet") {
+                font-size: .7em;
+            }
+        }
+
+        @include media("<=tablet", "<=576px") {
+            & input {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1em;
+            }
+            & button {
+                height: 32px;
+                font-size: 1em;
+            }
+        }
+    }
+
+    & .comment {
+        margin: 1em 0;
+        color: #000;
+        float: left;
+        display: block;
+        overflow: hidden;
+        width: 100%;
+
+        & .commenter a{
+            color: darkcyan;
+            font-weight: bold;
+        }
+
+        & .comment-desc {
+        }
+    }
+
+    & input {
+        margin-right: 1em;
+        border: 0;
+        border-radius: 99px;
+        background: #f1f0f0;
+        color: #636363;
+        padding-left: 20px!important;
+        padding-right: 20px!important;
+        flex: 1;
+        max-width: initial;
+        height: 32px;
+
+        &:focus{
+            outline: 0;
+            box-shadow: none;
+        }
+    }
+
+    & .comment-control {
+        margin-top: 1em;
+    }
+}
+
+.generalTodo {
+    margin-top: 56px;
+    padding: 2em;
+}
+
+.main-content {
+    min-height: 100vh;
+}
+
+.cmt-avatar {
+    background: lightgray;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    float: left;
+    margin-right: 1em;
+    overflow: hidden;
+
+    & img{
+        height: 100%;
+        left: 50%;
+        position: relative;
+        transform: translateX(-50%);
+    }
+}

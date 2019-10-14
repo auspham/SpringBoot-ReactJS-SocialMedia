@@ -10,7 +10,7 @@ matrix:
     - language: node_js
       node_js:
         - 8.9.4
-      before_install: cd frontend/todo-app
+      before_install: cd frontend/app
       install: npm install
 
 notifications:

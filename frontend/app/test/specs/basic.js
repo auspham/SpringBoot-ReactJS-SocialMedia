@@ -13,7 +13,7 @@ casual.define('user', function () {
         password: "aA123456",
         sNo: "s" + casual.integer(from = "3000000", to = "5000000"),
         sEmail: casual.email,
-        phoneNo: "040"+ casual.integer(from = "1000000", to ="9999999")
+        phoneNo: "040" + casual.integer(from = "1000000", to = "9999999")
     }
 })
 
@@ -25,7 +25,7 @@ casual.define('user_2', function () {
         password: "aA123456",
         sNo: "s" + casual.integer(from = "3000000", to = "5000000"),
         sEmail: casual.email,
-        phoneNo: "040"+ casual.integer(from = "1000000", to ="9999999")
+        phoneNo: "040" + casual.integer(from = "1000000", to = "9999999")
     }
 })
 
@@ -36,42 +36,33 @@ describe('Login and Register test', () => {
     it('It should register a test account', () => {
 
         browser.url('http://localhost:4200');
-        // browser.fullscreenWindow();
         window1 = browser.getWindowHandle();
 
         const registerBtn = $('button[name="register"]');
         registerBtn.click();
 
         const username = $('input[name="username"]');
-        // username.setValue("tester01");
         username.setValue(user.username);
 
         const password = $('input[name="password"]');
         password.setValue(user.password);
-        // password.setValue(user.password);
 
         const retypepassword = $('input[name="retypepassword"]');
         retypepassword.setValue(password.getValue());
-        // retypepassword.setValue(password.getValue());
 
         const firstName = $('input[name="firstname"]');
-        // firstName.setValue("Tester");
         firstName.setValue(user.firstName);
 
         const lastName = $('input[name="lastname"]');
-        // lastName.setValue("Nguyen");
         lastName.setValue(user.lastName);
 
         const sNo = $('input[name="studentnumber"]');
-        // sNo.setValue("s9999000");
         sNo.setValue(user.sNo);
 
         const sEmail = $('input[name="email"]');
-        // sEmail.setValue("s9999000@student.rmit.edu.au");
         sEmail.setValue(user.sEmail);
 
         const phoneNo = $('input[name="phonenumber"]');
-        // phoneNo.setValue("0410999999");
         phoneNo.setValue(user.phoneNo);
 
         const submitBtn = $('button[name="register"]');
@@ -95,8 +86,6 @@ describe('Login and Register test', () => {
         browser.waitUntil(() => {
             return browser.getUrl() === 'http://localhost:4200/welcome/' + user.username
         }, 3000);
-        // const logoutBtn = $('button[name="logout"]');
-        // logoutBtn.click();
     })
 });
 
@@ -127,9 +116,8 @@ describe('Post status and comment', () => {
 describe('Change avatar and background', () => {
     it('It should change avatar', () => {
         const profileLink = $('a[href="/profile/' + user.username + '"]')
-        // const profileLink = $('a[href="/profile/tester01"]');
         profileLink.click();
-
+        browser.pause(1000);
         browser.waitUntil(() => {
             return !browser.isLoading();
         }, 3000);
@@ -165,55 +153,45 @@ describe('Change avatar and background', () => {
 
 });
 
-// -----------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------*/
 
 describe('Create an account for second test user', () => {
-
     it('It should open a new window', () => {
             browser.url('http://localhost:4200');
             browser.newWindow('http://localhost:4200');
-            // browser.switchWindow('http://localhost:4200/login');
             window2 = browser.getWindowHandle();
-            // browser.newWindow(window2);
     })
 
     it('It should register a second test account', () => {
 
         const logoutBtn = $('a[name="logout"]');
         logoutBtn.click();
-    
+
         const registerBtn = $('button[name="register"]');
         registerBtn.click();
 
         const username = $('input[name="username"]');
-        // username.setValue("tester02");
         username.setValue(user2.username);
 
         const password = $('input[name="password"]');
-        // password.setValue("aA123456");
         password.setValue(user2.password);
 
         const retypepassword = $('input[name="retypepassword"]');
         retypepassword.setValue(password.getValue());
 
         const firstName = $('input[name="firstname"]');
-        // firstName.setValue("Tester");
         firstName.setValue(user2.firstName);
 
         const lastName = $('input[name="lastname"]');
-        // lastName.setValue("Nguyen");
         lastName.setValue(user2.lastName);
 
         const sNo = $('input[name="studentnumber"]');
-        // sNo.setValue("s9999000");
         sNo.setValue(user2.sNo);
 
         const sEmail = $('input[name="email"]');
-        // sEmail.setValue("s9999000@student.rmit.edu.au");
         sEmail.setValue(user2.sEmail);
 
         const phoneNo = $('input[name="phonenumber"]');
-        // phoneNo.setValue("0410999999");
         phoneNo.setValue(user2.phoneNo);
 
         const submitBtn = $('button[name="register"]');

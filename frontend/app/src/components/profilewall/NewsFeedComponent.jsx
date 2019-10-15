@@ -20,7 +20,7 @@ class NewsFeedComponent extends React.Component{
     }
 
     onConnected = () => {
-        stompClient.subscribe("/topic/status", this.refreshTodos);
+        stompClient.subscribe("/topic/status", this.refreshFeed);
     }
 
     onError = (err) => {

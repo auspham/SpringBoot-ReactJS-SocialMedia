@@ -4,7 +4,7 @@ import AuthenticationService from './AuthenticationService'
 import { ReactComponent as Empty } from './assets/empty.svg';
 import PostCard from './PostCard'
 import PostComponent from './PostComponent';
-import Socket from './/StartSocket';
+import Socket from './StartSocket';
 import moment from 'moment';
 
 

@@ -31,11 +31,11 @@ matrix:
         - "cd .. && cd .. && ls"
         - "cd restful-web-services"
         - travis_wait 30 nohup mvn spring-boot:run &
-        - sleep 5
       script: 
         - "cd .."
         - "cd frontend/app"
         - "nohup npm start &"
+        - sleep 5
         - "npm run wdio"
 
 notifications:

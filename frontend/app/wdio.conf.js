@@ -1,11 +1,4 @@
 exports.config = {
-    host: "localhost",
-    port: 4200,
-
-    user: "nugyn",
-    key: "34614a95-e994-42ee-9c65-aa5fd463e769",
-
-
     //
     // ====================
     // Runner Configuration
@@ -33,9 +26,6 @@ exports.config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
-
-    sauceConnect: true,
-
     //
     // ============
     // Capabilities

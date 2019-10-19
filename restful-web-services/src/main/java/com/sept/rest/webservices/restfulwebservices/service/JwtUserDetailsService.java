@@ -25,7 +25,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private static final String phonenumberRegex = "^\\(?(?:\\+?61|0)(?:(?:2\\)?[ -]?(?:3[ -]?[38]|[46-9][ -]?[0-9]|5[ -]?[0-35-9])|3\\)?(?:4[ -]?[0-57-9]|[57-9][ -]?[0-9]|6[ -]?[1-67])|7\\)?[ -]?(?:[2-4][ -]?[0-9]|5[ -]?[2-7]|7[ -]?6)|8\\)?[ -]?(?:5[ -]?[1-4]|6[ -]?[0-8]|[7-9][ -]?[0-9]))(?:[ -]?[0-9]){6}|4\\)?[ -]?(?:(?:[01][ -]?[0-9]|2[ -]?[0-57-9]|3[ -]?[1-9]|4[ -]?[7-9]|5[ -]?[018])[ -]?[0-9]|3[ -]?0[ -]?[0-5])(?:[ -]?[0-9]){5})$";
 	private static final String emailRegex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
 	private static final String studentnumberRegex = "^s[0-9]{7}$";
-	private static final String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})";
+	private static final String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
 
 	@Autowired
 	private UserDao userDao;
@@ -163,7 +163,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Username: " + username + "already existed");
+			throw new DuplicateValueException("Username: " + username + " already existed");
 		}
 		return exist;
 	}
@@ -175,7 +175,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Student number: " + studentnumber + "already existed");
+			throw new DuplicateValueException("Student number: " + studentnumber + " already existed");
 
 		}
 		return exist;
@@ -188,7 +188,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Email: " + email + "already existed");
+			throw new DuplicateValueException("Email: " + email + " already existed");
 		}
 		return exist;
 	}
@@ -200,7 +200,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Phone number: " + phonenumber + "already existed");
+			throw new DuplicateValueException("Phone number: " + phonenumber + " already existed");
 		}
 		return exist;
 	}

@@ -271,13 +271,10 @@ describe('Create an account for second test user', () => {
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
-        browser.pause(1000);
-
     })
 
     it('It should login with the second registered user', () => {
 
-        browser.pause(500);
         const username = $('input[name="username"]');
         username.setValue(user2.username);
 
@@ -344,9 +341,9 @@ describe('Change avatar and background of the second tester', () => {
         const profileLink = $('a[href="/profile/' + user2.username + '"]');
         profileLink.click();
 
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        },3000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // },3000);
 
         const avatarBtn = $('.image-cropper');
         avatarBtn.click();
@@ -361,9 +358,9 @@ describe('Change avatar and background of the second tester', () => {
     })
 
     it('It should change banner of the second tester', () => {
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        },3000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // },3000);
 
         const bannerBtn = $('.banner');
         bannerBtn.click();
@@ -374,7 +371,7 @@ describe('Change avatar and background of the second tester', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-        browser.pause(3000);
+        // browser.pause(3000);
     })
 });
 

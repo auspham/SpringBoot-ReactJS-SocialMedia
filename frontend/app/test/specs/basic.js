@@ -127,7 +127,8 @@ describe('Login and Register test', () => {
         submitBtn.click();
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
-
+        console.log($$('.checkError').length);
+        
         browser.pause(1000);
     })
 

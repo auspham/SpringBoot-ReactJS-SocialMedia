@@ -34,6 +34,7 @@ matrix:
       script: 
         - "cd .."
         - "cd frontend/app"
+        - "npm rebuild node-sass"
         - "nohup npm start &"
         - sleep 5
         - "npm run wdio"

@@ -71,7 +71,26 @@ describe('Login and Register negative test', () => {
         assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
 
     })
-})
+
+    it('It should not login with incorrect creditials', () => {
+        const loginBtn = $('p[class="loginLink"]');
+        loginBtn.click();
+
+        const username = $('input[name="username"]');
+        username.setValue("UsernameNotExist");
+
+        const password = $('input[name="password"]');
+        password.setValue("PasswordNotExist");
+
+        const submitBtn = $('button[name="register"]');
+        submitBtn.click();
+
+        let pageUrl = browser.getUrl();
+        assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
+    })
+
+});
+
 
 
 

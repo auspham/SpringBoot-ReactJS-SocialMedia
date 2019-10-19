@@ -54,7 +54,7 @@ public class RegisterNegativeTest {
 		user4.setPassword("Dummy12345");
 	}
 	
-	@Test
+	@Test(expected = InvalidInputException.class)
 	public void testInvalidUsername() {
 		jwtInMemoryUserDetailsService.save(user1);
 	}

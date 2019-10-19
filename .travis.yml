@@ -32,7 +32,11 @@ matrix:
         - "cd restful-web-services"
         - travis_wait 30 nohup mvn spring-boot:run &
         - sleep 5
-      script: "cd .. && cd frontend/app && nohup npm start & && npm run wdio"
+      script: 
+        - "cd .."
+        - "cd frontend/app"
+        - "nohup npm start &"
+        - "npm run wdio"
 
 notifications:
   slack: tomyumsept:PvqV1oTyYrS9OKT0hp2kH4TA

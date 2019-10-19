@@ -27,14 +27,14 @@ casual.define('user_2', function () {
         sEmail: casual.email,
         phoneNo: "040" + casual.integer(from = "1000000", to = "9999999")
     }
-})
+});
 
 let user = casual.user;
 let user2 = casual.user_2;
 
+
 describe('Login and Register test', () => {
     it('It should register a test account', () => {
-
         browser.url('http://localhost:4200');
         window1 = browser.getWindowHandle();
 
@@ -69,7 +69,7 @@ describe('Login and Register test', () => {
         submitBtn.click();
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
-
+        
         browser.pause(1000);
     })
 
@@ -85,11 +85,13 @@ describe('Login and Register test', () => {
 
         browser.waitUntil(() => {
             return browser.getUrl() === 'http://localhost:4200/welcome/' + user.username
-        }, 3000);
+        }, 1000);
+
+        assert.equal(browser.getUrl(), 'http://localhost:4200/welcome/' + user.username);
     })
 });
 
-describe('Post status and comment', () => {
+describe('Post status and comment on the general wall', () => {
     it('It should post status with logged in user', () => {
         let i = 0;
         const statusInput = $('input[name="description"]');
@@ -118,9 +120,9 @@ describe('Change avatar and background', () => {
         const profileLink = $('a[href="/profile/' + user.username + '"]')
         profileLink.click();
         browser.pause(1000);
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        }, 3000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // }, 1000);
 
         const avatarBtn = $('.image-cropper');
         avatarBtn.click();
@@ -131,13 +133,12 @@ describe('Change avatar and background', () => {
 
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-
     })
 
     it('It should change banner', () => {
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        }, 3000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // }, 1000);
 
         const bannerBtn = $('.banner');
         bannerBtn.click();
@@ -148,9 +149,33 @@ describe('Change avatar and background', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-        browser.pause(3000);
+        browser.pause(1000);
     })
 
+});
+
+describe('Post status and comment on their own profile', () => {
+    it('It should post status with logged in user', () => {
+        let i = 0;
+        const statusInput = $('input[name="description"]');
+        const submitBtn = $('button[type="submit"]');
+
+        for (let i = 0; i <= 5; i++) {
+            statusInput.setValue("This is the test status number " + i);
+            submitBtn.click();
+        }
+    })
+
+    it('It should comment on posted status', () => {
+        const comments = $$('input[placeholder="Write a comment.."]');
+        for (const key in comments) {
+            if (comments.hasOwnProperty(key)) {
+                const comment = comments[key];
+                comment.setValue("random comment " + key);
+                browser.keys("Enter");
+            }
+        }
+    })
 });
 
 /*-----------------------------------------------------------------------------*/
@@ -205,7 +230,7 @@ describe('Create an account for second test user', () => {
 
     it('It should login with the second registered user', () => {
 
-        browser.pause(500);
+        // browser.pause(500);
         const username = $('input[name="username"]');
         username.setValue(user2.username);
 
@@ -215,11 +240,13 @@ describe('Create an account for second test user', () => {
         const loginBtn = $('button[name="login"]');
         loginBtn.click();
 
+        let pageUrl = browser.getUrl();
+        assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
     })
 });
 
 
-describe('Post status and comment for second user', () => {
+describe('Post status and comment for second user on the general wall', () => {
     it('It should post status with the second logged in user', () => {
         let i = 0;
         const statusInput = $('input[name="description"]');
@@ -231,7 +258,7 @@ describe('Post status and comment for second user', () => {
         }
     })
 
-    it('It should comment on posted status', () => {
+    it('It should comment on posted status on my profile', () => {
         const comments = $$('input[placeholder="Write a comment.."]');
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
@@ -245,14 +272,13 @@ describe('Post status and comment for second user', () => {
 
 
 describe('Message PM system', () => {
-    it('It should beable to send Private Message', () => {
+    it('It should be able to send Private Message', () => {
         const selectChat = $('.chat-username=' + user.username);
         selectChat.click();
 
         const chatInput = $('.chatControl input');
         chatInput.setValue("Hey");
         browser.keys("Enter");
-
 
         browser.switchToWindow(window1);
 
@@ -273,7 +299,7 @@ describe('Change avatar and background of the second tester', () => {
 
         browser.waitUntil(() => {
             return !browser.isLoading();
-        },3000);
+        },1000);
 
         const avatarBtn = $('.image-cropper');
         avatarBtn.click();
@@ -284,13 +310,12 @@ describe('Change avatar and background of the second tester', () => {
 
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-
     })
 
     it('It should change banner of the second tester', () => {
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        },3000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // },1000);
 
         const bannerBtn = $('.banner');
         bannerBtn.click();
@@ -301,6 +326,30 @@ describe('Change avatar and background of the second tester', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-        browser.pause(3000);
+        browser.pause(1000);
+    })
+});
+
+describe('Post status and comment on their own profile', () => {
+    it('It should post status with logged in user', () => {
+        let i = 0;
+        const statusInput = $('input[name="description"]');
+        const submitBtn = $('button[type="submit"]');
+
+        for (let i = 0; i <= 5; i++) {
+            statusInput.setValue("This is the test status number " + i);
+            submitBtn.click();
+        }
+    })
+
+    it('It should comment on posted status', () => {
+        const comments = $$('input[placeholder="Write a comment.."]');
+        for (const key in comments) {
+            if (comments.hasOwnProperty(key)) {
+                const comment = comments[key];
+                comment.setValue("random comment " + key);
+                browser.keys("Enter");
+            }
+        }
     })
 });

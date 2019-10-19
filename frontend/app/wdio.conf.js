@@ -59,6 +59,9 @@ exports.config = {
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
+        'goog:chromeOptions': {
+            args: ['headless', 'disable-gpu']
+        }
     }],
     //
     // ===================
@@ -130,7 +133,7 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 160000
     },
     //
     // =====

@@ -19,7 +19,7 @@ matrix:
       
       addons:
         chrome: stable
-        sauce_connect:
+        sauce_connect: true
         username: "nugyn"
         access_key: "34614a95-e994-42ee-9c65-aa5fd463e769"
 

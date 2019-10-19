@@ -28,7 +28,7 @@ matrix:
         - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         - sudo dpkg -i google-chrome*.deb
         - "npm install"
-        - "npm start & mvn spring-boot:run"
+        - "npm start & cd .. & cd .. & cd restful-web-services & mvn spring-boot:run"
         - sleep 5
       script: "npm run wdio"
 

@@ -23,7 +23,13 @@ matrix:
       before_script:
         - "cd frontend/app"
         - "rm -rf node_modules"
+        - sudo apt-get update
+        - sudo apt-get install -y libappindicator1 fonts-liberation
+        - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        - sudo dpkg -i google-chrome*.deb
         - "npm install"
+        - "npm start & mvn spring-boot:run"
+        - sleep 5
       script: "npm run wdio"
 
 notifications:

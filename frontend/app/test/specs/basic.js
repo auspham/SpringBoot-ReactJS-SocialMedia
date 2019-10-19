@@ -27,7 +27,7 @@ casual.define('user_2', function () {
         sEmail: casual.email,
         phoneNo: "040" + casual.integer(from = "1000000", to = "9999999")
     }
-})
+});
 
 let user = casual.user;
 let user2 = casual.user_2;

@@ -1,4 +1,11 @@
 exports.config = {
+    host: "localhost",
+    port: 4200,
+
+    user: "nugyn",
+    key: "34614a95-e994-42ee-9c65-aa5fd463e769",
+
+
     //
     // ====================
     // Runner Configuration
@@ -26,6 +33,9 @@ exports.config = {
     exclude: [
         // 'path/to/excluded/files'
     ],
+
+    sauceConnect: true,
+
     //
     // ============
     // Capabilities
@@ -110,7 +120,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
+    services: ['chromedriver', 'sauce'],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber

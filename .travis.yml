@@ -16,22 +16,24 @@ matrix:
       cache:
         directories:
           - node_modules
-
+      
       addons:
         chrome: stable
+        sauce_connect:
+        username: "nugyn"
+        access_key: "34614a95-e994-42ee-9c65-aa5fd463e769"
 
       before_install:  
         # starting a GUI to run tests, per https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-a-GUI
         - "export DISPLAY=:99.0"
+        - "sh -e /etc/init.d/xvfb start"
+        - "npm config set spin false"
       
       before_script:
         - "npm install"
 
       before_install:
         - "cd frontend/app"
-
-      install: 
-        - npm install
 
       script: "npm run wdio"
 

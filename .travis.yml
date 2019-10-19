@@ -30,7 +30,7 @@ matrix:
         - "npm install"
         - "cd .. && cd .. && ls"
         - "cd restful-web-services"
-        - travis_wait 30 "nohup mvn spring-boot:run &"
+        - travis_wait 30 nohup mvn spring-boot:run &
         - sleep 5
       script: "cd .. && cd frontend/app && nohup npm start & && npm run wdio"
 

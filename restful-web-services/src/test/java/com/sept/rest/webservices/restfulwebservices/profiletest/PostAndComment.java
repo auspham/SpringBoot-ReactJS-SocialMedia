@@ -42,8 +42,6 @@ public class PostAndComment {
 
 	@Before
 	public void setUp() throws Exception {
-		RestAssured.baseURI = "https://localhost";
-		RestAssured.port = 8080;
 		
 		newProfile1.setUsername("lam");
 		newProfile1.setFirstname("Lam");

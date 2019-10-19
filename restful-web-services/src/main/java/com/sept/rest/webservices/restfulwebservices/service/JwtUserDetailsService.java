@@ -97,7 +97,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return profileRepository.save(profile);
 	}
 
-	public Profile update(ProfileDTO profile) throws InvalidInputException{
+	public Profile update(ProfileDTO profile) throws InvalidInputException,DuplicateValueException{
 		
 		boolean validUsername = Pattern.matches(usernameRegex, profile.getUsername());
 		boolean validFirstname = Pattern.matches(nameRegex, profile.getFirstname());
@@ -105,6 +105,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		boolean validStudentnumber = Pattern.matches(studentnumberRegex, profile.getStudentnumber());
 		boolean validPhonenumber = Pattern.matches(phonenumberRegex, profile.getPhonenumber());
 		boolean validEmail = Pattern.matches(emailRegex, profile.getEmail());
+	
 		
 		if (validUsername == false) {
 			throw new InvalidInputException("Username: " + profile.getUsername() + " is invalid");
@@ -130,7 +131,21 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new InvalidInputException("Email: " + profile.getEmail() + " is invalid");
 		}
 		
+		boolean duplicateEmail = checkEmail(profile.getEmail());
+		boolean duplicateStudentnumber = checkStudentnumber(profile.getStudentnumber());
+		boolean duplicatePhonenumber = checkPhonenumber(profile.getPhonenumber());
+
+		if (duplicateEmail == true) {
+			throw new DuplicateValueException("Email: " + profile.getEmail() + " already existed");
+		}
 		
+		if (duplicateStudentnumber == true) {
+			throw new DuplicateValueException("Student number: " + profile.getStudentnumber() + " already existed");
+		}
+		
+		if (duplicatePhonenumber == true) {
+			throw new DuplicateValueException("Phone number: " + profile.getPhonenumber() + " already existed");
+		}
 		
 		Profile exists = profileRepository.findByUsername(profile.getUsername());
 		Profile newProfile = new Profile();
@@ -156,51 +171,47 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	}
 
-	public boolean checkUsername(String username) throws DuplicateValueException {
+	public boolean checkUsername(String username)  {
 		boolean exist = false;
 		List<DAOUser> found = userRepository.findByUsername(username);
 		if (found.isEmpty()) {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Username: " + username + " already existed");
 		}
 		return exist;
 	}
 
-	public boolean checkStudentnumber(String studentnumber) throws DuplicateValueException {
+	public boolean checkStudentnumber(String studentnumber) {
 		boolean exist = false;
 		Profile found = profileRepository.findByStudentnumber(studentnumber);
 		if (found == null) {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Student number: " + studentnumber + " already existed");
 
 		}
 		return exist;
 	}
 
-	public boolean checkEmail(String email) throws DuplicateValueException {
+	public boolean checkEmail(String email) {
 		boolean exist = false;
 		Profile found = profileRepository.findByEmail(email);
 		if (found == null) {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Email: " + email + " already existed");
 		}
 		return exist;
 	}
 
-	public boolean checkPhonenumber(String phonenumber) throws DuplicateValueException {
+	public boolean checkPhonenumber(String phonenumber) {
 		boolean exist = false;
 		Profile found = profileRepository.findByPhonenumber(phonenumber);
 		if (found == null) {
 			exist = false;
 		} else {
 			exist = true;
-			throw new DuplicateValueException("Phone number: " + phonenumber + " already existed");
 		}
 		return exist;
 	}

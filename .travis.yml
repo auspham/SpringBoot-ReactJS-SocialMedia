@@ -18,11 +18,11 @@ matrix:
       before_install:
         # starting a GUI to run tests, per https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-a-GUI
         - sudo apt-get install g++ build-essential
-        - "rm -rf node_modules"
         - "export DISPLAY=:99.0"
         - "npm config set spin false"
       before_script:
         - "cd frontend/app"
+        - "rm -rf node_modules"
         - "npm install"
       script: "npm run wdio"
 

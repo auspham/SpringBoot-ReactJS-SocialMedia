@@ -143,7 +143,7 @@ describe('Login and Register test', () => {
 
         browser.waitUntil(() => {
             return browser.getUrl() === 'http://localhost:4200/welcome/' + user.username
-        }, 3000);
+        }, 1000);
 
         assert.equal(browser.getUrl(), 'http://localhost:4200/welcome/' + user.username);
     })
@@ -177,10 +177,10 @@ describe('Change avatar and background', () => {
     it('It should change avatar', () => {
         const profileLink = $('a[href="/profile/' + user.username + '"]')
         profileLink.click();
-        // browser.pause(1000);
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        }, 3000);
+        browser.pause(1000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // }, 1000);
 
         const avatarBtn = $('.image-cropper');
         avatarBtn.click();
@@ -195,9 +195,9 @@ describe('Change avatar and background', () => {
     })
 
     it('It should change banner', () => {
-        browser.waitUntil(() => {
-            return !browser.isLoading();
-        }, 3000);
+        // browser.waitUntil(() => {
+        //     return !browser.isLoading();
+        // }, 1000);
 
         const bannerBtn = $('.banner');
         bannerBtn.click();
@@ -208,7 +208,7 @@ describe('Change avatar and background', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-        // browser.pause(3000);
+        browser.pause(1000);
     })
 
 });
@@ -356,9 +356,9 @@ describe('Change avatar and background of the second tester', () => {
         const profileLink = $('a[href="/profile/' + user2.username + '"]');
         profileLink.click();
 
-        // browser.waitUntil(() => {
-        //     return !browser.isLoading();
-        // },3000);
+        browser.waitUntil(() => {
+            return !browser.isLoading();
+        },1000);
 
         const avatarBtn = $('.image-cropper');
         avatarBtn.click();
@@ -375,7 +375,7 @@ describe('Change avatar and background of the second tester', () => {
     it('It should change banner of the second tester', () => {
         // browser.waitUntil(() => {
         //     return !browser.isLoading();
-        // },3000);
+        // },1000);
 
         const bannerBtn = $('.banner');
         bannerBtn.click();
@@ -386,7 +386,7 @@ describe('Change avatar and background of the second tester', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-        browser.pause(3000);
+        browser.pause(1000);
     })
 });
 

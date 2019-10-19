@@ -69,33 +69,32 @@ describe('Login and Register negative test', () => {
         
         let pageUrl = browser.getUrl();
         assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
-
     })
 
-    it('It should not login with incorrect creditials', () => {
-        const loginBtn = $('p[class="loginLink"]');
-        loginBtn.click();
+    // it('It should not login with incorrect creditials', () => {
+    //     const loginBtn = $('p[class="loginLink"]');
+    //     loginBtn.click();
 
-        const username = $('input[name="username"]');
-        username.setValue("UsernameNotExist");
+    //     const username = $('input[name="username"]');
+    //     username.setValue("UsernameNotExist");
 
-        const password = $('input[name="password"]');
-        password.setValue("PasswordNotExist");
+    //     const password = $('input[name="password"]');
+    //     password.setValue("PasswordNotExist");
 
-        const submitBtn = $('button[name="register"]');
-        submitBtn.click();
+    //     const submitBtn = $('button[name="register"]');
+    //     submitBtn.click();
 
-        let pageUrl = browser.getUrl();
-        assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
-    })
+    //     let pageUrl = browser.getUrl();
+    //     assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
+    // })
 
 });
 
 
-
-
 describe('Login and Register test', () => {
     it('It should register a test account', () => {
+        browser.url('http://localhost:4200');
+        window1 = browser.getWindowHandle();
 
         const registerBtn = $('button[name="register"]');
         registerBtn.click();
@@ -129,6 +128,7 @@ describe('Login and Register test', () => {
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
+        browser.pause(1000);
     })
 
     it('It should login with registered user', () => {
@@ -140,6 +140,10 @@ describe('Login and Register test', () => {
 
         const loginBtn = $('button[name="login"]');
         loginBtn.click();
+
+        browser.waitUntil(() => {
+            return browser.getUrl() === 'http://localhost:4200/welcome/' + user.username
+        }, 3000);
 
         assert.equal(browser.getUrl(), 'http://localhost:4200/welcome/' + user.username);
     })
@@ -173,6 +177,10 @@ describe('Change avatar and background', () => {
     it('It should change avatar', () => {
         const profileLink = $('a[href="/profile/' + user.username + '"]')
         profileLink.click();
+        // browser.pause(1000);
+        browser.waitUntil(() => {
+            return !browser.isLoading();
+        }, 3000);
 
         const avatarBtn = $('.image-cropper');
         avatarBtn.click();
@@ -187,7 +195,10 @@ describe('Change avatar and background', () => {
     })
 
     it('It should change banner', () => {
-     
+        browser.waitUntil(() => {
+            return !browser.isLoading();
+        }, 3000);
+
         const bannerBtn = $('.banner');
         bannerBtn.click();
 
@@ -197,6 +208,7 @@ describe('Change avatar and background', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
+        // browser.pause(3000);
     })
 
 });
@@ -271,10 +283,13 @@ describe('Create an account for second test user', () => {
 
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
+        browser.pause(1000);
+
     })
 
     it('It should login with the second registered user', () => {
 
+        // browser.pause(500);
         const username = $('input[name="username"]');
         username.setValue(user2.username);
 
@@ -316,7 +331,7 @@ describe('Post status and comment for second user on the general wall', () => {
 
 
 describe('Message PM system', () => {
-    it('It should beable to send Private Message', () => {
+    it('It should be able to send Private Message', () => {
         const selectChat = $('.chat-username=' + user.username);
         selectChat.click();
 
@@ -371,7 +386,7 @@ describe('Change avatar and background of the second tester', () => {
         uploadBannerBtn.setValue(filePath);
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-        // browser.pause(3000);
+        browser.pause(3000);
     })
 });
 

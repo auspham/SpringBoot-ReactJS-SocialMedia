@@ -92,7 +92,7 @@ let user2 = casual.user_2;
 
 
 describe('Login and Register test', () => {
-    it('It should register a test account', () => {
+    it('It should register a test account', (done) => {
         browser.url('http://localhost:4200');
         window1 = browser.getWindowHandle();
 
@@ -129,9 +129,10 @@ describe('Login and Register test', () => {
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
         browser.pause(1000);
+        done();
     })
 
-    it('It should login with registered user', () => {
+    it('It should login with registered user', (done) => {
         const username = $('input[name="username"]');
         username.setValue(user.username);
 
@@ -146,11 +147,12 @@ describe('Login and Register test', () => {
         }, 1000);
 
         assert.equal(browser.getUrl(), 'http://localhost:4200/welcome/' + user.username);
+        done();
     })
 });
 
 describe('Post status and comment on the general wall', () => {
-    it('It should post status with logged in user', () => {
+    it('It should post status with logged in user', (done) => {
         let i = 0;
         const statusInput = $('input[name="description"]');
         const submitBtn = $('button[type="submit"]');
@@ -159,9 +161,10 @@ describe('Post status and comment on the general wall', () => {
             statusInput.setValue("This is the test status number " + i);
             submitBtn.click();
         }
+        done();
     })
 
-    it('It should comment on posted status', () => {
+    it('It should comment on posted status', (done) => {
         const comments = $$('input[placeholder="Write a comment.."]');
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
@@ -170,11 +173,12 @@ describe('Post status and comment on the general wall', () => {
                 browser.keys("Enter");
             }
         }
+        done();
     })
 });
 
 describe('Change avatar and background', () => {
-    it('It should change avatar', () => {
+    it('It should change avatar', (done) => {
         const profileLink = $('a[href="/profile/' + user.username + '"]')
         profileLink.click();
         browser.pause(1000);
@@ -191,10 +195,10 @@ describe('Change avatar and background', () => {
 
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
-
+        done();
     })
 
-    it('It should change banner', () => {
+    it('It should change banner', (done) => {
         // browser.waitUntil(() => {
         //     return !browser.isLoading();
         // }, 1000);
@@ -209,12 +213,13 @@ describe('Change avatar and background', () => {
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
         browser.pause(1000);
+        done()
     })
 
 });
 
 describe('Post status and comment on their own profile', () => {
-    it('It should post status with logged in user', () => {
+    it('It should post status with logged in user', (done) => {
         let i = 0;
         const statusInput = $('input[name="description"]');
         const submitBtn = $('button[type="submit"]');
@@ -223,9 +228,10 @@ describe('Post status and comment on their own profile', () => {
             statusInput.setValue("This is the test status number " + i);
             submitBtn.click();
         }
+        done();
     })
 
-    it('It should comment on posted status', () => {
+    it('It should comment on posted status', (done) => {
         const comments = $$('input[placeholder="Write a comment.."]');
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
@@ -234,19 +240,21 @@ describe('Post status and comment on their own profile', () => {
                 browser.keys("Enter");
             }
         }
+        done();
     })
 });
 
 /*-----------------------------------------------------------------------------*/
 
 describe('Create an account for second test user', () => {
-    it('It should open a new window', () => {
+    it('It should open a new window', (done) => {
             browser.url('http://localhost:4200');
             browser.newWindow('http://localhost:4200');
             window2 = browser.getWindowHandle();
+            done();
     })
 
-    it('It should register a second test account', () => {
+    it('It should register a second test account', (done) => {
 
         const logoutBtn = $('a[name="logout"]');
         logoutBtn.click();
@@ -284,10 +292,11 @@ describe('Create an account for second test user', () => {
         assert.strictEqual(0, $$('.checkError').length, "Information must not exist");
 
         browser.pause(1000);
+        done();
 
     })
 
-    it('It should login with the second registered user', () => {
+    it('It should login with the second registered user', (done) => {
 
         // browser.pause(500);
         const username = $('input[name="username"]');
@@ -301,12 +310,13 @@ describe('Create an account for second test user', () => {
 
         let pageUrl = browser.getUrl();
         assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
+        done();
     })
 });
 
 
 describe('Post status and comment for second user on the general wall', () => {
-    it('It should post status with the second logged in user', () => {
+    it('It should post status with the second logged in user', (done) => {
         let i = 0;
         const statusInput = $('input[name="description"]');
         const submitBtn = $('button[type="submit"]');
@@ -315,9 +325,10 @@ describe('Post status and comment for second user on the general wall', () => {
             statusInput.setValue("This is the test status number " + i + " for second user");
             submitBtn.click();
         }
+        done();
     })
 
-    it('It should comment on posted status on my profile', () => {
+    it('It should comment on posted status on my profile', (done) => {
         const comments = $$('input[placeholder="Write a comment.."]');
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
@@ -326,12 +337,13 @@ describe('Post status and comment for second user on the general wall', () => {
                 browser.keys("Enter");
             }
         }
+        done();
     })
 });
 
 
 describe('Message PM system', () => {
-    it('It should be able to send Private Message', () => {
+    it('It should be able to send Private Message', (done) => {
         const selectChat = $('.chat-username=' + user.username);
         selectChat.click();
 
@@ -347,12 +359,13 @@ describe('Message PM system', () => {
         browser.switchToWindow(window2);
         chatInput.setValue("Pretty good, thanks.");
         browser.keys("Enter");
+        done();
     })
 });
 
 
 describe('Change avatar and background of the second tester', () => {
-    it('It should change avatar of second tester', () => {
+    it('It should change avatar of second tester', (done) => {
         const profileLink = $('a[href="/profile/' + user2.username + '"]');
         profileLink.click();
 
@@ -369,10 +382,11 @@ describe('Change avatar and background of the second tester', () => {
 
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
+        done();
 
     })
 
-    it('It should change banner of the second tester', () => {
+    it('It should change banner of the second tester', (done) => {
         // browser.waitUntil(() => {
         //     return !browser.isLoading();
         // },1000);
@@ -387,11 +401,12 @@ describe('Change avatar and background of the second tester', () => {
         const saveBtn = $('.btn-primary=Save Changes');
         saveBtn.click();
         browser.pause(1000);
+        done();
     })
 });
 
 describe('Post status and comment on their own profile', () => {
-    it('It should post status with logged in user', () => {
+    it('It should post status with logged in user', (done) => {
         let i = 0;
         const statusInput = $('input[name="description"]');
         const submitBtn = $('button[type="submit"]');
@@ -400,9 +415,10 @@ describe('Post status and comment on their own profile', () => {
             statusInput.setValue("This is the test status number " + i);
             submitBtn.click();
         }
+        done()
     })
 
-    it('It should comment on posted status', () => {
+    it('It should comment on posted status', (done) => {
         const comments = $$('input[placeholder="Write a comment.."]');
         for (const key in comments) {
             if (comments.hasOwnProperty(key)) {
@@ -411,5 +427,6 @@ describe('Post status and comment on their own profile', () => {
                 browser.keys("Enter");
             }
         }
+        done();
     })
 });

@@ -25,7 +25,6 @@ matrix:
         # starting a GUI to run tests, per https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-a-GUI
         - "cd frontend/app"
         - "export DISPLAY=:99.0"
-        - "npm config set spin false"
       before_script:
         - "npm install"
       script: "npm run wdio"

@@ -119,7 +119,7 @@ export class Register extends React.Component {
     if (values.username == null) {
       errors.username = "Please enter your username"
     } else if (!usernameRegex.test(values.username)) {
-      errors.username = 'Please enter a valid username with only letters, numbers and no space'
+      errors.username = 'Please enter a valid username'
     }
 
     else if (this.state.usernamecheck == true) {

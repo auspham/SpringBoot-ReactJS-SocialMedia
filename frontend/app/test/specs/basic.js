@@ -32,64 +32,64 @@ casual.define('user_2', function () {
 let user = casual.user;
 let user2 = casual.user_2;
 
-describe('Login and Register negative test', () => {
-    it('It should not register a test account', () => {
-        browser.url('http://localhost:4200');
-        window1 = browser.getWindowHandle();
+// describe('Login and Register negative test', () => {
+//     it('It should not register a test account', () => {
+//         browser.url('http://localhost:4200');
+//         window1 = browser.getWindowHandle();
 
-        const registerBtn = $('button[name="register"]');
-        registerBtn.click();
+//         const registerBtn = $('button[name="register"]');
+//         registerBtn.click();
         
-        const username = $('input[name="username"]');
-        username.setValue('23');
+//         const username = $('input[name="username"]');
+//         username.setValue('23');
 
-        const password = $('input[name="password"]');
-        password.setValue('11');
+//         const password = $('input[name="password"]');
+//         password.setValue('11');
 
-        const retypepassword = $('input[name="retypepassword"]');
-        retypepassword.setValue(password.getValue());
+//         const retypepassword = $('input[name="retypepassword"]');
+//         retypepassword.setValue(password.getValue());
 
-        const firstName = $('input[name="firstname"]');
-        firstName.setValue('123');
+//         const firstName = $('input[name="firstname"]');
+//         firstName.setValue('123');
 
-        const lastName = $('input[name="lastname"]');
-        lastName.setValue('123123');
+//         const lastName = $('input[name="lastname"]');
+//         lastName.setValue('123123');
 
-        const sNo = $('input[name="studentnumber"]');
-        sNo.setValue('3429599');
+//         const sNo = $('input[name="studentnumber"]');
+//         sNo.setValue('3429599');
 
-        const sEmail = $('input[name="email"]');
-        sEmail.setValue('linh@gmail');
+//         const sEmail = $('input[name="email"]');
+//         sEmail.setValue('linh@gmail');
 
-        const phoneNo = $('input[name="phonenumber"]');
-        phoneNo.setValue('123123');
+//         const phoneNo = $('input[name="phonenumber"]');
+//         phoneNo.setValue('123123');
 
-        const submitBtn = $('button[name="register"]');
-        submitBtn.click();
+//         const submitBtn = $('button[name="register"]');
+//         submitBtn.click();
         
-        let pageUrl = browser.getUrl();
-        assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
+//         let pageUrl = browser.getUrl();
+//         assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
 
-    })
+//     })
 
-    it('It should not login with incorrect creditials', () => {
-        const loginBtn = $('p[class="loginLink"]');
-        loginBtn.click();
+//     it('It should not login with incorrect creditials', () => {
+//         const loginBtn = $('p[class="loginLink"]');
+//         loginBtn.click();
 
-        const username = $('input[name="username"]');
-        username.setValue("UsernameNotExist");
+//         const username = $('input[name="username"]');
+//         username.setValue("UsernameNotExist");
 
-        const password = $('input[name="password"]');
-        password.setValue("PasswordNotExist");
+//         const password = $('input[name="password"]');
+//         password.setValue("PasswordNotExist");
 
-        const submitBtn = $('button[name="register"]');
-        submitBtn.click();
+//         const submitBtn = $('button[name="register"]');
+//         submitBtn.click();
 
-        let pageUrl = browser.getUrl();
-        assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
-    })
+//         let pageUrl = browser.getUrl();
+//         assert.notEqual(pageUrl, "http://localhost:4200/welcome/" + username.getValue());
+//     })
 
-});
+// });
 
 
 

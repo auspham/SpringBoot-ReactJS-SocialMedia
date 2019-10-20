@@ -104,6 +104,7 @@ export class Register extends React.Component {
   validate(values) {
     let errors = {}
 
+    const usernameRegex = /^[a-zA-Z0-9._-]*$/
     const nameCheck = /^[a-zA-Z\s]*$/
     const phoneCheck = /^\(?(?:\+?61|0)(?:(?:2\)?[ -]?(?:3[ -]?[38]|[46-9][ -]?[0-9]|5[ -]?[0-35-9])|3\)?(?:4[ -]?[0-57-9]|[57-9][ -]?[0-9]|6[ -]?[1-67])|7\)?[ -]?(?:[2-4][ -]?[0-9]|5[ -]?[2-7]|7[ -]?6)|8\)?[ -]?(?:5[ -]?[1-4]|6[ -]?[0-8]|[7-9][ -]?[0-9]))(?:[ -]?[0-9]){6}|4\)?[ -]?(?:(?:[01][ -]?[0-9]|2[ -]?[0-57-9]|3[ -]?[1-9]|4[ -]?[7-9]|5[ -]?[018])[ -]?[0-9]|3[ -]?0[ -]?[0-5])(?:[ -]?[0-9]){5})$/
     const emailCheck = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -117,6 +118,8 @@ export class Register extends React.Component {
 
     if (values.username == null) {
       errors.username = "Please enter your username"
+    } else if (!usernameRegex.test(values.username)) {
+      errors.username = 'Please enter a valid username'
     }
 
     else if (this.state.usernamecheck == true) {

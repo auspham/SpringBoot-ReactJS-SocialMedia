@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sept.rest.webservices.restfulwebservices.model.ProfileDTO;
@@ -24,6 +25,7 @@ import io.restassured.RestAssured;
 
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 @SpringBootTest()
 @Transactional
 public class PostAndComment {
@@ -42,8 +44,6 @@ public class PostAndComment {
 
 	@Before
 	public void setUp() throws Exception {
-		RestAssured.baseURI = "https://localhost";
-		RestAssured.port = 8080;
 		
 		newProfile1.setUsername("lam");
 		newProfile1.setFirstname("Lam");

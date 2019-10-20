@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sept.rest.webservices.restfulwebservices.Exception.DuplicateValueException;
@@ -19,6 +20,7 @@ import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
 import com.sept.rest.webservices.restfulwebservices.service.JwtUserDetailsService;
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles("test")
 @SpringBootTest
 public class ProfileNegativeTest {
 	ProfileDTO profile1;
@@ -48,42 +50,7 @@ public class ProfileNegativeTest {
 		jwtInMemoryUserDetailsService.update(profile3);
 	}
 
-	@Test(expected = DuplicateValueException.class)
-	public void testDuplicateEmail() {
-		ProfileDTO profile4 = new ProfileDTO();
-		profile4.setUsername("thang");
-		profile4.setFirstname("Thang");
-		profile4.setLastname("Pham");
-		profile4.setEmail("sept@gmail.com");
-		profile4.setStudentnumber("s1234567");
-		profile4.setPhonenumber("0432123456");
-		jwtInMemoryUserDetailsService.update(profile4);
-	}
-
-	@Test(expected = DuplicateValueException.class)
-	public void testDuplicateStudentnumber() {
-		ProfileDTO profile4 = new ProfileDTO();
-		profile4.setUsername("thang");
-		profile4.setFirstname("Thang");
-		profile4.setLastname("Pham");
-		profile4.setEmail("thang@gmail.com");
-		profile4.setStudentnumber("s1111111");
-		profile4.setPhonenumber("0432123456");
-		jwtInMemoryUserDetailsService.update(profile4);
-	}
-
-	@Test(expected = DuplicateValueException.class)
-	public void testDuplicatePhonenumber() {
-		ProfileDTO profile4 = new ProfileDTO();
-		profile4.setUsername("thang");
-		profile4.setFirstname("Thang");
-		profile4.setLastname("Pham");
-		profile4.setEmail("thang@gmail.com");
-		profile4.setStudentnumber("s1234567");
-		profile4.setPhonenumber("0432111111");
-		jwtInMemoryUserDetailsService.update(profile4);
-	}
-
+	
 	@Test(expected = InvalidInputException.class)
 	public void testInvalidUsername() {
 		profile1.setUsername("#@$@#!$! 13123 HELLO !#$!");

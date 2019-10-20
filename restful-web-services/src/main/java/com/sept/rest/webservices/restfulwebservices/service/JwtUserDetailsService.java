@@ -131,21 +131,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new InvalidInputException("Email: " + profile.getEmail() + " is invalid");
 		}
 		
-		boolean duplicateEmail = checkEmail(profile.getEmail());
-		boolean duplicateStudentnumber = checkStudentnumber(profile.getStudentnumber());
-		boolean duplicatePhonenumber = checkPhonenumber(profile.getPhonenumber());
-
-		if (duplicateEmail == true) {
-			throw new DuplicateValueException("Email: " + profile.getEmail() + " already existed");
-		}
-		
-		if (duplicateStudentnumber == true) {
-			throw new DuplicateValueException("Student number: " + profile.getStudentnumber() + " already existed");
-		}
-		
-		if (duplicatePhonenumber == true) {
-			throw new DuplicateValueException("Phone number: " + profile.getPhonenumber() + " already existed");
-		}
 		
 		Profile exists = profileRepository.findByUsername(profile.getUsername());
 		Profile newProfile = new Profile();

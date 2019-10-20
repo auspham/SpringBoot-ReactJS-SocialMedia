@@ -37,6 +37,7 @@ matrix:
         - "npm rebuild node-sass"
         - "nohup npm start &"
         - sleep 5
+        - "npm run tests"
         - "npm run wdio"
 
 notifications:

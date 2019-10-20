@@ -15,7 +15,11 @@
 - Middleware: **JWT**, **Websocket**, **JPA**
 - Database: **MySQL**, **H2 Database Engine**
 - CI & CD: **TravisCI**, **Google Cloud App Engine**
-- Testing: **JUnit**, **WebdriverIO**
+- Testing: 
+  - Unit Testing:
+    - Front end: **JEST.js**
+    - Back end: **JUnit**
+  - Integration test: **WebdriverIO**
 
 ## Development tools & Methodology
 - Scrum
@@ -43,7 +47,20 @@ npm start
 ```
 the client should be starting on port `4200`
 
-#### Testing
+## Testing
+
+### For Unit test.
+Back end:
+```bash
+mvn install
+mvn test -B
+```
+Front end:
+```bash
+yarn install
+npm run test
+```
+### For Integration test.
 Leave the server back end running, with the client (`npm start`) running, cd to `frontend/todo-app` and run
 ```
 npm run wdio

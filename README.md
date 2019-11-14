@@ -1,5 +1,5 @@
 <p align="center">
-  [![Build Status](https://travis-ci.com/RMIT-SEPT/Tom-Yum.svg?token=PBNhG2eVeatqToEz8PCp&branch=master)](https://travis-ci.com/RMIT-SEPT/Tom-Yum/)
+  <a href="#"><img src="https://travis-ci.com/RMIT-SEPT/Tom-Yum.svg?token=PBNhG2eVeatqToEz8PCp&branch=master"></a>
   <a href="#"><img src="https://img.shields.io/badge/%E2%9C%94%20Code%20Quality-A-green.svg"></a>
   <a href="#"><img src="https://img.shields.io/badge/Mobile%20Compatibility-A-red.svg"></a>
   <a href="#"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>

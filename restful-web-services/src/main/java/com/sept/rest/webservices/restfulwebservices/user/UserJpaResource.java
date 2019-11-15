@@ -26,7 +26,7 @@ import com.sept.rest.webservices.restfulwebservices.model.ProfileRepository;
 import com.sept.rest.webservices.restfulwebservices.model.UserRepository;
 
 
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="https://rmitsocial.herokuapp.com/")
 @RestController
 
 public class UserJpaResource {

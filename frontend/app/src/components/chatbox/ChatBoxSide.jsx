@@ -37,7 +37,7 @@ export default class ChatBoxSide extends Component {
         })
 
         let url = stompClient.ws._transport.url;
-        url = url.replace("ws://localhost:8080/ws",  "");
+        url = url.replace("ws://rmitsocial-back.herokuapp.com/ws",  "");
         url = url.replace("/websocket", "");
         url = url.replace(/^[0-9]+\//, "");
 

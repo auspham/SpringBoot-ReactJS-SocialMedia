@@ -20,6 +20,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtUnAuthorizedResponseAuthenticationEntryPoint;
 import com.sept.rest.webservices.restfulwebservices.jwt.JwtTokenAuthorizationOncePerRequestFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -72,6 +76,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .headers()
             .frameOptions().sameOrigin()  //H2 Console Needs this setting
             .cacheControl(); //disable caching
+    }
+    @Configuration
+    @EnableWebMvc
+    public class WebConfig extends WebMvcConfigurerAdapter {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedOrigins("*")
+                    .allowedHeaders("*");
+        }
     }
 
     @Override

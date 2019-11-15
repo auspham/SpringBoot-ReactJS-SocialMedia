@@ -39,7 +39,7 @@ class AccountProfile extends React.Component {
               });
           }
           else{
-            window.location.href = "http://localhost:4200/welcome/sept";
+            window.location.href = "https://rmitsocial.herokuapp.com/welcome/sept";
           }
         })
   }

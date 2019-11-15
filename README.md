@@ -1,11 +1,15 @@
 <p align="center">
   <a href="#"><img src="https://travis-ci.com/RMIT-SEPT/Tom-Yum.svg?token=PBNhG2eVeatqToEz8PCp&branch=master"></a>
+  <a href="#"><img src="https://img.shields.io/website?url=https%3A%2F%2Frmitsocial.herokuapp.com%2F"></a>
   <a href="#"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-
+</p>
 # RMIT REST API Social Media
 
 A full-stack, mobile friendly social media platform using Sprint Boot Maven. 
 
+## Live Demo:
+https://rmitsocial.herokuapp.com/
+> Due to lack of funding, the demo is missing the following tech stacks: `Google App Engine`, `MySQL`
 ## Features / Functionality:
 
 - Central Authentication API - Login/Register/Validation

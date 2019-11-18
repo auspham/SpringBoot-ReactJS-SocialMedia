@@ -3,6 +3,7 @@
   <a href="#"><img src="https://img.shields.io/website?url=https%3A%2F%2Frmitsocial.herokuapp.com%2F"></a>
   <a href="#"><img src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
 </p>
+
 # RMIT REST API Social Media
 
 A full-stack, mobile friendly social media platform using Sprint Boot Maven. 
